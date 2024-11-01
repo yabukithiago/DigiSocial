@@ -1,37 +1,36 @@
-package com.examples.digisocial.view
+package com.examples.digisocial.ui.view
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import com.examples.digisocial.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 @Composable
-fun RegisterUserView(onUserRegistered: () -> Unit) {
+fun LoginView(modifier: Modifier = Modifier, onLoginSuccess: () -> Unit) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var name by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(false) }
 
-    val auth: FirebaseAuth = Firebase.auth
+    val auth = FirebaseAuth.getInstance()
 
-    fun registerUser(email: String, password: String) {
+    fun signIn(email: String, password: String) {
         isLoading = true
-        auth.createUserWithEmailAndPassword(email, password)
+        auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 isLoading = false
                 if (task.isSuccessful) {
-                    // dados adicionais, como o nome, se utilizarmos base de dados
-                    onUserRegistered()
+                    onLoginSuccess()
                 } else {
-                    errorMessage = "Erro ao registrar usuário: ${task.exception?.message}"
+                    errorMessage = "Erro ao fazer login: ${task.exception?.message}"
                 }
             }
     }
@@ -43,11 +42,12 @@ fun RegisterUserView(onUserRegistered: () -> Unit) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        TextField(
-            value = name,
-            onValueChange = { name = it },
-            label = { Text("Nome") },
-            modifier = Modifier.fillMaxWidth()
+        Image(
+            modifier = Modifier
+                .width(200.dp)
+                .height(200.dp),
+            painter = painterResource(id = R.drawable.logo),
+            contentDescription = "Logo DigiSocial"
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -64,7 +64,7 @@ fun RegisterUserView(onUserRegistered: () -> Unit) {
         TextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Senha") },
+            label = { Text("Password") },
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth()
         )
@@ -78,16 +78,16 @@ fun RegisterUserView(onUserRegistered: () -> Unit) {
 
         Button(
             onClick = {
-                if (email.isNotEmpty() && password.isNotEmpty() && name.isNotEmpty()) {
-                    registerUser(email, password)
+                if (email.isNotEmpty() && password.isNotEmpty()) {
+                    signIn(email, password)
                 } else {
                     errorMessage = "Preencha todos os campos."
                 }
             },
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Green),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
             enabled = !isLoading
         ) {
-            Text(if (isLoading) "Registrando..." else "Registrar Usuário")
+            Text(if (isLoading) "Carregando..." else "Login")
         }
     }
 }

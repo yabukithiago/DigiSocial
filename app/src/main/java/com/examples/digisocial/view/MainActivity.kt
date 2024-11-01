@@ -1,6 +1,7 @@
 package com.examples.digisocial.view
 
-import LoginView
+import RegisterVolunteerView
+import com.examples.digisocial.ui.view.LoginView
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -36,7 +37,11 @@ class MainActivity : ComponentActivity() {
                             })
                         }
                         composable(route = "home"){
+                            RegisterVolunteerView()
                             /*HomeView()*/
+                        }
+                        composable(route = "registerVolunteer"){
+                            RegisterVolunteerView()
                         }
                     }
                 }
