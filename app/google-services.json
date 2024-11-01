@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "286472402856",
+    "project_id": "digisocial-3c465",
+    "storage_bucket": "digisocial-3c465.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:286472402856:android:f919803ab4b9242be30f9d",
+        "android_client_info": {
+          "package_name": "com.examples.digisocial"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6OHcMPnGCsxy9gajrhcYsuMUMaD9ZClM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
