@@ -1,7 +1,7 @@
 package com.examples.digisocial.view
 
 import RegisterVolunteerView
-import com.examples.digisocial.ui.view.LoginView
+import com.examples.digisocial.ui.login.LoginView
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -27,9 +27,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             DigiSocialTheme {
-                val navController = rememberNavController()
+                var navController = rememberNavController()
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    NavHost(navController = navController, startDestination = "login",
+                    NavHost(
+                        navController = navController,
+                        startDestination = "login",
                         modifier = Modifier.padding(innerPadding)){
                         composable(route = "login"){
                             LoginView(onLoginSuccess = {

@@ -9,10 +9,17 @@ object FirebaseRepository {
     private val db = FirebaseFirestore.getInstance()
 
     fun registerVolunteer(email: String, password: String, nome: String, telefone: String, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
+//        var state = mutableStateOf(RespositoryState())
         val auth = FirebaseAuth.getInstance()
+        var currentUser = auth.currentUser
         val db = FirebaseFirestore.getInstance()
 
-        // Cria um novo usuário no Firebase Authentication
+//        if (currentUser == null) {
+//            state.value = state.value.copy(errorMessage = "Usuário não logado")
+//            return
+//        }
+
+        // Cria um novo voluntário no Firebase Authentication
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
