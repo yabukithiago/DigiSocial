@@ -5,20 +5,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 object FirebaseRepository {
-    private val auth = FirebaseAuth.getInstance()
-    private val db = FirebaseFirestore.getInstance()
-
-    fun registerVolunteer(email: String, password: String, nome: String, telefone: String, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
-//        var state = mutableStateOf(RespositoryState())
+    fun registerVolunteer(email: String, password: String, nome: String, telefone: String, onSuccess: (String) -> Unit, onFailure: (String) -> Unit) {
+//        var state = mutableStateOf(RepositoryState())
         val auth = FirebaseAuth.getInstance()
-        var currentUser = auth.currentUser
+//        var currentUser = auth.currentUser
         val db = FirebaseFirestore.getInstance()
 
-//        if (currentUser == null) {
-//            state.value = state.value.copy(errorMessage = "Usuário não logado")
-//            return
-//        }
-
+        /*if (currentUser == null) {
+            state.value = state.value.copy(errorMessage = "Usuário não logado")
+            return
+        }*/
         // Cria um novo voluntário no Firebase Authentication
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
@@ -29,7 +25,7 @@ object FirebaseRepository {
                         db.collection("user").document(userId)
                             .set(voluntary)
                             .addOnSuccessListener {
-                                onSuccess()
+                                onSuccess("Usuário criado com sucesso")
                             }
                             .addOnFailureListener { e ->
                                 onFailure("Erro ao registrar no Firestore: ${e.message}")
@@ -41,19 +37,19 @@ object FirebaseRepository {
             }
     }
 
-    fun registerBeneficiary(name: String, details: Map<String, Any>, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
-        val beneficiaryData = hashMapOf(
-            "name" to name,
-            "details" to details,
-            "registeredBy" to auth.currentUser?.uid
-        )
-
-        db.collection("beneficiarios").add(beneficiaryData)
-            .addOnSuccessListener {
-                onSuccess()
-            }
-            .addOnFailureListener { e ->
-                onFailure("Erro ao registrar beneficiário: ${e.message}")
-            }
-    }
+//    fun registerBeneficiary(name: String, details: Map<String, Any>, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
+//        val beneficiaryData = hashMapOf(
+//            "name" to name,
+//            "details" to details,
+//            "registeredBy" to auth.currentUser?.uid
+//        )
+//
+//        db.collection("beneficiarios").add(beneficiaryData)
+//            .addOnSuccessListener {
+//                onSuccess()
+//            }
+//            .addOnFailureListener { e ->
+//                onFailure("Erro ao registrar beneficiário: ${e.message}")
+//            }
+//    }
 }

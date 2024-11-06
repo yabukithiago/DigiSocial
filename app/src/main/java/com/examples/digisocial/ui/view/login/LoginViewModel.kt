@@ -1,4 +1,4 @@
-package com.examples.digisocial.ui.login
+package com.examples.digisocial.ui.view.login
 
 import android.content.ContentValues.TAG
 import android.util.Log
@@ -48,7 +48,7 @@ class LoginViewModel : ViewModel() {
                 state.value = state.value.copy(isLoading = false)
                 if (task.isSuccessful) {
                     Log.d(TAG, "signInWithEmail:success")
-                    val user = auth.currentUser
+//                    val user = auth.currentUser
                     state.value = state.value.copy(errorMessage = null)
                     onLoginSuccess()
                 } else {

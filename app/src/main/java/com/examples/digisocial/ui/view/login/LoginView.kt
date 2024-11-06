@@ -1,7 +1,6 @@
-package com.examples.digisocial.ui.login
+package com.examples.digisocial.ui.view.login
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -16,6 +15,8 @@ import androidx.compose.ui.unit.dp
 import com.examples.digisocial.R
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.ui.tooling.preview.Preview
+import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
 fun LoginView(modifier: Modifier = Modifier, onLoginSuccess: () -> Unit) {
@@ -83,5 +84,13 @@ fun LoginView(modifier: Modifier = Modifier, onLoginSuccess: () -> Unit) {
         Text(text = state.errorMessage ?: "")
         if (state.isLoading)
             CircularProgressIndicator()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun LoginViewPreview() {
+    DigiSocialTheme {
+        LoginView(modifier = Modifier.fillMaxSize()) {}
     }
 }
