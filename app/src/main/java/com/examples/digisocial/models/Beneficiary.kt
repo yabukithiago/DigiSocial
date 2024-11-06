@@ -7,5 +7,6 @@ data class Beneficiary(
     val nacionalidade: String,
     var agregadoFamiliar: String,
     var numeroVisitas: Int,
+    val role: String = "beneficiary",
     var pedidos: List<String>
 )

@@ -1,5 +1,3 @@
-package com.examples.digisocial.ui.view.login
-
 import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
@@ -14,7 +12,7 @@ data class LoginState(
 )
 class LoginViewModel : ViewModel() {
     var state = mutableStateOf(LoginState())
-    private set
+        private set
 
     private val email
         get() = state.value.email
@@ -33,12 +31,12 @@ class LoginViewModel : ViewModel() {
         val auth = FirebaseAuth.getInstance()
         state.value = state.value.copy(isLoading = true)
 
-        if (email.isEmpty()){
+        if (email.isEmpty()) {
             state.value = state.value.copy(errorMessage = "Email não pode ser vazio")
             return
         }
 
-        if (password.isEmpty()){
+        if (password.isEmpty()) {
             state.value = state.value.copy(errorMessage = "Senha não pode ser vazia")
             return
         }
@@ -53,7 +51,7 @@ class LoginViewModel : ViewModel() {
                     onLoginSuccess()
                 } else {
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
-                   state.value = state.value.copy(errorMessage = task.exception.toString())
+                    state.value = state.value.copy(errorMessage = task.exception.toString())
                 }
             }
     }

@@ -28,17 +28,12 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.examples.digisocial.R
-import com.examples.digisocial.data.FirebaseRepository
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
 fun RegisterVolunteerView() {
-    var nome by remember { mutableStateOf("") }
-    var telefone by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var errorMessage by remember { mutableStateOf("") }
-    val isLoading by remember { mutableStateOf(false) }
+    val viewModel by remember { mutableStateOf(RegisterVolunteerViewModel()) }
+    val state by viewModel.state
 
     Column(
         modifier = Modifier
@@ -55,8 +50,8 @@ fun RegisterVolunteerView() {
         )
 
         TextField(
-            value = nome,
-            onValueChange = { nome = it },
+            value = state.nome,
+            onValueChange = viewModel::onNomeChange,
             label = { Text("Nome do Voluntário") },
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
@@ -68,8 +63,8 @@ fun RegisterVolunteerView() {
         Spacer(modifier = Modifier.height(16.dp))
 
         TextField(
-            value = telefone,
-            onValueChange = { telefone = it },
+            value = state.telefone,
+            onValueChange = viewModel::onTelefoneChange,
             label = { Text("Telefone do Voluntário") },
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
@@ -81,8 +76,8 @@ fun RegisterVolunteerView() {
         Spacer(modifier = Modifier.height(16.dp))
 
         TextField(
-            value = email,
-            onValueChange = { email = it },
+            value = state.email,
+            onValueChange = viewModel::onEmailChange,
             label = { Text("Email do Voluntário") },
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
@@ -94,8 +89,8 @@ fun RegisterVolunteerView() {
         Spacer(modifier = Modifier.height(16.dp))
 
         TextField(
-            value = password,
-            onValueChange = { password = it },
+            value = state.password,
+            onValueChange = viewModel::onPasswordChange,
             label = { Text("Senha do Voluntário") },
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
@@ -109,24 +104,24 @@ fun RegisterVolunteerView() {
 
         Button(
             onClick = {
-                if (email.isNotEmpty() && password.isNotEmpty()) {
-                    FirebaseRepository.registerVolunteer(email, password, nome, telefone,
+                if (state.email.isNotEmpty() && state.password.isNotEmpty()) {
+                    viewModel.registerVolunteer(state.email, state.password, state.nome, state.telefone,
                         onSuccess = {  },
-                        onFailure = { message -> errorMessage = message }
+                        onFailure = { message -> state.errorMessage = message }
                     )
                 } else {
-                    errorMessage = "Preencha todos os campos."
+                    state.errorMessage = "Preencha todos os campos."
                 }
             },
             colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
-            enabled = !isLoading
+            enabled = !state.isLoading
         ) {
-            Text(if (isLoading) "Carregando..." else "Registar Voluntário")
+            Text(if (state.isLoading) "Carregando..." else "Registar Voluntário")
         }
 
-        if (errorMessage.isNotEmpty()) {
-            Text(text = errorMessage, color = MaterialTheme.colorScheme.error)
-        }
+//        if (errorMessage.isNotEmpty()) {
+//            Text(text = errorMessage, color = MaterialTheme.colorScheme.error)
+//        }
     }
 }
 
