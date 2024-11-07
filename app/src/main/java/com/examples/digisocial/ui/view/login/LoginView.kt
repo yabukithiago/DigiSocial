@@ -17,11 +17,12 @@ import com.examples.digisocial.R
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
-fun LoginView(modifier: Modifier = Modifier, onLoginSuccess: () -> Unit) {
-    val viewModel by remember { mutableStateOf(LoginViewModel()) }
+fun LoginView(modifier: Modifier = Modifier, onLoginSuccess: (String) -> Unit) {
+    val viewModel : LoginViewModel = viewModel()
     val state by viewModel.state
 
     Column(

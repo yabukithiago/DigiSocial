@@ -5,6 +5,6 @@ data class Voluntary(
         override var nome: String,
         override var telefone: String,
         override var email: String,
-        val role: String = "volunteer",
+        val role: String = "voluntary",
 //        val escala: List<Escala>
 ) : User(id, nome, telefone, email)
