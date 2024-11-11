@@ -2,7 +2,7 @@ package com.examples.digisocial.ui.view.register
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.examples.digisocial.models.Voluntary
+import com.examples.digisocial.data.models.Voluntary
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -39,7 +39,8 @@ class RegisterVolunteerViewModel : ViewModel() {
         state.value = state.value.copy(telefone = newValue)
     }
 
-    fun registerVolunteer(email: String, password: String, nome: String, telefone: String, onSuccess: (String) -> Unit, onFailure: (String) -> Unit) {
+    fun registerVolunteer(email: String, password: String, nome: String, telefone: String,
+                          onSuccess: (String) -> Unit, onFailure: (String) -> Unit) {
 //        var state = mutableStateOf(RepositoryState())
         val auth = FirebaseAuth.getInstance()
 //        var currentUser = auth.currentUser
@@ -60,14 +61,14 @@ class RegisterVolunteerViewModel : ViewModel() {
                         db.collection("user").document(userId)
                             .set(voluntary)
                             .addOnSuccessListener {
-                                onSuccess("Usuário criado com sucesso")
+                                onSuccess("Voluntário criado com sucesso")
                             }
                             .addOnFailureListener { e ->
                                 onFailure("Erro ao registrar no Firestore: ${e.message}")
                             }
                     }
                 } else {
-                    onFailure("Erro ao criar usuário: ${task.exception?.message}")
+                    onFailure("Erro ao criar voluntário: ${task.exception?.message}")
                 }
             }
     }

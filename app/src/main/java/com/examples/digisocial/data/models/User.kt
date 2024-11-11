@@ -1,4 +1,4 @@
-package com.examples.digisocial.models
+package com.examples.digisocial.data.models
 
 open class User (
     open val id: String,

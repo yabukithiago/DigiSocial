@@ -73,7 +73,6 @@ fun LoginView(modifier: Modifier = Modifier, onLoginSuccess: (String) -> Unit) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = {
             viewModel.login(onLoginSuccess = onLoginSuccess)
         },
@@ -82,7 +81,9 @@ fun LoginView(modifier: Modifier = Modifier, onLoginSuccess: (String) -> Unit) {
         ) {
             Text(text = "Login")
         }
+
         Spacer(modifier = Modifier.height(16.dp))
+
         Text(text = state.errorMessage ?: "")
         if (state.isLoading)
             CircularProgressIndicator()

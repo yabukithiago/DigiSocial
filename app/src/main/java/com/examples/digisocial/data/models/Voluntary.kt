@@ -1,4 +1,4 @@
-package com.examples.digisocial.models
+package com.examples.digisocial.data.models
 
 data class Voluntary(
         override val id: String,

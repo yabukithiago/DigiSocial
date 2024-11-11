@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -116,9 +117,9 @@ fun RegisterVolunteerView() {
             Text(if (state.isLoading) "Carregando..." else "Registar Voluntário")
         }
 
-//        if (errorMessage.isNotEmpty()) {
-//            Text(text = errorMessage, color = MaterialTheme.colorScheme.error)
-//        }
+        if (state.errorMessage?.isNotEmpty() == true) {
+            state.errorMessage?.let { Text(text = it, color = MaterialTheme.colorScheme.error) }
+        }
     }
 }
 
