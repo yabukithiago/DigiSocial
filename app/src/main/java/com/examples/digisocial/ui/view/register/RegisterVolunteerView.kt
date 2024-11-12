@@ -25,14 +25,17 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.R
+import com.examples.digisocial.components.TopBar
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
-fun RegisterVolunteerView() {
+fun RegisterVolunteerView(navController: NavController) {
     val viewModel: RegisterVolunteerViewModel = viewModel()
     val state by viewModel.state
-
+    TopBar(title = "Registar Voluntários", navController = navController)
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -127,6 +130,6 @@ fun RegisterVolunteerView() {
 @Composable
 fun RegisterVolunteerViewPreview() {
     DigiSocialTheme {
-        RegisterVolunteerView()
+        RegisterVolunteerView(navController = rememberNavController())
     }
 }

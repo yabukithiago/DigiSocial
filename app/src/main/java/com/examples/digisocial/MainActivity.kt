@@ -6,20 +6,16 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.ui.theme.DigiSocialTheme
+import com.examples.digisocial.ui.view.home.HomePageAdminView
 import com.google.firebase.FirebaseApp
 
 class MainActivity : ComponentActivity() {
@@ -46,31 +42,16 @@ class MainActivity : ComponentActivity() {
                             })
                         }
                         composable(route = "homeAdmin"){
-//                            Passar isso pra uma classe de HomePageAdmin
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(16.dp),
-                                verticalArrangement = Arrangement.Center,
-                                horizontalAlignment = Alignment.CenterHorizontally)
-                            {
-                            Button(onClick = {
-                                navController.navigate("registerVolunteer")
-                            }) {
-                                    Text("Cadastrar Voluntário")
-                                }
-                            }
-//                            RegisterManagerView()
-//                            RegisterBeneficiaryView()
+                            HomePageAdminView(navController = navController)
                         }
                         composable(route = "homeVoluntary"){
                             Text("Home Voluntary")
                         }
                         composable(route = "homeManager"){
-                            RegisterVolunteerView()
+                            Text("Home Manager")
                         }
                         composable(route = "registerVolunteer"){
-                            RegisterVolunteerView()
+                            RegisterVolunteerView(navController = navController)
                         }
                     }
                 }
