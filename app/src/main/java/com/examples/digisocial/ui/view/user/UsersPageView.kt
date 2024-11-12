@@ -1,4 +1,4 @@
-package com.examples.digisocial.ui.view.home
+package com.examples.digisocial.ui.view.user
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -32,7 +32,7 @@ import com.examples.digisocial.ui.components.BottomBar
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
-fun HomePageAdminView(navController: NavController, modifier: Modifier = Modifier) {
+fun UsersPageView(navController: NavController, modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -79,16 +79,46 @@ fun HomePageAdminView(navController: NavController, modifier: Modifier = Modifie
                 modifier = Modifier.align(Alignment.Center),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+
+                Button(
+                    onClick = { navController.navigate("goToVoluntary") },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+                    modifier = Modifier.fillMaxWidth(0.7f)
+                ) {
+                    Text("Voluntários")
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Button(
+                    onClick = { navController.navigate("goToManager") },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+                    modifier = Modifier.fillMaxWidth(0.7f)
+                ) {
+                    Text("Voluntários Gestores")
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Button(
+                    onClick = { navController.navigate("goToBeneficiary") },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+                    modifier = Modifier.fillMaxWidth(0.7f)
+                ) {
+                    Text("Beneficiários")
+                }
             }
+
         }
         BottomBar(navController)
     }
+
 }
 
 @Preview (showBackground = true)
 @Composable
 fun PreviewHomePageAdminView() {
     DigiSocialTheme {
-        HomePageAdminView(navController = rememberNavController())
+        UsersPageView(navController = rememberNavController())
     }
 }

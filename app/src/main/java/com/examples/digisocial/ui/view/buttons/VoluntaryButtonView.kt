@@ -26,10 +26,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.R
-import com.examples.digisocial.components.TopBar
+import com.examples.digisocial.ui.components.TopBar
 
 @Composable
-fun VoluntaryButton(navController: NavController, modifier: Modifier = Modifier) {
+fun VoluntaryButtonView(navController: NavController, modifier: Modifier = Modifier) {
     TopBar(title = "Voluntários", navController = navController)
     Box(
         modifier = Modifier
@@ -95,6 +95,6 @@ fun VoluntaryButton(navController: NavController, modifier: Modifier = Modifier)
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewVoluntaryButton() {
-    VoluntaryButton(navController = rememberNavController())
+fun PreviewVoluntaryButtonView() {
+    VoluntaryButtonView(navController = rememberNavController())
 }

@@ -57,7 +57,8 @@ class RegisterVolunteerViewModel : ViewModel() {
                 if (task.isSuccessful) {
                     val userId = task.result?.user?.uid
                     if (userId != null) {
-                        val voluntary = Voluntary(id = userId, email = email, telefone = telefone, nome = nome)
+                        val voluntary = Voluntary(id = userId, email = email,
+                            telefone = telefone, nome = nome)
                         db.collection("user").document(userId)
                             .set(voluntary)
                             .addOnSuccessListener {

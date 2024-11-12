@@ -28,7 +28,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.R
-import com.examples.digisocial.components.TopBar
+import com.examples.digisocial.ui.components.TopBar
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
