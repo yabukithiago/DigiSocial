@@ -15,6 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.ui.theme.DigiSocialTheme
+import com.examples.digisocial.ui.view.buttons.VoluntaryButton
 import com.examples.digisocial.ui.view.home.HomePageAdminView
 import com.google.firebase.FirebaseApp
 
@@ -52,6 +53,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = "registerVolunteer"){
                             RegisterVolunteerView(navController = navController)
+                        }
+                        composable(route = "goToVoluntary"){
+                            VoluntaryButton(navController = navController)
                         }
                     }
                 }

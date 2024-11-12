@@ -1,17 +1,15 @@
-package com.examples.digisocial.ui.view.home
+package com.examples.digisocial.ui.view.buttons
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -28,89 +26,75 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.R
-import com.examples.digisocial.ui.theme.DigiSocialTheme
+import com.examples.digisocial.components.TopBar
 
 @Composable
-fun HomePageAdminView(navController: NavController, modifier: Modifier = Modifier) {
+fun VoluntaryButton(navController: NavController, modifier: Modifier = Modifier) {
+    TopBar(title = "Voluntários", navController = navController)
     Box(
         modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp)
-        ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp)
-        ) {
-            // Imagem do usuário em formato circular
-            Image(
-                painter = painterResource(id = R.drawable.baseline_person_24),
-                contentDescription = "Foto do usuário",
-                modifier = Modifier
-                    .size(48.dp)
-                    .clip(CircleShape)
-                    .border(2.dp, Color.Gray, CircleShape)
-                    .graphicsLayer(scaleX = 1.4f, scaleY = 1.4f)
-            )
-
-            Spacer(modifier = Modifier.width(8.dp))
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            Button(
-                onClick = {
-                    navController.navigate("login") {
-                        popUpTo("login") { inclusive = true }
-                    }
-                },
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Gray),
-                modifier = Modifier
-                    .padding(16.dp)
-            ) {
-                Text("Logout")
-            }
-        }
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
         Column(
             modifier = Modifier.align(Alignment.Center),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Image(
+                modifier = Modifier
+                    .size(150.dp)
+                    .clip(CircleShape)
+                    .border(3.dp, Color.Black, CircleShape)
+                    .graphicsLayer(scaleX = 1.2f, scaleY = 1.2f),
+                painter = painterResource(id = R.drawable.volunteer),
+                contentDescription = "Voluntary Icon"
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             Button(
-                onClick = { navController.navigate("goToVoluntary") },
+                onClick = { navController.navigate("registerVolunteer") },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
                 modifier = Modifier.fillMaxWidth(0.7f)
             ) {
-                Text("Voluntários")
+                Text("Registar Voluntários")
             }
 
             Spacer(modifier = Modifier.height(8.dp))
 
             Button(
-                onClick = { navController.navigate("goToManager") },
+                onClick = { navController.navigate("editVolunteer") },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
                 modifier = Modifier.fillMaxWidth(0.7f)
             ) {
-               Text("Voluntários Gestores")
+                Text("Editar Voluntários")
             }
 
             Spacer(modifier = Modifier.height(8.dp))
 
             Button(
-                onClick = { navController.navigate("goToBeneficiary") },
+                onClick = { navController.navigate("readVoluntarios") },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
                 modifier = Modifier.fillMaxWidth(0.7f)
             ) {
-                Text("Beneficiários")
+                Text("Listar Voluntários")
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Button(
+                onClick = { navController.navigate("deleteVoluntários") },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+                modifier = Modifier.fillMaxWidth(0.7f)
+            ) {
+                Text("Excluir Voluntários")
             }
         }
     }
 }
 
-@Preview (showBackground = true)
+@Preview(showBackground = true)
 @Composable
-fun PreviewHomePageAdminView() {
-    DigiSocialTheme {
-        HomePageAdminView(navController = rememberNavController())
-    }
+fun PreviewVoluntaryButton() {
+    VoluntaryButton(navController = rememberNavController())
 }
