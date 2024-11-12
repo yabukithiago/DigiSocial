@@ -54,7 +54,7 @@ fun VoluntaryButtonView(navController: NavController, modifier: Modifier = Modif
 
             Button(
                 onClick = { navController.navigate("registerVolunteer") },
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
                 modifier = Modifier.fillMaxWidth(0.7f)
             ) {
                 Text("Registar Voluntários")
@@ -64,7 +64,7 @@ fun VoluntaryButtonView(navController: NavController, modifier: Modifier = Modif
 
             Button(
                 onClick = { navController.navigate("editVolunteer") },
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
                 modifier = Modifier.fillMaxWidth(0.7f)
             ) {
                 Text("Editar Voluntários")
@@ -74,7 +74,7 @@ fun VoluntaryButtonView(navController: NavController, modifier: Modifier = Modif
 
             Button(
                 onClick = { navController.navigate("readVoluntarios") },
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
                 modifier = Modifier.fillMaxWidth(0.7f)
             ) {
                 Text("Listar Voluntários")
@@ -84,7 +84,7 @@ fun VoluntaryButtonView(navController: NavController, modifier: Modifier = Modif
 
             Button(
                 onClick = { navController.navigate("deleteVoluntários") },
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
                 modifier = Modifier.fillMaxWidth(0.7f)
             ) {
                 Text("Excluir Voluntários")

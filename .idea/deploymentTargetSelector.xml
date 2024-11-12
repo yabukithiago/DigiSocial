@@ -4,7 +4,7 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-11-01T10:22:58.302872900Z">
+        <DropdownSelection timestamp="2024-11-12T17:44:08.220146300Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\Thiago Yabuki\.android\avd\Medium_Phone_API_35.avd" />
@@ -16,9 +16,15 @@
       <SelectionState runConfigName="RegisterVolunteerViewPreview">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
+      <SelectionState runConfigName="PreviewVoluntaryButtonView">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="BottomBarPreview">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
       <SelectionState runConfigName="LoginViewPreview">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-11-06T11:05:21.339439700Z">
+        <DropdownSelection timestamp="2024-11-12T15:43:22.078682700Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\Thiago Yabuki\.android\avd\Medium_Phone_API_35.avd" />
@@ -29,7 +35,7 @@
       </SelectionState>
       <SelectionState runConfigName="PreviewHomePageAdminView">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-11-12T00:16:22.961926200Z">
+        <DropdownSelection timestamp="2024-11-12T20:47:07.649911500Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\Thiago Yabuki\.android\avd\Medium_Phone_API_35.avd" />
@@ -37,9 +43,6 @@
           </Target>
         </DropdownSelection>
         <DialogSelection />
-      </SelectionState>
-      <SelectionState runConfigName="PreviewVoluntaryButton">
-        <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
   </component>

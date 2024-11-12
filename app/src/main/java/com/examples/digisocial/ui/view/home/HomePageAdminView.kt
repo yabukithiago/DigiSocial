@@ -1,34 +1,23 @@
 package com.examples.digisocial.ui.view.home
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.examples.digisocial.R
-import com.examples.digisocial.ui.components.BottomBar
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
@@ -36,52 +25,73 @@ fun HomePageAdminView(navController: NavController, modifier: Modifier = Modifie
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .fillMaxWidth()
-            .padding(16.dp)
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
-        Box(
-            modifier = Modifier.weight(1f)
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp)
+                .align(Alignment.CenterHorizontally)
         ) {
             Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp)
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.baseline_person_24),
-                    contentDescription = "Foto do usuário",
-                    modifier = Modifier
-                        .size(48.dp)
-                        .clip(CircleShape)
-                        .border(2.dp, Color.Gray, CircleShape)
-                        .graphicsLayer(scaleX = 1.4f, scaleY = 1.4f)
-                )
-
-                Spacer(modifier = Modifier.width(8.dp))
-
-                Spacer(modifier = Modifier.weight(1f))
-
                 Button(
-                    onClick = {
-                        navController.navigate("login") {
-                            popUpTo("login") { inclusive = true }
-                        }
-                    },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Gray),
+                    onClick = { navController.navigate("users") },
                     modifier = Modifier
-                        .padding(16.dp)
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .height(80.dp)
+                        .padding(8.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
                 ) {
-                    Text("Logout")
+                    Text("Utilizadores")
+                }
+                Button(
+                    onClick = { /* TODO: Action for button 1 */ },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .height(80.dp)
+                        .padding(8.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+                ) {
+                    Text("Financeiro")
                 }
             }
-            Column(
-                modifier = Modifier.align(Alignment.Center),
-                horizontalAlignment = Alignment.CenterHorizontally
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
             ) {
+                Button(
+                    onClick = { /* TODO: Action for button 1 */ },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .height(80.dp)
+                        .padding(8.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+                ) {
+                    Text("Relatórios")
+                }
+                Button(
+                    onClick = { /* TODO: Action for button 1 */ },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .height(80.dp)
+                        .padding(8.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+                ) {
+                    Text("Configurações")
+                }
             }
         }
-        BottomBar(navController)
     }
 }
 

@@ -76,7 +76,7 @@ fun LoginView(modifier: Modifier = Modifier, onLoginSuccess: (String) -> Unit) {
         Button(onClick = {
             viewModel.login(onLoginSuccess = onLoginSuccess)
         },
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
             enabled = !state.isLoading
         ) {
             Text(text = "Login")

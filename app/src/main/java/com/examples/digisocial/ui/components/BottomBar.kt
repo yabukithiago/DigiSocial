@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
@@ -38,6 +39,9 @@ fun BottomBar(navController: NavController){
                 }
                 IconButton(onClick = { navController.navigate("finance") },) {
                     Icon(Icons.Filled.Menu, contentDescription = "Financeiro")
+                }
+                IconButton(onClick = { navController.navigate("settings") },) {
+                    Icon(Icons.Filled.Settings, contentDescription = "Configurações")
                 }
             }
         }
