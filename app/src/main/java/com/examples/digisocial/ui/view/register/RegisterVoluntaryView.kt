@@ -25,14 +25,17 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.R
+import com.examples.digisocial.ui.components.TopBar
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
-fun RegisterVolunteerView() {
-    val viewModel: RegisterVolunteerViewModel = viewModel()
+fun RegisterVoluntaryView(navController: NavController) {
+    val viewModel: RegisterVoluntaryViewModel = viewModel()
     val state by viewModel.state
-
+    TopBar(title = "Registar Voluntários", navController = navController)
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -103,7 +106,7 @@ fun RegisterVolunteerView() {
         Button(
             onClick = {
                 if (state.email.isNotEmpty() && state.password.isNotEmpty()) {
-                    viewModel.registerVolunteer(state.email, state.password, state.nome, state.telefone,
+                    viewModel.registerVoluntary(state.email, state.password, state.nome, state.telefone,
                         onSuccess = {  },
                         onFailure = { message -> state.errorMessage = message }
                     )
@@ -111,7 +114,7 @@ fun RegisterVolunteerView() {
                     state.errorMessage = "Preencha todos os campos."
                 }
             },
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
             enabled = !state.isLoading
         ) {
             Text(if (state.isLoading) "Carregando..." else "Registar Voluntário")
@@ -125,8 +128,8 @@ fun RegisterVolunteerView() {
 
 @Preview (showBackground = true)
 @Composable
-fun RegisterVolunteerViewPreview() {
+fun RegisterVoluntaryViewPreview() {
     DigiSocialTheme {
-        RegisterVolunteerView()
+        RegisterVoluntaryView(navController = rememberNavController())
     }
 }

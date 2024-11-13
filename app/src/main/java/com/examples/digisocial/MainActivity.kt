@@ -1,26 +1,36 @@
 package com.examples.digisocial
 
-import com.examples.digisocial.ui.view.register.RegisterVolunteerView
-import com.examples.digisocial.ui.view.login.LoginView
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.ui.theme.DigiSocialTheme
+import com.examples.digisocial.ui.view.buttons.BeneficiaryButtonView
+import com.examples.digisocial.ui.view.buttons.VoluntaryButtonView
+import com.examples.digisocial.ui.view.home.HomePageAdminView
+import com.examples.digisocial.ui.view.login.LoginView
+import com.examples.digisocial.ui.view.register.RegisterBeneficiaryView
+import com.examples.digisocial.ui.view.register.RegisterVoluntaryView
+import com.examples.digisocial.ui.view.user.UsersPageView
+import com.google.firebase.Firebase
 import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.auth
+import com.google.firebase.firestore.firestore
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,50 +38,88 @@ class MainActivity : ComponentActivity() {
         FirebaseApp.initializeApp(this)
         enableEdgeToEdge()
         setContent {
+            val navController = rememberNavController()
+            val isLoading by remember { mutableStateOf(true) }
+
             DigiSocialTheme {
-                val navController = rememberNavController()
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = "login",
-                        modifier = Modifier.padding(innerPadding)){
-                        composable(route = "login"){
+                        startDestination = if (isLoading) "loading" else "login",
+                        modifier = Modifier.padding(innerPadding)
+                    ) {
+                        composable("login") {
                             LoginView(onLoginSuccess = { role ->
-                                when (role) {
-                                    "admin" -> navController.navigate("homeAdmin")
-                                    "voluntary" -> navController.navigate("homeVoluntary")
-                                    "manager" -> navController.navigate("homeManager")
-                                    else -> navController.navigate("login")
+                                val destination = when (role) {
+                                    "admin" -> "homeAdmin"
+                                    "voluntary" -> "homeVoluntary"
+                                    "manager" -> "homeManager"
+                                    else -> "login"
                                 }
+                                navController.navigate(destination)
                             })
                         }
-                        composable(route = "homeAdmin"){
-//                            Passar isso pra uma classe de HomePageAdmin
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(16.dp),
-                                verticalArrangement = Arrangement.Center,
-                                horizontalAlignment = Alignment.CenterHorizontally)
-                            {
-                            Button(onClick = {
-                                navController.navigate("registerVolunteer")
-                            }) {
-                                    Text("Cadastrar Voluntário")
-                                }
-                            }
-//                            RegisterManagerView()
-//                            RegisterBeneficiaryView()
+                        //Homes
+                        composable("homeAdmin") {
+                            HomePageAdminView(navController)
                         }
-                        composable(route = "homeVoluntary"){
+                        composable("homeVoluntary") {
                             Text("Home Voluntary")
                         }
-                        composable(route = "homeManager"){
-                            RegisterVolunteerView()
+                        composable("homeManager") {
+                            Text("Home Manager")
                         }
-                        composable(route = "registerVolunteer"){
-                            RegisterVolunteerView()
+                        composable("users") {
+                            UsersPageView(navController)
                         }
+                        composable("registerVoluntary") {
+                            RegisterVoluntaryView(navController)
+                        }
+                        composable("registerBeneficiary") {
+                            RegisterBeneficiaryView(navController)
+                        }
+                        composable("goToVoluntary") {
+                            VoluntaryButtonView(navController)
+                        }
+                        composable("goToBeneficiary") {
+                            BeneficiaryButtonView(navController)
+                        }
+                        composable("loading") {
+                            Box(
+                                modifier = Modifier.fillMaxSize(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                CircularProgressIndicator()
+                            }
+                        }
+                    }
+                }
+                LaunchedEffect(Unit) {
+                    val auth = Firebase.auth
+                    val currentUser = auth.currentUser
+                    val firestore = Firebase.firestore
+
+                    if (currentUser != null) {
+                        val userId = currentUser.uid
+                        firestore.collection("user").document(userId).get()
+                            .addOnSuccessListener { document ->
+                                if (document.exists()) {
+                                    val role = document.getString("role")
+                                    when (role) {
+                                        "admin" -> navController.navigate("homeAdmin")
+                                        "voluntary" -> navController.navigate("homeVoluntary")
+                                        "manager" -> navController.navigate("homeManager")
+                                        else -> navController.navigate("login")
+                                    }
+                                } else {
+                                    navController.navigate("login")
+                                }
+                            }
+                            .addOnFailureListener {
+                                navController.navigate("login")
+                            }
+                    } else {
+                        navController.navigate("login")
                     }
                 }
             }
