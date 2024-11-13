@@ -20,9 +20,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.ui.theme.DigiSocialTheme
+import com.examples.digisocial.ui.view.buttons.BeneficiaryButtonView
 import com.examples.digisocial.ui.view.buttons.VoluntaryButtonView
 import com.examples.digisocial.ui.view.home.HomePageAdminView
 import com.examples.digisocial.ui.view.login.LoginView
+import com.examples.digisocial.ui.view.register.RegisterBeneficiaryView
 import com.examples.digisocial.ui.view.register.RegisterVoluntaryView
 import com.examples.digisocial.ui.view.user.UsersPageView
 import com.google.firebase.Firebase
@@ -73,8 +75,14 @@ class MainActivity : ComponentActivity() {
                         composable("registerVoluntary") {
                             RegisterVoluntaryView(navController)
                         }
+                        composable("registerBeneficiary") {
+                            RegisterBeneficiaryView(navController)
+                        }
                         composable("goToVoluntary") {
                             VoluntaryButtonView(navController)
+                        }
+                        composable("goToBeneficiary") {
+                            BeneficiaryButtonView(navController)
                         }
                         composable("loading") {
                             Box(
