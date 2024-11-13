@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.examples.digisocial"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.examples.digisocial"
@@ -51,8 +51,12 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.datastore.preferences)
     implementation(libs.firebase.firestore.ktx)
     implementation(platform(libs.firebase.bom))
+    implementation(platform(libs.firebase.bom.v3210))
+    implementation(libs.firebase.auth)
+    implementation(libs.play.services.auth)
     implementation(libs.firebase.analytics)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -65,6 +69,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.compose.material)
     implementation(libs.firebase.auth.ktx)
+    implementation(libs.androidx.datastore.preferences.core.jvm)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

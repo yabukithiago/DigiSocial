@@ -32,8 +32,8 @@ import com.examples.digisocial.ui.components.TopBar
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
-fun RegisterVolunteerView(navController: NavController) {
-    val viewModel: RegisterVolunteerViewModel = viewModel()
+fun RegisterVoluntaryView(navController: NavController) {
+    val viewModel: RegisterVoluntaryViewModel = viewModel()
     val state by viewModel.state
     TopBar(title = "Registar Voluntários", navController = navController)
     Column(
@@ -106,7 +106,7 @@ fun RegisterVolunteerView(navController: NavController) {
         Button(
             onClick = {
                 if (state.email.isNotEmpty() && state.password.isNotEmpty()) {
-                    viewModel.registerVolunteer(state.email, state.password, state.nome, state.telefone,
+                    viewModel.registerVoluntary(state.email, state.password, state.nome, state.telefone,
                         onSuccess = {  },
                         onFailure = { message -> state.errorMessage = message }
                     )
@@ -114,7 +114,7 @@ fun RegisterVolunteerView(navController: NavController) {
                     state.errorMessage = "Preencha todos os campos."
                 }
             },
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
             enabled = !state.isLoading
         ) {
             Text(if (state.isLoading) "Carregando..." else "Registar Voluntário")
@@ -128,8 +128,8 @@ fun RegisterVolunteerView(navController: NavController) {
 
 @Preview (showBackground = true)
 @Composable
-fun RegisterVolunteerViewPreview() {
+fun RegisterVoluntaryViewPreview() {
     DigiSocialTheme {
-        RegisterVolunteerView(navController = rememberNavController())
+        RegisterVoluntaryView(navController = rememberNavController())
     }
 }

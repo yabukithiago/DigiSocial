@@ -50,10 +50,6 @@ class LoginViewModel : ViewModel() {
                     Log.d(TAG, "signInWithEmail:success")
                     state.value = state.value.copy(errorMessage = null)
 
-                    if (auth.currentUser?.uid == "ugQ5crjnt2Pr7SWfFK45LNsScJG3") {
-                        onLoginSuccess("admin")
-                    }
-
                     fetchUserRole(auth.currentUser?.uid) { role ->
                         if (role != null) {
                             onLoginSuccess(role)
@@ -66,6 +62,11 @@ class LoginViewModel : ViewModel() {
                     state.value = state.value.copy(errorMessage = task.exception?.message)
                 }
             }
+    }
+
+    fun logout(onLogoutSuccess: () -> Unit) {
+        FirebaseAuth.getInstance().signOut()
+        onLogoutSuccess()
     }
 
     private fun fetchUserRole(userId: String?, onRoleFetched: (String?) -> Unit) {

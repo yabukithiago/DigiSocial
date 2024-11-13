@@ -14,7 +14,7 @@ data class RegisterState(
     val isLoading: Boolean = false,
     var errorMessage: String? = null
 )
-class RegisterVolunteerViewModel : ViewModel() {
+class RegisterVoluntaryViewModel : ViewModel() {
     var state = mutableStateOf(RegisterState())
         private set
 
@@ -39,7 +39,7 @@ class RegisterVolunteerViewModel : ViewModel() {
         state.value = state.value.copy(telefone = newValue)
     }
 
-    fun registerVolunteer(email: String, password: String, nome: String, telefone: String,
+    fun registerVoluntary(email: String, password: String, nome: String, telefone: String,
                           onSuccess: (String) -> Unit, onFailure: (String) -> Unit) {
 //        var state = mutableStateOf(RepositoryState())
         val auth = FirebaseAuth.getInstance()

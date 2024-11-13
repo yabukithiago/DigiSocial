@@ -46,14 +46,14 @@ fun VoluntaryButtonView(navController: NavController, modifier: Modifier = Modif
                     .clip(CircleShape)
                     .border(3.dp, Color.Black, CircleShape)
                     .graphicsLayer(scaleX = 1.2f, scaleY = 1.2f),
-                painter = painterResource(id = R.drawable.volunteer),
+                painter = painterResource(id = R.drawable.voluntary),
                 contentDescription = "Voluntary Icon"
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
             Button(
-                onClick = { navController.navigate("registerVolunteer") },
+                onClick = { navController.navigate("registerVoluntary") },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
                 modifier = Modifier.fillMaxWidth(0.7f)
             ) {
@@ -63,7 +63,7 @@ fun VoluntaryButtonView(navController: NavController, modifier: Modifier = Modif
             Spacer(modifier = Modifier.height(8.dp))
 
             Button(
-                onClick = { navController.navigate("editVolunteer") },
+                onClick = { navController.navigate("editVoluntary") },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
                 modifier = Modifier.fillMaxWidth(0.7f)
             ) {
@@ -73,7 +73,7 @@ fun VoluntaryButtonView(navController: NavController, modifier: Modifier = Modif
             Spacer(modifier = Modifier.height(8.dp))
 
             Button(
-                onClick = { navController.navigate("readVoluntarios") },
+                onClick = { navController.navigate("readVoluntary") },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
                 modifier = Modifier.fillMaxWidth(0.7f)
             ) {
@@ -83,7 +83,7 @@ fun VoluntaryButtonView(navController: NavController, modifier: Modifier = Modif
             Spacer(modifier = Modifier.height(8.dp))
 
             Button(
-                onClick = { navController.navigate("deleteVoluntários") },
+                onClick = { navController.navigate("deleteVoluntary") },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
                 modifier = Modifier.fillMaxWidth(0.7f)
             ) {
