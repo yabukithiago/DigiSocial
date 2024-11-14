@@ -19,6 +19,27 @@ object VoluntaryRepository {
             }
     }
 
+    fun getAll(onSuccess: (List<Voluntary>) -> Unit) {
+        db.collection("user")
+            .whereEqualTo("role", "voluntary")
+            .addSnapshotListener { value, error ->
+                if(error != null){
+                    Log.w(TAG, "Listen failed.", error)
+                    return@addSnapshotListener
+                }
+
+                val listVoluntary = mutableListOf<Voluntary>()
+                value?.let {
+                    for (document in it.documents) {
+                        document.data?.let { data ->
+                            listVoluntary.add(Voluntary.fromMap(data))
+                        }
+                    }
+                }
+                onSuccess(listVoluntary)
+            }
+    }
+
     fun getVoluntaryByRole(role: String, onGetVoluntarySuccess: (Voluntary) -> Unit){
         db.collection("user")
             .document(role)
@@ -35,4 +56,6 @@ object VoluntaryRepository {
                 Log.d(TAG, "get failed with ", exception)
             }
     }
+
+
 }

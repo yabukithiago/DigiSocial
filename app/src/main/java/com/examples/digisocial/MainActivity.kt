@@ -1,5 +1,6 @@
 package com.examples.digisocial
 
+import LoginViewModel
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -7,6 +8,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -16,6 +19,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -26,6 +30,7 @@ import com.examples.digisocial.ui.view.home.HomePageAdminView
 import com.examples.digisocial.ui.view.login.LoginView
 import com.examples.digisocial.ui.view.register.RegisterBeneficiaryView
 import com.examples.digisocial.ui.view.register.RegisterVoluntaryView
+import com.examples.digisocial.ui.view.show.ShowVoluntaryView
 import com.examples.digisocial.ui.view.user.UsersPageView
 import com.google.firebase.Firebase
 import com.google.firebase.FirebaseApp
@@ -40,7 +45,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             val isLoading by remember { mutableStateOf(true) }
-
+            val viewModel = LoginViewModel()
             DigiSocialTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     NavHost(
@@ -65,6 +70,11 @@ class MainActivity : ComponentActivity() {
                         }
                         composable("homeVoluntary") {
                             Text("Home Voluntary")
+                            Button(onClick = { viewModel.logout(onLogoutSuccess = { navController.navigate("login") }) },
+                                colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray)
+                            ) {
+                                Text("Logout")
+                            }
                         }
                         composable("homeManager") {
                             Text("Home Manager")
@@ -72,12 +82,20 @@ class MainActivity : ComponentActivity() {
                         composable("users") {
                             UsersPageView(navController)
                         }
+                        //CRUD's
                         composable("registerVoluntary") {
                             RegisterVoluntaryView(navController)
                         }
                         composable("registerBeneficiary") {
                             RegisterBeneficiaryView(navController)
                         }
+                        composable("readVoluntary") {
+                            ShowVoluntaryView(navController)
+                        }
+                        composable("readBeneficiary"){
+//                            ShowBeneficiaryView(navController)
+                        }
+
                         composable("goToVoluntary") {
                             VoluntaryButtonView(navController)
                         }

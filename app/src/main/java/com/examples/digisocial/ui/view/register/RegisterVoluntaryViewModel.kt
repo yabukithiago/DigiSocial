@@ -41,28 +41,35 @@ class RegisterVoluntaryViewModel : ViewModel() {
 
     fun registerVoluntary(email: String, password: String, nome: String, telefone: String,
                           onSuccess: (String) -> Unit, onFailure: (String) -> Unit) {
-//        var state = mutableStateOf(RepositoryState())
         val auth = FirebaseAuth.getInstance()
-//        var currentUser = auth.currentUser
         val db = FirebaseFirestore.getInstance()
+        val currentUser = auth.currentUser
+        val adminEmail = currentUser?.email
+        val adminPassword = "123456"
 
-        /*if (currentUser == null) {
-            state.value = state.value.copy(errorMessage = "Usuário não logado")
-            return
-        }*/
+        if (currentUser == null) {
+                    state.value = state.value.copy(errorMessage = "Usuário não logado")
+                    return
+        }
 
-        // Cria um novo voluntário no Firebase Authentication
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val userId = task.result?.user?.uid
                     if (userId != null) {
-                        val voluntary = Voluntary(id = userId, email = email,
-                            telefone = telefone, nome = nome)
+                        val voluntary = Voluntary(id = userId, email = email, telefone = telefone, nome = nome)
                         db.collection("user").document(userId)
                             .set(voluntary)
                             .addOnSuccessListener {
-                                onSuccess("Voluntário criado com sucesso")
+                                auth.signOut()
+                                auth.signInWithEmailAndPassword(adminEmail!!, adminPassword)
+                                    .addOnCompleteListener { adminLoginTask ->
+                                        if (adminLoginTask.isSuccessful) {
+                                            onSuccess("Voluntário criado com sucesso e sessão do admin restaurada")
+                                        } else {
+                                            onFailure("Erro ao restaurar a conta admin: ${adminLoginTask.exception?.message}")
+                                        }
+                                    }
                             }
                             .addOnFailureListener { e ->
                                 onFailure("Erro ao registrar no Firestore: ${e.message}")
