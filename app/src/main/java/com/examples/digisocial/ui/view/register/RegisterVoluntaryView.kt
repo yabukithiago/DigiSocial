@@ -107,7 +107,7 @@ fun RegisterVoluntaryView(navController: NavController) {
             onClick = {
                 if (state.email.isNotEmpty() && state.password.isNotEmpty()) {
                     viewModel.registerVoluntary(state.email, state.password, state.nome, state.telefone,
-                        onSuccess = {  },
+                        onSuccess = { navController.popBackStack() },
                         onFailure = { message -> state.errorMessage = message }
                     )
                 } else {

@@ -55,7 +55,7 @@ fun RegisterBeneficiaryView(navController: NavController) {
         TextField(
             value = state.nome,
             onValueChange = viewModel::onNomeChange,
-            label = { Text("Nome do Beneficiário") },
+            label = { Text("Nome") },
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
@@ -68,7 +68,7 @@ fun RegisterBeneficiaryView(navController: NavController) {
         TextField(
             value = state.telefone,
             onValueChange = viewModel::onTelefoneChange,
-            label = { Text("Telefone do Beneficiário") },
+            label = { Text("Telefone") },
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
@@ -78,17 +78,17 @@ fun RegisterBeneficiaryView(navController: NavController) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-//        NacionalidadeDropdownMenu(
-//            state = state,
-//            onNacionalidadeChange = viewModel::onNacionalidadeChange
-//        )
+        NacionalidadeDropdownMenu(
+            state = state,
+            onNacionalidadeChange = viewModel::onNacionalidadeChange
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         TextField(
             value = state.agregadoFamiliar,
             onValueChange = viewModel::onAgregadoFamiliarChange,
-            label = { Text("Agregado Familiar do Beneficiário") },
+            label = { Text("Agregado Familiar") },
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
@@ -104,7 +104,7 @@ fun RegisterBeneficiaryView(navController: NavController) {
                     && state.nacionalidade.isNotEmpty() && state.agregadoFamiliar.isNotEmpty()) {
                     viewModel.registerBeneficiary(
                         state.nome, state.telefone,
-                        state.nacionalidade, state.agregadoFamiliar,
+                        state.nacionalidade, state.agregadoFamiliar, state.numeroVisitas,
                         onSuccess = {  },
                         onFailure = { message -> state.errorMessage = message }
                     )

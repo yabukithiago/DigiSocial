@@ -3,6 +3,7 @@ package com.examples.digisocial.ui.view.register
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.examples.digisocial.data.models.Beneficiary
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 data class RegisterBeneficiaryState(
@@ -10,6 +11,7 @@ data class RegisterBeneficiaryState(
     var telefone: String = "",
     var nacionalidade: String = "",
     var agregadoFamiliar: String = "",
+    val numeroVisitas: Int = 0,
     val isLoading: Boolean = false,
     var errorMessage: String? = null
 )
@@ -17,6 +19,10 @@ data class RegisterBeneficiaryState(
 class RegisterBeneficiaryViewModel : ViewModel() {
     var state = mutableStateOf(RegisterBeneficiaryState())
         private set
+
+    private val db = FirebaseFirestore.getInstance()
+
+    private val auth = FirebaseAuth.getInstance()
 
     private val nome
         get() = state.value.nome
@@ -44,17 +50,23 @@ class RegisterBeneficiaryViewModel : ViewModel() {
     }
 
     fun registerBeneficiary(
-        nome: String, telefone: String, nacionalidade: String, agregadoFamiliar: String,
+        nome: String, telefone: String, nacionalidade: String, agregadoFamiliar: String, numeroVisitas: Int,
         onSuccess: (String) -> Unit, onFailure: (String) -> Unit
         ) {
-        val db = FirebaseFirestore.getInstance()
 
-        val beneficiary = Beneficiary(id = null.toString(), nome = nome, telefone = telefone,
+        val uid = auth.currentUser?.uid
+
+        if (uid == null) {
+            onFailure("Usuário não autenticado")
+            return
+        }
+
+        val beneficiary = Beneficiary(nome = nome, telefone = telefone,
             nacionalidade = nacionalidade, agregadoFamiliar = agregadoFamiliar,
-            numeroVisitas = 0, pedidos = listOf()
+            numeroVisitas = numeroVisitas, ownerId = uid
         )
 
-        db.collection("user")
+        db.collection("beneficiary")
             .add(beneficiary)
             .addOnSuccessListener { documentReference ->
                 onSuccess("Beneficiário criado com sucesso com ID: ${documentReference.id}")

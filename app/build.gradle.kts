@@ -73,6 +73,7 @@ dependencies {
     implementation(libs.androidx.compose.material)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.androidx.datastore.preferences.core.jvm)
+    implementation(libs.firebase.database.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

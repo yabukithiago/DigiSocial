@@ -45,8 +45,8 @@ fun BeneficiaryButtonView(navController: NavController, modifier: Modifier = Mod
                     .size(150.dp)
                     .clip(CircleShape)
                     .border(3.dp, Color.Black, CircleShape)
-                    .graphicsLayer(scaleX = 1.2f, scaleY = 1.2f),
-                painter = painterResource(id = R.drawable.voluntary),
+                    .graphicsLayer(scaleX = 0.8f, scaleY = 0.8f),
+                painter = painterResource(id = R.drawable.beneficiary),
                 contentDescription = "Beneficiary Icon"
             )
 
