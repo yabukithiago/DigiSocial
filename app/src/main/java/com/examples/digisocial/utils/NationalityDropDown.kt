@@ -1,23 +1,17 @@
 import android.util.Log
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.examples.digisocial.ui.view.register.RegisterBeneficiaryState
-import com.examples.digisocial.ui.view.register.RegisterBeneficiaryViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -26,7 +20,6 @@ fun NacionalidadeDropdownMenu(
     state: RegisterBeneficiaryState,
     onNacionalidadeChange: (String) -> Unit
 ) {
-    val viewModel: RegisterBeneficiaryViewModel = viewModel()
     var expanded by remember { mutableStateOf(false) }
     var nacionalidades by remember { mutableStateOf<List<String>>(emptyList()) }
     var isLoading by remember { mutableStateOf(true) }
@@ -36,14 +29,52 @@ fun NacionalidadeDropdownMenu(
     LaunchedEffect(Unit) {
         coroutineScope.launch {
             try {
-                Log.d("NacionalidadeDropdown", "Fetching countries...")
-                nacionalidades = getCountryNames()
+                nacionalidades = getCountryNames().sorted()
                 isLoading = false
-                Log.d("NacionalidadeDropdown", "Fetched countries: ${nacionalidades.size}")
             } catch (e: Exception) {
                 isLoading = false
-                Log.e("NacionalidadeDropdown", "Error fetching countries", e)
             }
         }
     }
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = !expanded },
+    ) {
+        TextField(
+            modifier = Modifier.menuAnchor(),
+            value = state.nacionalidade,
+            onValueChange = { },
+            label = { Text("Nacionalidade") },
+            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+            shape = RoundedCornerShape(12.dp),
+            colors = ExposedDropdownMenuDefaults.textFieldColors(
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            ),
+            readOnly = true
+        )
+
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+        ) {
+            nacionalidades.forEach { selectionOption ->
+                DropdownMenuItem(
+                    text = { Text(selectionOption) },
+                    onClick = {
+                        onNacionalidadeChange(selectionOption)
+                        expanded = false
+                    },
+                    contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
+                )
+            }
+        }
+    }
+}
+
+@Preview (showBackground = true)
+@Composable
+fun NacionalidadeDropdownMenuPreview() {
+    val state = RegisterBeneficiaryState()
+    NacionalidadeDropdownMenu(state, onNacionalidadeChange = {})
 }
