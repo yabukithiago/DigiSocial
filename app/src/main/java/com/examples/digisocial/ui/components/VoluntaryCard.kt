@@ -1,6 +1,7 @@
 package com.examples.digisocial.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,22 +15,33 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun VoluntaryCard(nome: String, telefone: String, email: String) {
+fun VoluntaryCard(navController: NavController, nome: String, telefone: String, email: String){
+    var menuExpanded by remember { mutableStateOf(false) }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -41,6 +53,7 @@ fun VoluntaryCard(nome: String, telefone: String, email: String) {
         Row(
             modifier = Modifier
                 .padding(16.dp)
+                .fillMaxWidth()
                 .background(Color(0xFFF5F5F5)),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -61,7 +74,8 @@ fun VoluntaryCard(nome: String, telefone: String, email: String) {
             Spacer(modifier = Modifier.width(16.dp))
 
             Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+                modifier = Modifier.weight(1f)
             ) {
                 Text(
                     text = nome,
@@ -72,6 +86,36 @@ fun VoluntaryCard(nome: String, telefone: String, email: String) {
                 InfoRow(icon = Icons.Default.Phone, text = telefone)
                 InfoRow(icon = Icons.Default.Email, text = email)
             }
+
+            Box(contentAlignment = Alignment.TopEnd) {
+                Icon(
+                    imageVector = Icons.Default.MoreVert,
+                    contentDescription = "Mais opções",
+                    modifier = Modifier
+                        .clickable { menuExpanded = true }
+                        .padding(8.dp)
+                )
+                DropdownMenu(
+                    expanded = menuExpanded,
+                    onDismissRequest = { menuExpanded = false },
+                    modifier = Modifier.align(Alignment.TopEnd)
+                ) {
+                    DropdownMenuItem(
+                        text = { Text("Editar") },
+                        onClick = {
+                            navController.navigate("editVoluntary")
+                            menuExpanded = false
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Excluir") },
+                        onClick = {
+                            navController.navigate("deleteVoluntary")
+                            menuExpanded = false
+                        }
+                    )
+                }
+            }
         }
     }
 }
@@ -79,5 +123,6 @@ fun VoluntaryCard(nome: String, telefone: String, email: String) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewVoluntaryCard(){
-    VoluntaryCard(nome = "João Silva", telefone = "912345678", email = "preview@preview.com")
+    VoluntaryCard(navController = rememberNavController(), nome = "João Silva",
+        telefone = "912345678", email = "preview@preview.com")
 }

@@ -34,9 +34,10 @@ fun ShowVoluntaryView(navController: NavController, modifier: Modifier = Modifie
                     items = state.listVoluntary
                 ) { index, item ->
                     VoluntaryCard (
+                        navController = navController,
                         nome = item.nome,
                         email = item.email,
-                        telefone = item.telefone
+                        telefone = item.telefone,
                     )
                 }
             }

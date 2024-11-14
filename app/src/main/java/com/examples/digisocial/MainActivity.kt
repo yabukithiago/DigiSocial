@@ -70,7 +70,8 @@ class MainActivity : ComponentActivity() {
                         }
                         composable("homeVoluntary") {
                             Text("Home Voluntary")
-                            Button(onClick = { viewModel.logout(onLogoutSuccess = { navController.navigate("login") }) },
+                            Button(onClick = { viewModel.logout(
+                                onLogoutSuccess = { navController.navigate("login") }) },
                                 colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray)
                             ) {
                                 Text("Logout")
@@ -95,7 +96,18 @@ class MainActivity : ComponentActivity() {
                         composable("readBeneficiary"){
 //                            ShowBeneficiaryView(navController)
                         }
-
+                        composable("editBeneficiary"){
+//                            EditBeneficiaryView(navController)
+                        }
+                        composable("editVoluntary"){
+//                            EditVoluntaryView(navController)
+                        }
+                       composable("deleteBeneficiary"){
+//                            DeleteBeneficiaryView(navController)
+                        }
+                        composable("deleteVoluntary"){
+//                            DeleteVoluntaryView(navController)
+                       }
                         composable("goToVoluntary") {
                             VoluntaryButtonView(navController)
                         }
