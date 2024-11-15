@@ -1,12 +1,11 @@
 package com.examples.digisocial.data.models
 
-import com.google.firebase.database.DataSnapshot
-
 data class Voluntary(
         override val id: String,
         override var nome: String,
         override var telefone: String,
         override var email: String,
+        val privileged: Boolean = false,
         val role: String = "voluntary",
 //        val escala: List<Escala>
 ) : User(id, nome, telefone, email) {
@@ -17,7 +16,8 @@ data class Voluntary(
                 map["id"] as String,
                 map["nome"] as String,
                 map["telefone"] as String,
-                map["email"] as String
+                map["email"] as String,
+                map["privileged"] as Boolean,
             )
         }
     }

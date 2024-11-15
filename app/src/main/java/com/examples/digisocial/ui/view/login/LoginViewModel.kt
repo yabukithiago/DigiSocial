@@ -1,5 +1,3 @@
-package com.examples.digisocial.ui.view.login
-
 import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf

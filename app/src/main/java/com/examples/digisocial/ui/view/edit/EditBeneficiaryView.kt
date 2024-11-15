@@ -126,7 +126,7 @@ fun EditBeneficiaryView(navController: NavController, id: String) {
                     && state.nacionalidade.isNotEmpty() && state.agregadoFamiliar.isNotEmpty()) {
                     BeneficiaryRepository.updateBeneficiary(id, state.nome, state.telefone,
                         state.nacionalidade, state.agregadoFamiliar, state.numeroVisitas,
-                        onSuccess = { navController.navigate("goToBeneficiary") },
+                        onSuccess = { navController.navigate("readBeneficiary") },
                         onFailure = { message -> state.errorMessage = message }
                     )
                 } else {

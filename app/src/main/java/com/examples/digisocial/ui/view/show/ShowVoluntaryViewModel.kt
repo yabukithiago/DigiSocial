@@ -20,10 +20,6 @@ class ShowVoluntaryViewModel : ViewModel(){
             state.value = state.value.copy(
                 listVoluntary = listVoluntary
             )
-
-            for (item in listVoluntary) {
-                println(item)
-            }
         }
     }
 }

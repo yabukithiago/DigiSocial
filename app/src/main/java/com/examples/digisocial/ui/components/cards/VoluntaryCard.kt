@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Domain
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Person
@@ -40,7 +41,7 @@ import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.ui.components.InfoRow
 
 @Composable
-fun VoluntaryCard(navController: NavController, nome: String, telefone: String, email: String){
+fun VoluntaryCard(navController: NavController, nome: String, telefone: String, email: String, isPrivileged: Boolean){
     var menuExpanded by remember { mutableStateOf(false) }
 
     Card(
@@ -86,6 +87,7 @@ fun VoluntaryCard(navController: NavController, nome: String, telefone: String, 
                 )
                 InfoRow(icon = Icons.Default.Phone, text = telefone)
                 InfoRow(icon = Icons.Default.Email, text = email)
+                InfoRow(icon = Icons.Default.Domain, text = if(isPrivileged) "Voluntário Privilegiado" else "Voluntário")
             }
 
             Box(contentAlignment = Alignment.TopEnd) {
@@ -125,5 +127,5 @@ fun VoluntaryCard(navController: NavController, nome: String, telefone: String, 
 @Composable
 fun PreviewVoluntaryCard(){
     VoluntaryCard(navController = rememberNavController(), nome = "João Silva",
-        telefone = "912345678", email = "preview@preview.com")
+        telefone = "912345678", email = "preview@preview.com", isPrivileged = true)
 }

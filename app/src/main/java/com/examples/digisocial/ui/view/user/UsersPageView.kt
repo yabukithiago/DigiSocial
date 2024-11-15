@@ -61,16 +61,6 @@ fun UsersPageView(navController: NavController) {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Button(
-                    onClick = { navController.navigate("goToManager") },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
-                    modifier = Modifier.fillMaxWidth(0.7f)
-                ) {
-                    Text("Voluntários Gestores")
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Button(
                     onClick = { navController.navigate("goToBeneficiary") },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
                     modifier = Modifier.fillMaxWidth(0.7f)

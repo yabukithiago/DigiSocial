@@ -27,7 +27,7 @@ fun DeleteBeneficiaryView(navController: NavController, id: String) {
                         id = id,
                         onSuccess = {
                             showDialog = false
-                            navController.popBackStack()
+                            navController.navigate("readBeneficiary")
                         },
                         onFailure = { exception ->
                             showDialog = false
@@ -41,6 +41,7 @@ fun DeleteBeneficiaryView(navController: NavController, id: String) {
             dismissButton = {
                 TextButton(onClick = { showDialog = false }) {
                     Text("Não")
+                    navController.navigate("readBeneficiary")
                 }
             }
         )

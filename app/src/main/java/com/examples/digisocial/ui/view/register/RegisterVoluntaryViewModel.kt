@@ -2,9 +2,6 @@ package com.examples.digisocial.ui.view.register
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.examples.digisocial.data.models.Voluntary
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 
 data class RegisterState(
     var nome: String = "",

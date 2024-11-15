@@ -9,8 +9,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 object VoluntaryRepository {
     private val db by lazy { FirebaseFirestore.getInstance() }
 
-    fun createVoluntary(email: String, password: String, nome: String, telefone: String,
-                          onSuccess: (String) -> Unit, onFailure: (String) -> Unit) {
+    fun createVoluntary(email: String, password: String, nome: String,
+                        telefone: String, isPrivileged: Boolean,
+                        onSuccess: (String) -> Unit, onFailure: (String) -> Unit) {
         val auth = FirebaseAuth.getInstance()
         val db = FirebaseFirestore.getInstance()
         val currentUser = auth.currentUser
@@ -22,7 +23,8 @@ object VoluntaryRepository {
                 if (task.isSuccessful) {
                     val userId = task.result?.user?.uid
                     if (userId != null) {
-                        val voluntary = Voluntary(id = userId, email = email, telefone = telefone, nome = nome)
+                        val voluntary = Voluntary(id = userId, email = email,
+                            telefone = telefone, nome = nome, privileged = isPrivileged)
                         db.collection("user").document(userId)
                             .set(voluntary)
                             .addOnSuccessListener {

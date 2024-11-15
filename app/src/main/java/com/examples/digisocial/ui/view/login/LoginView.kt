@@ -1,5 +1,6 @@
 package com.examples.digisocial.ui.view.login
 
+import LoginViewModel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,14 +16,18 @@ import androidx.compose.ui.unit.dp
 import com.examples.digisocial.R
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
 fun LoginView(onLoginSuccess: (String) -> Unit) {
-    val viewModel : LoginViewModel = viewModel()
+    val viewModel: LoginViewModel = viewModel()
     val state by viewModel.state
+    var passwordVisible by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -50,8 +55,8 @@ fun LoginView(onLoginSuccess: (String) -> Unit) {
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
             ),
-            shape = RoundedCornerShape(12.dp),
-            modifier = Modifier.fillMaxWidth()
+            shape = RoundedCornerShape(20.dp),
+            modifier = Modifier.fillMaxWidth(0.8f)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -61,31 +66,54 @@ fun LoginView(onLoginSuccess: (String) -> Unit) {
             onValueChange = viewModel::onPasswordChange,
             label = { Text("Password") },
             leadingIcon = { Icon(Icons.Filled.Lock, contentDescription = "Password Icon") },
+            trailingIcon = {
+                val image = if (passwordVisible)
+                    Icons.Filled.Visibility
+                else Icons.Filled.VisibilityOff
+
+                IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                    Icon(imageVector = image, contentDescription = "Password Visibility Icon")
+                }
+            },
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
             ),
-            shape = RoundedCornerShape(12.dp),
-            visualTransformation = PasswordVisualTransformation(),
-            modifier = Modifier.fillMaxWidth()
+            shape = RoundedCornerShape(20.dp),
+            visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+            modifier = Modifier.fillMaxWidth(0.8f)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = {
-            viewModel.login(onLoginSuccess = onLoginSuccess)
-        },
+        Button(
+            onClick = {
+                viewModel.login(onLoginSuccess = onLoginSuccess)
+            },
             colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
+            shape = RoundedCornerShape(20.dp),
             enabled = !state.isLoading
         ) {
-            Text(text = "Login")
+            if (state.isLoading) {
+                CircularProgressIndicator(
+                    color = Color.White,
+                    modifier = Modifier.size(24.dp)
+                )
+            } else {
+                Text(text = "Entrar")
+            }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text(text = state.errorMessage ?: "")
-        if (state.isLoading)
-            CircularProgressIndicator()
+        if (state.errorMessage != null) {
+            Text(
+                text = state.errorMessage ?: "",
+                color = Color.Red, // Cor de erro
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
+        }
     }
 }
 
