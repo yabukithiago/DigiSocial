@@ -1,4 +1,4 @@
-package com.examples.digisocial.ui.components
+package com.examples.digisocial.ui.components.cards
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -37,6 +37,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.examples.digisocial.ui.components.InfoRow
 
 @Composable
 fun VoluntaryCard(navController: NavController, nome: String, telefone: String, email: String){

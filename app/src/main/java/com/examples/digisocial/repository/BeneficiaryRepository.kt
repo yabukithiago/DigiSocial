@@ -11,7 +11,7 @@ object BeneficiaryRepository {
     fun getAll(onSuccess: (List<Beneficiary>) -> Unit) {
         db.collection("beneficiary")
             .addSnapshotListener { value, error ->
-                if(error != null){
+                if (error != null) {
                     Log.w(TAG, "Listen failed.", error)
                     return@addSnapshotListener
                 }
@@ -19,12 +19,37 @@ object BeneficiaryRepository {
                 val listBeneficiary = mutableListOf<Beneficiary>()
                 value?.let {
                     for (document in it.documents) {
-                        document.data?.let { data ->
-                            listBeneficiary.add(Beneficiary.fromMap(data))
+                        try {
+                            document.data?.let { data ->
+                                val beneficiary = Beneficiary.fromMap(data)
+                                listBeneficiary.add(beneficiary)
+                            }
+                        } catch (e: Exception) {
+                            Log.e(TAG, "Erro ao converter documento: ${document.id}", e)
                         }
                     }
                 }
                 onSuccess(listBeneficiary)
+            }
+    }
+
+    fun updateBeneficiary(documentId: String, updates: Map<String, Any>, onSuccess: () -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        if (documentId.isEmpty()) {
+            onFailure("ID do documento é inválido.")
+            return
+        }
+
+        println(documentId)
+
+        db.collection("beneficiary").document(documentId)
+            .update(updates)
+            .addOnSuccessListener {
+                onSuccess()
+            }
+            .addOnFailureListener { e ->
+                onFailure("Erro ao atualizar beneficiário: ${e.message}")
             }
     }
 }

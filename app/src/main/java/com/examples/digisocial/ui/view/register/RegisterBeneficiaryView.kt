@@ -28,7 +28,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.R
-import com.examples.digisocial.ui.components.TopBar
+import com.examples.digisocial.ui.components.bars.TopBar
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
@@ -105,7 +105,7 @@ fun RegisterBeneficiaryView(navController: NavController) {
                     viewModel.registerBeneficiary(
                         state.nome, state.telefone,
                         state.nacionalidade, state.agregadoFamiliar, state.numeroVisitas,
-                        onSuccess = {  },
+                        onSuccess = { navController.navigate("goToBeneficiary") },
                         onFailure = { message -> state.errorMessage = message }
                     )
                 } else {

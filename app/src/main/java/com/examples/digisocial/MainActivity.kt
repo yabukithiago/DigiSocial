@@ -1,5 +1,6 @@
 package com.examples.digisocial
 
+import DeleteBeneficiaryView
 import LoginViewModel
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -20,16 +21,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 import com.examples.digisocial.ui.view.buttons.BeneficiaryButtonView
 import com.examples.digisocial.ui.view.buttons.VoluntaryButtonView
+import com.examples.digisocial.ui.view.edit.EditBeneficiaryView
 import com.examples.digisocial.ui.view.home.HomePageAdminView
 import com.examples.digisocial.ui.view.login.LoginView
 import com.examples.digisocial.ui.view.register.RegisterBeneficiaryView
 import com.examples.digisocial.ui.view.register.RegisterVoluntaryView
+import com.examples.digisocial.ui.view.show.ShowBeneficiaryView
 import com.examples.digisocial.ui.view.show.ShowVoluntaryView
 import com.examples.digisocial.ui.view.user.UsersPageView
 import com.google.firebase.Firebase
@@ -77,9 +82,6 @@ class MainActivity : ComponentActivity() {
                                 Text("Logout")
                             }
                         }
-                        composable("homeManager") {
-                            Text("Home Manager")
-                        }
                         composable("users") {
                             UsersPageView(navController)
                         }
@@ -94,16 +96,21 @@ class MainActivity : ComponentActivity() {
                             ShowVoluntaryView(navController)
                         }
                         composable("readBeneficiary"){
-//                            ShowBeneficiaryView(navController)
+                            ShowBeneficiaryView(navController)
                         }
-                        composable("editBeneficiary"){
-//                            EditBeneficiaryView(navController)
+                        composable(
+                            route = "editBeneficiary/{id}",
+                            arguments = listOf(navArgument("id") { type = NavType.StringType })
+                        ) { backStackEntry ->
+                            val id = backStackEntry.arguments?.getString("id") ?: ""
+                            EditBeneficiaryView(navController, id)
                         }
                         composable("editVoluntary"){
 //                            EditVoluntaryView(navController)
                         }
-                       composable("deleteBeneficiary"){
-//                            DeleteBeneficiaryView(navController)
+                        composable("deleteBeneficiary/{id}") { backStackEntry ->
+                            val id = backStackEntry.arguments?.getString("id") ?: ""
+                            DeleteBeneficiaryView(navController = navController, id = id)
                         }
                         composable("deleteVoluntary"){
 //                            DeleteVoluntaryView(navController)

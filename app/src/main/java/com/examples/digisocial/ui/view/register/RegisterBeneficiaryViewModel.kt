@@ -11,7 +11,7 @@ data class RegisterBeneficiaryState(
     var telefone: String = "",
     var nacionalidade: String = "",
     var agregadoFamiliar: String = "",
-    val numeroVisitas: Int = 0,
+    var numeroVisitas: Int = 0,
     val isLoading: Boolean = false,
     var errorMessage: String? = null
 )
@@ -50,29 +50,73 @@ class RegisterBeneficiaryViewModel : ViewModel() {
     }
 
     fun registerBeneficiary(
-        nome: String, telefone: String, nacionalidade: String, agregadoFamiliar: String, numeroVisitas: Int,
-        onSuccess: (String) -> Unit, onFailure: (String) -> Unit
-        ) {
-
+        nome: String,
+        telefone: String,
+        nacionalidade: String,
+        agregadoFamiliar: String,
+        numeroVisitas: Int,
+        onSuccess: (String) -> Unit,
+        onFailure: (String) -> Unit
+    ) {
         val uid = auth.currentUser?.uid
 
         if (uid == null) {
-            onFailure("Usuário não autenticado")
+            state.value = state.value.copy(errorMessage = "Usuário não logado")
             return
         }
 
-        val beneficiary = Beneficiary(nome = nome, telefone = telefone,
+        val beneficiary = Beneficiary(
+            id = "", nome = nome, telefone = telefone,
             nacionalidade = nacionalidade, agregadoFamiliar = agregadoFamiliar,
             numeroVisitas = numeroVisitas, ownerId = uid
         )
 
         db.collection("beneficiary")
             .add(beneficiary)
-            .addOnSuccessListener { documentReference ->
-                onSuccess("Beneficiário criado com sucesso com ID: ${documentReference.id}")
+            .addOnCompleteListener { documentReference ->
+                val generatedId = documentReference.result.id
+
+                db.collection("beneficiary")
+                    .document(generatedId)
+                    .update("id", generatedId)
+                    .addOnSuccessListener {
+                        onSuccess("Beneficiário editado com sucesso: $generatedId")
+                    }
+                    .addOnFailureListener { e ->
+                        onFailure(e.message ?: "Erro ao adicionar beneficiário")
+                    }
             }
             .addOnFailureListener { e ->
-                onFailure("Erro ao registrar no Firestore: ${e.message}")
+                onFailure(e.message ?: "Erro ao adicionar beneficiário")
+            }
+    }
+
+    fun updateBeneficiary(
+        id: String,
+        nome: String,
+        telefone: String,
+        nacionalidade: String,
+        agregadoFamiliar: String,
+        numeroVisitas: Int,
+        onSuccess: (String) -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        val updates = mapOf(
+            "nome" to nome,
+            "telefone" to telefone,
+            "nacionalidade" to nacionalidade,
+            "agregadoFamiliar" to agregadoFamiliar,
+            "numeroVisitas" to numeroVisitas
+        )
+
+        db.collection("beneficiary")
+            .document(id)
+            .update(updates)
+            .addOnSuccessListener {
+                onSuccess("Beneficiário editado com sucesso: $id")
+            }
+            .addOnFailureListener { e ->
+                onFailure("Erro ao atualizar beneficiário: ${e.message}")
             }
     }
 }
