@@ -1,6 +1,6 @@
 package com.examples.digisocial.ui.view.home
 
-import LoginViewModel
+import com.examples.digisocial.ui.view.login.LoginViewModel
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,7 +13,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,9 +24,8 @@ import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
-fun HomePageAdminView(navController: NavController, modifier: Modifier = Modifier) {
+fun HomePageAdminView(navController: NavController) {
     val viewModel : LoginViewModel = viewModel()
-    val state by viewModel.state
 
     Column(
         modifier = Modifier

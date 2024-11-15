@@ -66,7 +66,7 @@ fun VoluntaryCard(navController: NavController, nome: String, telefone: String, 
             ) {
                 Icon(
                     imageVector = Icons.Default.Person,
-                    contentDescription = "Ícone de pessoa",
+                    contentDescription = "Person Icon",
                     tint = Color(0xFF757575),
                     modifier = Modifier.size(30.dp)
                 )
@@ -91,7 +91,7 @@ fun VoluntaryCard(navController: NavController, nome: String, telefone: String, 
             Box(contentAlignment = Alignment.TopEnd) {
                 Icon(
                     imageVector = Icons.Default.MoreVert,
-                    contentDescription = "Mais opções",
+                    contentDescription = "More options",
                     modifier = Modifier
                         .clickable { menuExpanded = true }
                         .padding(8.dp)

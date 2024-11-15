@@ -1,6 +1,5 @@
 package com.examples.digisocial.ui.view.login
 
-import LoginViewModel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,7 +20,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
-fun LoginView(modifier: Modifier = Modifier, onLoginSuccess: (String) -> Unit) {
+fun LoginView(onLoginSuccess: (String) -> Unit) {
     val viewModel : LoginViewModel = viewModel()
     val state by viewModel.state
 
@@ -94,6 +93,6 @@ fun LoginView(modifier: Modifier = Modifier, onLoginSuccess: (String) -> Unit) {
 @Composable
 fun LoginViewPreview() {
     DigiSocialTheme {
-        LoginView(modifier = Modifier.fillMaxSize()) {}
+        LoginView {}
     }
 }

@@ -32,7 +32,7 @@ fun ShowBeneficiaryView(navController: NavController, modifier: Modifier = Modif
                 verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 itemsIndexed(
                     items = state.listBeneficiary
-                ) { index, item ->
+                ) { _, item ->
                     BeneficiaryCard (
                         navController = navController,
                         id = item.id,

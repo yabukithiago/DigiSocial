@@ -1,7 +1,7 @@
 package com.examples.digisocial
 
-import DeleteBeneficiaryView
-import LoginViewModel
+import com.examples.digisocial.ui.view.delete.DeleteBeneficiaryView
+import com.examples.digisocial.ui.view.login.LoginViewModel
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent

@@ -14,8 +14,8 @@ data class Beneficiary(
             return Beneficiary(
                 map["id"] as String,
                 map["nome"] as String,
-                map["nacionalidade"] as String,
                 map["telefone"] as String,
+                map["nacionalidade"] as String,
                 map["agregadoFamiliar"] as String,
                 numeroVisitas = (map["numeroVisitas"] as? Long)?.toInt() ?: 0,
                 map["ownerId"] as String

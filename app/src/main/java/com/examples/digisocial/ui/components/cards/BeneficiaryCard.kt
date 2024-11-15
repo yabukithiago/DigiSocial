@@ -15,7 +15,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.MoreVert
@@ -71,7 +70,7 @@ fun BeneficiaryCard(navController: NavController, id: String, nome: String, tele
             ) {
                 Icon(
                     imageVector = Icons.Default.Person,
-                    contentDescription = "Ícone de pessoa",
+                    contentDescription = "Person Icon",
                     tint = Color(0xFF757575),
                     modifier = Modifier.size(30.dp)
                 )
@@ -99,7 +98,7 @@ fun BeneficiaryCard(navController: NavController, id: String, nome: String, tele
             Box(contentAlignment = Alignment.TopEnd) {
                 Icon(
                     imageVector = Icons.Default.MoreVert,
-                    contentDescription = "Mais opções",
+                    contentDescription = "More options",
                     modifier = Modifier
                         .clickable { menuExpanded = true }
                         .padding(8.dp)

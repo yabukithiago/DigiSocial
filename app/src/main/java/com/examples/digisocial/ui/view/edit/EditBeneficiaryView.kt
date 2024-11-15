@@ -1,6 +1,6 @@
 package com.examples.digisocial.ui.view.edit
 
-import NacionalidadeDropdownMenu
+import com.examples.digisocial.ui.components.NacionalidadeDropdownMenu
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -30,6 +30,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.R
+import com.examples.digisocial.repository.BeneficiaryRepository
 import com.examples.digisocial.ui.components.bars.TopBar
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 import com.examples.digisocial.ui.view.register.RegisterBeneficiaryViewModel
@@ -57,7 +58,7 @@ fun EditBeneficiaryView(navController: NavController, id: String) {
             }
     }
 
-    TopBar(title = "Editar Beneficiários", navController = navController)
+    TopBar(title = "Editar Beneficiário s", navController = navController)
 
     Column(
         modifier = Modifier
@@ -123,7 +124,7 @@ fun EditBeneficiaryView(navController: NavController, id: String) {
             onClick = {
                 if (state.nome.isNotEmpty() && state.telefone.isNotEmpty()
                     && state.nacionalidade.isNotEmpty() && state.agregadoFamiliar.isNotEmpty()) {
-                    viewModel.updateBeneficiary(id, state.nome, state.telefone,
+                    BeneficiaryRepository.updateBeneficiary(id, state.nome, state.telefone,
                         state.nacionalidade, state.agregadoFamiliar, state.numeroVisitas,
                         onSuccess = { navController.navigate("goToBeneficiary") },
                         onFailure = { message -> state.errorMessage = message }

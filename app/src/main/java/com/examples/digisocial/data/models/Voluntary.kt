@@ -19,7 +19,6 @@ data class Voluntary(
                 map["telefone"] as String,
                 map["email"] as String
             )
-
         }
     }
 }

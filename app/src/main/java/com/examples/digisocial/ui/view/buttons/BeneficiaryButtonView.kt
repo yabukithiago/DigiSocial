@@ -29,7 +29,7 @@ import com.examples.digisocial.R
 import com.examples.digisocial.ui.components.bars.TopBar
 
 @Composable
-fun BeneficiaryButtonView(navController: NavController, modifier: Modifier = Modifier) {
+fun BeneficiaryButtonView(navController: NavController) {
     TopBar(title = "Beneficiários", navController = navController)
     Box(
         modifier = Modifier

@@ -32,7 +32,7 @@ fun ShowVoluntaryView(navController: NavController, modifier: Modifier = Modifie
                 verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 itemsIndexed(
                     items = state.listVoluntary
-                ) { index, item ->
+                ) { _, item ->
                     VoluntaryCard (
                         navController = navController,
                         nome = item.nome,

@@ -1,3 +1,5 @@
+package com.examples.digisocial.ui.view.delete
+
 import android.util.Log
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
@@ -8,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.navigation.NavController
+import com.examples.digisocial.repository.BeneficiaryRepository
 
 @Composable
 fun DeleteBeneficiaryView(navController: NavController, id: String) {
@@ -20,7 +23,7 @@ fun DeleteBeneficiaryView(navController: NavController, id: String) {
             text = { Text("Tem certeza de que deseja excluir este beneficiário?") },
             confirmButton = {
                TextButton(onClick = {
-                    deleteBeneficiary(
+                    BeneficiaryRepository.deleteBeneficiary(
                         id = id,
                         onSuccess = {
                             showDialog = false

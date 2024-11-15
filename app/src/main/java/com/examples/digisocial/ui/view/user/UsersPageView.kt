@@ -24,7 +24,7 @@ import com.examples.digisocial.ui.components.bars.TopBar
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
-fun UsersPageView(navController: NavController, modifier: Modifier = Modifier) {
+fun UsersPageView(navController: NavController) {
     TopBar(title = "Utilizadores", navController = navController)
     Column(
         modifier = Modifier

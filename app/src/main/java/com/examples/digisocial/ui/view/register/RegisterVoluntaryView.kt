@@ -28,6 +28,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.R
+import com.examples.digisocial.repository.VoluntaryRepository
 import com.examples.digisocial.ui.components.bars.TopBar
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 
@@ -106,7 +107,7 @@ fun RegisterVoluntaryView(navController: NavController) {
         Button(
             onClick = {
                 if (state.email.isNotEmpty() && state.password.isNotEmpty()) {
-                    viewModel.registerVoluntary(state.email, state.password, state.nome, state.telefone,
+                    VoluntaryRepository.createVoluntary(state.email, state.password, state.nome, state.telefone,
                         onSuccess = { navController.popBackStack() },
                         onFailure = { message -> state.errorMessage = message }
                     )

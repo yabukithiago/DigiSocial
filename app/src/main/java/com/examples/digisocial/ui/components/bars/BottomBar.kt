@@ -31,16 +31,16 @@ fun BottomBar(navController: NavController){
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxSize()
             ) {
-                IconButton(onClick = { navController.navigate("users") },) {
+                IconButton(onClick = { navController.navigate("users") }) {
                     Icon(Icons.Filled.Person, contentDescription = "Users")
                 }
-                IconButton(onClick = { navController.navigate("finance") },) {
+                IconButton(onClick = { navController.navigate("finance") }) {
                     Icon(Icons.Filled.Warning, contentDescription = "warning")
                 }
-                IconButton(onClick = { navController.navigate("finance") },) {
+                IconButton(onClick = { navController.navigate("finance") }) {
                     Icon(Icons.Filled.Menu, contentDescription = "Financeiro")
                 }
-                IconButton(onClick = { navController.navigate("settings") },) {
+                IconButton(onClick = { navController.navigate("settings") }) {
                     Icon(Icons.Filled.Settings, contentDescription = "Configurações")
                 }
             }
