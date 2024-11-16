@@ -102,7 +102,7 @@ class LoginViewModel : ViewModel() {
     fun sendPasswordResetEmail(email: String, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
         val auth = FirebaseAuth.getInstance()
 
-        if(email.isNotEmpty()){
+        if(email.isEmpty()){
             state.value = state.value.copy(errorMessage = "Por favor, insira um email.")
             return
         }

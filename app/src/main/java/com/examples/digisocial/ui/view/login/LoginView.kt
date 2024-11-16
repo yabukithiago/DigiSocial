@@ -97,7 +97,7 @@ fun LoginView(navController: NavController, onLoginSuccess: (String) -> Unit) {
             colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier.fillMaxWidth(0.8f),
-            enabled = !state.isLoading
+            enabled = state.email.isNotEmpty() && !state.isLoading
         ) {
             if (state.isLoading) {
                 CircularProgressIndicator(

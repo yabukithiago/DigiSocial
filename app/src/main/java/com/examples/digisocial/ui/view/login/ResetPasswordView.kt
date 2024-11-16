@@ -60,7 +60,7 @@ fun ResetPasswordView(navController: NavController) {
 
         TextField(
             value = state.email,
-            onValueChange = { state.email },
+            onValueChange = viewModel::onEmailChange,
             label = { Text("Email") },
             leadingIcon = { Icon(Icons.Filled.Email, contentDescription = "Email Icon") },
             colors = TextFieldDefaults.colors(
@@ -71,22 +71,10 @@ fun ResetPasswordView(navController: NavController) {
             modifier = Modifier.fillMaxWidth(0.8f)
         )
 
-        if (state.errorMessage != null) {
-            Text(
-                text = state.errorMessage ?: "",
-                color = Color.Red,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(horizontal = 16.dp)
-            )
-        }
-
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
             onClick = {
-                if (state.email.isEmpty()) {
-                    state.errorMessage = "Por favor, insira um email."
-                } else {
                     viewModel.sendPasswordResetEmail(state.email,
                         onSuccess = {
                             navController.navigate("login")
@@ -95,12 +83,11 @@ fun ResetPasswordView(navController: NavController) {
                             state.errorMessage = message
                         }
                     )
-                }
             },
             colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier.fillMaxWidth(0.8f),
-            enabled = !state.isLoading
+            enabled = state.email.isNotEmpty() && !state.isLoading
         ) {
             if (state.isLoading) {
                 CircularProgressIndicator(
@@ -114,8 +101,16 @@ fun ResetPasswordView(navController: NavController) {
 
         TextButton(onClick = { navController.navigate("login") }) {
             Text(
-                text = "Voltar para o Login",
-                color = Color.Blue
+                text = "Voltar para o Login"
+            )
+        }
+
+        if (state.errorMessage != null) {
+            Text(
+                text = state.errorMessage ?: "",
+                color = Color.Red,
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
     }
