@@ -21,10 +21,12 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
-fun LoginView(onLoginSuccess: (String) -> Unit) {
+fun LoginView(navController: NavController, onLoginSuccess: (String) -> Unit) {
     val viewModel: LoginViewModel = viewModel()
     val state by viewModel.state
     var passwordVisible by remember { mutableStateOf(false) }
@@ -84,14 +86,17 @@ fun LoginView(onLoginSuccess: (String) -> Unit) {
             modifier = Modifier.fillMaxWidth(0.8f)
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
         Button(
             onClick = {
-                viewModel.login(onLoginSuccess = onLoginSuccess)
+                viewModel.login(onLoginSuccess = onLoginSuccess, onLoginFailure = { message ->
+                    state.errorMessage = message
+                })
             },
             colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
             shape = RoundedCornerShape(20.dp),
+            modifier = Modifier.fillMaxWidth(0.8f),
             enabled = !state.isLoading
         ) {
             if (state.isLoading) {
@@ -104,12 +109,16 @@ fun LoginView(onLoginSuccess: (String) -> Unit) {
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        TextButton(onClick = {
+            navController.navigate("resetPassword")
+        }) {
+            Text("Esqueceu a senha?")
+        }
 
         if (state.errorMessage != null) {
             Text(
                 text = state.errorMessage ?: "",
-                color = Color.Red, // Cor de erro
+                color = Color.Red,
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
@@ -121,6 +130,6 @@ fun LoginView(onLoginSuccess: (String) -> Unit) {
 @Composable
 fun LoginViewPreview() {
     DigiSocialTheme {
-        LoginView {}
+        LoginView(navController = rememberNavController(), onLoginSuccess = {})
     }
 }
