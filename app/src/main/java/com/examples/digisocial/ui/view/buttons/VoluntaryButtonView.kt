@@ -26,10 +26,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.R
-import com.examples.digisocial.ui.components.TopBar
+import com.examples.digisocial.ui.components.bars.TopBar
 
 @Composable
-fun VoluntaryButtonView(navController: NavController, modifier: Modifier = Modifier) {
+fun VoluntaryButtonView(navController: NavController) {
     TopBar(title = "Voluntários", navController = navController)
     Box(
         modifier = Modifier
@@ -63,31 +63,11 @@ fun VoluntaryButtonView(navController: NavController, modifier: Modifier = Modif
             Spacer(modifier = Modifier.height(8.dp))
 
             Button(
-                onClick = { navController.navigate("editVoluntary") },
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
-                modifier = Modifier.fillMaxWidth(0.7f)
-            ) {
-                Text("Editar Voluntários")
-            }
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Button(
                 onClick = { navController.navigate("readVoluntary") },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
                 modifier = Modifier.fillMaxWidth(0.7f)
             ) {
                 Text("Listar Voluntários")
-            }
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Button(
-                onClick = { navController.navigate("deleteVoluntary") },
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
-                modifier = Modifier.fillMaxWidth(0.7f)
-            ) {
-                Text("Excluir Voluntários")
             }
         }
     }

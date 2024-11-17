@@ -1,4 +1,4 @@
-package com.examples.digisocial.ui.components
+package com.examples.digisocial.ui.components.cards
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,10 +14,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
@@ -37,9 +40,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.examples.digisocial.ui.components.InfoRow
 
 @Composable
-fun VoluntaryCard(navController: NavController, nome: String, telefone: String, email: String){
+fun BeneficiaryCard(navController: NavController, id: String, nome: String, telefone: String,
+                    nacionalidade: String, agregadoFamiliar: String, numeroVisitas: Int, ownerId: String){
     var menuExpanded by remember { mutableStateOf(false) }
 
     Card(
@@ -65,7 +70,7 @@ fun VoluntaryCard(navController: NavController, nome: String, telefone: String, 
             ) {
                 Icon(
                     imageVector = Icons.Default.Person,
-                    contentDescription = "Ícone de pessoa",
+                    contentDescription = "Person Icon",
                     tint = Color(0xFF757575),
                     modifier = Modifier.size(30.dp)
                 )
@@ -84,13 +89,16 @@ fun VoluntaryCard(navController: NavController, nome: String, telefone: String, 
                     maxLines = 1
                 )
                 InfoRow(icon = Icons.Default.Phone, text = telefone)
-                InfoRow(icon = Icons.Default.Email, text = email)
+                InfoRow(icon = Icons.Filled.LocationOn, text = nacionalidade)
+                InfoRow(icon = Icons.Default.Face, text = agregadoFamiliar)
+                InfoRow(icon = Icons.Default.Star, text = numeroVisitas.toString())
+                InfoRow(icon = Icons.Default.Done, text = ownerId)
             }
 
             Box(contentAlignment = Alignment.TopEnd) {
                 Icon(
                     imageVector = Icons.Default.MoreVert,
-                    contentDescription = "Mais opções",
+                    contentDescription = "More options",
                     modifier = Modifier
                         .clickable { menuExpanded = true }
                         .padding(8.dp)
@@ -103,14 +111,14 @@ fun VoluntaryCard(navController: NavController, nome: String, telefone: String, 
                     DropdownMenuItem(
                         text = { Text("Editar") },
                         onClick = {
-                            navController.navigate("editVoluntary")
+                            navController.navigate("editBeneficiary/$id")
                             menuExpanded = false
                         }
                     )
                     DropdownMenuItem(
                         text = { Text("Excluir") },
                         onClick = {
-                            navController.navigate("deleteVoluntary")
+                            navController.navigate("deleteBeneficiary/$id")
                             menuExpanded = false
                         }
                     )
@@ -122,7 +130,8 @@ fun VoluntaryCard(navController: NavController, nome: String, telefone: String, 
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewVoluntaryCard(){
-    VoluntaryCard(navController = rememberNavController(), nome = "João Silva",
-        telefone = "912345678", email = "preview@preview.com")
+fun PreviewBeneficiaryCard(){
+    BeneficiaryCard(navController = rememberNavController(), id = "123", nome = "João Silva",
+        telefone = "912345678", nacionalidade = "Brasileira",
+        agregadoFamiliar = "2", numeroVisitas = 3, ownerId = "123456")
 }

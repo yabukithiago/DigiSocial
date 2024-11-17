@@ -20,11 +20,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.examples.digisocial.ui.components.TopBar
+import com.examples.digisocial.ui.components.bars.TopBar
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
-fun UsersPageView(navController: NavController, modifier: Modifier = Modifier) {
+fun UsersPageView(navController: NavController) {
     TopBar(title = "Utilizadores", navController = navController)
     Column(
         modifier = Modifier
@@ -56,16 +56,6 @@ fun UsersPageView(navController: NavController, modifier: Modifier = Modifier) {
                     modifier = Modifier.fillMaxWidth(0.7f)
                 ) {
                     Text("Voluntários")
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Button(
-                    onClick = { navController.navigate("goToManager") },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
-                    modifier = Modifier.fillMaxWidth(0.7f)
-                ) {
-                    Text("Voluntários Gestores")
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))

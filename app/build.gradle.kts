@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId = "com.examples.digisocial"
         minSdk = 25
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -51,6 +51,9 @@ android {
 }
 
 dependencies {
+    implementation(libs.ui)
+    implementation(libs.material3)
+    implementation(libs.androidx.material.icons.extended)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.kotlinx.coroutines.android)
@@ -74,6 +77,8 @@ dependencies {
     implementation(libs.firebase.auth.ktx)
     implementation(libs.androidx.datastore.preferences.core.jvm)
     implementation(libs.firebase.database.ktx)
+    implementation(libs.androidx.espresso.core)
+    implementation(libs.androidx.animation.core.lint)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

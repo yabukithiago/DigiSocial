@@ -26,10 +26,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.R
-import com.examples.digisocial.ui.components.TopBar
+import com.examples.digisocial.ui.components.bars.TopBar
 
 @Composable
-fun BeneficiaryButtonView(navController: NavController, modifier: Modifier = Modifier) {
+fun BeneficiaryButtonView(navController: NavController) {
     TopBar(title = "Beneficiários", navController = navController)
     Box(
         modifier = Modifier
@@ -63,16 +63,6 @@ fun BeneficiaryButtonView(navController: NavController, modifier: Modifier = Mod
             Spacer(modifier = Modifier.height(8.dp))
 
             Button(
-                onClick = { navController.navigate("editBeneficiary") },
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
-                modifier = Modifier.fillMaxWidth(0.7f)
-            ) {
-                Text("Editar Beneficiários")
-            }
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Button(
                 onClick = { navController.navigate("readBeneficiary") },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
                 modifier = Modifier.fillMaxWidth(0.7f)
@@ -81,14 +71,6 @@ fun BeneficiaryButtonView(navController: NavController, modifier: Modifier = Mod
             }
 
             Spacer(modifier = Modifier.height(8.dp))
-
-            Button(
-                onClick = { navController.navigate("deleteBeneficiary") },
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
-                modifier = Modifier.fillMaxWidth(0.7f)
-            ) {
-                Text("Excluir Beneficiários")
-            }
         }
     }
 }

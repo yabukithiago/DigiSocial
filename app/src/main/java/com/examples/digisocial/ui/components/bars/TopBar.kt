@@ -1,4 +1,4 @@
-package com.examples.digisocial.ui.components
+package com.examples.digisocial.ui.components.bars
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack

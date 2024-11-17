@@ -1,3 +1,5 @@
+package com.examples.digisocial.utils
+
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -21,7 +23,7 @@ object ApiService {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val countriesApi = retrofit.create(CountriesApi::class.java)
+    val countriesApi: CountriesApi = retrofit.create(CountriesApi::class.java)
 }
 
 suspend fun getCountryNames(): List<String> {

@@ -1,8 +1,11 @@
+package com.examples.digisocial.ui.components
+
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
@@ -11,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.examples.digisocial.ui.view.register.RegisterBeneficiaryState
+import com.examples.digisocial.utils.getCountryNames
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,7 +44,7 @@ fun NacionalidadeDropdownMenu(
         onExpandedChange = { expanded = !expanded },
     ) {
         TextField(
-            modifier = Modifier.menuAnchor(),
+            modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryEditable, enabled = true),
             value = state.nacionalidade,
             onValueChange = { },
             label = { Text("Nacionalidade") },

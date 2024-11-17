@@ -9,8 +9,8 @@ data class LoginState(
     var email: String = "",
     var password: String = "",
     val userRole: String? = null,
-    val isLoading: Boolean = false,
-    val errorMessage: String? = null
+    var isLoading: Boolean = false,
+    var errorMessage: String? = null
 )
 class LoginViewModel : ViewModel() {
     var state = mutableStateOf(LoginState())
@@ -29,16 +29,18 @@ class LoginViewModel : ViewModel() {
         state.value = state.value.copy(password = newValue)
     }
 
-    fun login(onLoginSuccess: (String) -> Unit) {
+    fun login(onLoginSuccess: (String) -> Unit, onLoginFailure: (String) -> Unit) {
         val auth = FirebaseAuth.getInstance()
         state.value = state.value.copy(isLoading = true)
 
         if (email.isEmpty()) {
+            state.value = state.value.copy(isLoading = false)
             state.value = state.value.copy(errorMessage = "Email não pode ser vazio")
             return
         }
 
         if (password.isEmpty()) {
+            state.value = state.value.copy(isLoading = false)
             state.value = state.value.copy(errorMessage = "Senha não pode ser vazia")
             return
         }
@@ -60,6 +62,8 @@ class LoginViewModel : ViewModel() {
                 } else {
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
                     state.value = state.value.copy(errorMessage = task.exception?.message)
+                    state.value.isLoading = false
+                    onLoginFailure(task.exception?.message ?: "Erro ao fazer login")
                 }
             }
     }
@@ -92,6 +96,28 @@ class LoginViewModel : ViewModel() {
                 Log.w(TAG, "Erro ao buscar o tipo de usuário", exception)
                 state.value = state.value.copy(errorMessage = "Erro ao buscar o tipo de usuário")
                 onRoleFetched(null)
+            }
+    }
+
+    fun sendPasswordResetEmail(email: String, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
+        val auth = FirebaseAuth.getInstance()
+
+        if(email.isEmpty()){
+            state.value = state.value.copy(errorMessage = "Por favor, insira um email.")
+            return
+        }
+
+        state.value = state.value.copy(isLoading = true)
+
+        auth.sendPasswordResetEmail(email)
+            .addOnCompleteListener { task ->
+                state.value = state.value.copy(isLoading = false)
+                if (task.isSuccessful) {
+                    Log.d(TAG, "Email enviado.")
+                    onSuccess()
+                } else {
+                    onFailure(task.exception?.message ?: "Erro ao enviar email")
+                }
             }
     }
 }

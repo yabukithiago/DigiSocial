@@ -1,6 +1,6 @@
 package com.examples.digisocial.ui.view.register
 
-import NacionalidadeDropdownMenu
+import com.examples.digisocial.ui.components.NacionalidadeDropdownMenu
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,7 +28,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.R
-import com.examples.digisocial.ui.components.TopBar
+import com.examples.digisocial.repository.BeneficiaryRepository
+import com.examples.digisocial.ui.components.bars.TopBar
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
@@ -102,10 +103,10 @@ fun RegisterBeneficiaryView(navController: NavController) {
             onClick = {
                 if (state.nome.isNotEmpty() && state.telefone.isNotEmpty()
                     && state.nacionalidade.isNotEmpty() && state.agregadoFamiliar.isNotEmpty()) {
-                    viewModel.registerBeneficiary(
+                    BeneficiaryRepository.createBeneficiary(
                         state.nome, state.telefone,
                         state.nacionalidade, state.agregadoFamiliar, state.numeroVisitas,
-                        onSuccess = {  },
+                        onSuccess = { navController.navigate("goToBeneficiary") },
                         onFailure = { message -> state.errorMessage = message }
                     )
                 } else {

@@ -17,40 +17,43 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.ui.components.bars.TopBar
-import com.examples.digisocial.ui.components.cards.VoluntaryCard
+import com.examples.digisocial.ui.components.cards.BeneficiaryCard
 
 @Composable
-fun ShowVoluntaryView(navController: NavController, modifier: Modifier = Modifier) {
+fun ShowBeneficiaryView(navController: NavController, modifier: Modifier = Modifier) {
 
-    val viewModel: ShowVoluntaryViewModel = viewModel()
+    val viewModel: ShowBeneficiaryViewModel = viewModel()
     val state by viewModel.state
 
     Box(modifier = modifier.fillMaxSize()) {
         Column {
-            TopBar(title = "Listar Voluntários", navController = navController)
+            TopBar(title = "Listar Beneficiários", navController = navController)
             LazyColumn(contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 itemsIndexed(
-                    items = state.listVoluntary
+                    items = state.listBeneficiary
                 ) { _, item ->
-                    VoluntaryCard (
+                    BeneficiaryCard (
                         navController = navController,
+                        id = item.id,
                         nome = item.nome,
-                        email = item.email,
                         telefone = item.telefone,
-                        isPrivileged = item.privileged
+                        nacionalidade = item.nacionalidade,
+                        agregadoFamiliar = item.agregadoFamiliar,
+                        numeroVisitas = item.numeroVisitas,
+                        ownerId = item.ownerId
                     )
                 }
             }
         }
     }
     LaunchedEffect (key1 = Unit){
-        viewModel.loadListVoluntary()
+        viewModel.loadListBeneficiary()
     }
 }
 
 @Preview (showBackground = true)
 @Composable
-fun PreviewShowVoluntaryView(){
-    ShowVoluntaryView(navController = rememberNavController())
+fun PreviewShowBeneficiaryView(){
+    ShowBeneficiaryView(navController = rememberNavController())
 }
