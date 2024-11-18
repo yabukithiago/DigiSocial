@@ -67,6 +67,16 @@ fun UsersPageView(navController: NavController) {
                 ) {
                     Text("Beneficiários")
                 }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Button(
+                    onClick = { navController.navigate("goToJuntaMember") },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
+                    modifier = Modifier.fillMaxWidth(0.7f)
+                ) {
+                    Text("Membros da Junta")
+                }
             }
         }
     }
