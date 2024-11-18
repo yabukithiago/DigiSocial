@@ -14,14 +14,17 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.examples.digisocial.ui.view.buttons.BeneficiaryButtonView
 import com.examples.digisocial.ui.view.buttons.VoluntaryButtonView
+import com.examples.digisocial.ui.view.buttons.JuntaMemberButtonView
 import com.examples.digisocial.ui.view.delete.DeleteBeneficiaryView
 import com.examples.digisocial.ui.view.edit.EditBeneficiaryView
 import com.examples.digisocial.ui.view.home.HomePageAdminView
 import com.examples.digisocial.ui.view.login.LoginView
 import com.examples.digisocial.ui.view.login.ResetPasswordView
 import com.examples.digisocial.ui.view.register.RegisterBeneficiaryView
+import com.examples.digisocial.ui.view.register.RegisterJuntaMemberView
 import com.examples.digisocial.ui.view.register.RegisterVoluntaryView
 import com.examples.digisocial.ui.view.show.ShowBeneficiaryView
+import com.examples.digisocial.ui.view.show.ShowJuntaMemberView
 import com.examples.digisocial.ui.view.show.ShowVoluntaryView
 import com.examples.digisocial.ui.view.user.UsersPageView
 
@@ -63,11 +66,17 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
             composable("registerBeneficiary") {
                 RegisterBeneficiaryView(navController)
             }
+            composable("registerJuntaMember") {
+                RegisterJuntaMemberView(navController)
+            }
             composable("readVoluntary") {
                 ShowVoluntaryView(navController)
             }
             composable("readBeneficiary") {
                 ShowBeneficiaryView(navController)
+            }
+            composable("readJuntaMember") {
+                ShowJuntaMemberView(navController)
             }
             composable(
                 route = "editBeneficiary/{id}",
@@ -92,7 +101,10 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
             composable("goToBeneficiary") {
                 BeneficiaryButtonView(navController)
             }
-            composable("loading") {
+            composable("goToJuntaMember") {
+                JuntaMemberButtonView(navController)
+            }
+                        composable("loading") {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
