@@ -18,6 +18,7 @@ import com.examples.digisocial.ui.view.buttons.JuntaMemberButtonView
 import com.examples.digisocial.ui.view.delete.DeleteBeneficiaryView
 import com.examples.digisocial.ui.view.edit.EditBeneficiaryView
 import com.examples.digisocial.ui.view.home.HomePageAdminView
+import com.examples.digisocial.ui.view.home.HomePageJuntaView
 import com.examples.digisocial.ui.view.login.LoginView
 import com.examples.digisocial.ui.view.login.ResetPasswordView
 import com.examples.digisocial.ui.view.register.RegisterBeneficiaryView
@@ -40,6 +41,7 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
                         "admin" -> "homeAdmin"
                         "voluntary" -> "homeVoluntary"
                         "manager" -> "homeManager"
+                        "juntamember" -> "homeJuntaMember"
                         else -> "login"
                     }
                     navController.navigate(destination)
@@ -55,6 +57,9 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
             composable("homeVoluntary") {
                 Text("Home Voluntary")
 //                ("CONFERIR SE TEM PERMISSÃO OU NÃO")
+            }
+            composable("homeJuntaMember") {
+                HomePageJuntaView(navController)
             }
             composable("users") {
                 UsersPageView(navController)
