@@ -44,7 +44,7 @@ import com.examples.digisocial.ui.components.InfoRow
 
 @Composable
 fun BeneficiaryCard(navController: NavController, id: String, nome: String, telefone: String,
-                    nacionalidade: String, agregadoFamiliar: String, numeroVisitas: Int, ownerId: String){
+                    nacionalidade: String, agregadoFamiliar: String, numeroVisitas: Int, ownerId: String,userRole: String = "voluntario"){
     var menuExpanded by remember { mutableStateOf(false) }
 
     Card(
@@ -115,13 +115,16 @@ fun BeneficiaryCard(navController: NavController, id: String, nome: String, tele
                             menuExpanded = false
                         }
                     )
-                    DropdownMenuItem(
-                        text = { Text("Excluir") },
-                        onClick = {
-                            navController.navigate("deleteBeneficiary/$id")
-                            menuExpanded = false
-                        }
-                    )
+                    // Condicional para Excluir
+                    if (userRole == "admin") {
+                        DropdownMenuItem(
+                            text = { Text("Excluir") },
+                            onClick = {
+                                navController.navigate("deleteBeneficiary/$id")
+                                menuExpanded = false
+                            }
+                        )
+                    }
                 }
             }
         }
@@ -130,8 +133,10 @@ fun BeneficiaryCard(navController: NavController, id: String, nome: String, tele
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewBeneficiaryCard(){
-    BeneficiaryCard(navController = rememberNavController(), id = "123", nome = "João Silva",
+fun PreviewBeneficiaryCard() {
+    BeneficiaryCard(
+        navController = rememberNavController(), id = "123", nome = "João Silva",
         telefone = "912345678", nacionalidade = "Brasileira",
-        agregadoFamiliar = "2", numeroVisitas = 3, ownerId = "123456")
+        agregadoFamiliar = "2", numeroVisitas = 3, ownerId = "123456"
+    )
 }

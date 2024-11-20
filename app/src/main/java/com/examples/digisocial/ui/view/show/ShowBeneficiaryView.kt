@@ -1,5 +1,6 @@
 package com.examples.digisocial.ui.view.show
 
+import LoginViewModel
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,6 +25,8 @@ fun ShowBeneficiaryView(navController: NavController, modifier: Modifier = Modif
 
     val viewModel: ShowBeneficiaryViewModel = viewModel()
     val state by viewModel.state
+    val loginViewModel: LoginViewModel = viewModel()
+    val userRole = loginViewModel.state.value.userRole
 
     Box(modifier = modifier.fillMaxSize()) {
         Column {
@@ -33,16 +36,19 @@ fun ShowBeneficiaryView(navController: NavController, modifier: Modifier = Modif
                 itemsIndexed(
                     items = state.listBeneficiary
                 ) { _, item ->
-                    BeneficiaryCard (
-                        navController = navController,
-                        id = item.id,
-                        nome = item.nome,
-                        telefone = item.telefone,
-                        nacionalidade = item.nacionalidade,
-                        agregadoFamiliar = item.agregadoFamiliar,
-                        numeroVisitas = item.numeroVisitas,
-                        ownerId = item.ownerId
-                    )
+                    if (userRole != null) {
+                        BeneficiaryCard(
+                            navController = navController,
+                            id = item.id,
+                            nome = item.nome,
+                            telefone = item.telefone,
+                            nacionalidade = item.nacionalidade,
+                            agregadoFamiliar = item.agregadoFamiliar,
+                            numeroVisitas = item.numeroVisitas,
+                            ownerId = item.ownerId,
+                            userRole = userRole
+                        )
+                    }
                 }
             }
         }

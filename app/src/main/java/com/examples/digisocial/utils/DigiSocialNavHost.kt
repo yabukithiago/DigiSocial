@@ -17,6 +17,7 @@ import com.examples.digisocial.ui.view.buttons.VoluntaryButtonView
 import com.examples.digisocial.ui.view.delete.DeleteBeneficiaryView
 import com.examples.digisocial.ui.view.edit.EditBeneficiaryView
 import com.examples.digisocial.ui.view.home.HomePageAdminView
+import com.examples.digisocial.ui.view.home.HomePageVoluntario
 import com.examples.digisocial.ui.view.login.LoginView
 import com.examples.digisocial.ui.view.login.ResetPasswordView
 import com.examples.digisocial.ui.view.register.RegisterBeneficiaryView
@@ -50,8 +51,8 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
                 HomePageAdminView(navController)
             }
             composable("homeVoluntary") {
-                Text("Home Voluntary")
-//                ("CONFERIR SE TEM PERMISSÃO OU NÃO")
+
+                HomePageVoluntario(navController)
             }
             composable("users") {
                 UsersPageView(navController)
