@@ -17,6 +17,7 @@ import com.examples.digisocial.ui.view.buttons.VoluntaryButtonView
 import com.examples.digisocial.ui.view.buttons.JuntaMemberButtonView
 import com.examples.digisocial.ui.view.delete.DeleteBeneficiaryView
 import com.examples.digisocial.ui.view.edit.EditBeneficiaryView
+import com.examples.digisocial.ui.view.finance.AddTransactionView
 import com.examples.digisocial.ui.view.home.HomePageAdminView
 import com.examples.digisocial.ui.view.home.HomePageJuntaView
 import com.examples.digisocial.ui.view.login.LoginView
@@ -100,6 +101,9 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
             composable("deleteVoluntary") {
 //                            DeleteVoluntaryView(navController)
             }
+            composable("addNewTransaction"){
+                AddTransactionView(navController)
+            }
             composable("goToVoluntary") {
                 VoluntaryButtonView(navController)
             }
@@ -109,7 +113,7 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
             composable("goToJuntaMember") {
                 JuntaMemberButtonView(navController)
             }
-                        composable("loading") {
+            composable("loading") {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center

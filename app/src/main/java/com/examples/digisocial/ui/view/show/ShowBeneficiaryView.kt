@@ -20,7 +20,7 @@ import com.examples.digisocial.ui.components.bars.TopBar
 import com.examples.digisocial.ui.components.cards.BeneficiaryCard
 
 @Composable
-fun ShowBeneficiaryView(navController: NavController, modifier: Modifier = Modifier) {
+fun     ShowBeneficiaryView(navController: NavController, modifier: Modifier = Modifier) {
 
     val viewModel: ShowBeneficiaryViewModel = viewModel()
     val state by viewModel.state
