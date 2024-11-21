@@ -1,6 +1,5 @@
 package com.examples.digisocial.ui.view.show
 
-import LoginViewModel
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,48 +17,39 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.ui.components.bars.TopBar
-import com.examples.digisocial.ui.components.cards.BeneficiaryCard
+import com.examples.digisocial.ui.components.cards.JuntaMemberCard
 
 @Composable
-fun     ShowBeneficiaryView(navController: NavController, modifier: Modifier = Modifier) {
+fun ShowJuntaMemberView(navController: NavController, modifier: Modifier = Modifier) {
 
-    val viewModel: ShowBeneficiaryViewModel = viewModel()
+    val viewModel: ShowJuntaMemberViewModel = viewModel()
     val state by viewModel.state
-    val loginViewModel: LoginViewModel = viewModel()
-    val userRole = loginViewModel.state.value.userRole
 
     Box(modifier = modifier.fillMaxSize()) {
         Column {
-            TopBar(title = "Listar Beneficiários", navController = navController)
+            TopBar(title = "Listar Membros da Junta", navController = navController)
             LazyColumn(contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 itemsIndexed(
-                    items = state.listBeneficiary
+                    items = state.listJuntaMember
                 ) { _, item ->
-                    if (userRole != null) {
-                        BeneficiaryCard(
-                            navController = navController,
-                            id = item.id,
-                            nome = item.nome,
-                            telefone = item.telefone,
-                            nacionalidade = item.nacionalidade,
-                            agregadoFamiliar = item.agregadoFamiliar,
-                            numeroVisitas = item.numeroVisitas,
-                            ownerId = item.ownerId,
-                            userRole = userRole
-                        )
-                    }
+                    JuntaMemberCard (
+                        navController = navController,
+                        nome = item.nome,
+                        email = item.email,
+                        telefone = item.telefone,
+                    )
                 }
             }
         }
     }
     LaunchedEffect (key1 = Unit){
-        viewModel.loadListBeneficiary()
+        viewModel.loadListJuntaMember()
     }
 }
 
 @Preview (showBackground = true)
 @Composable
-fun PreviewShowBeneficiaryView(){
-    ShowBeneficiaryView(navController = rememberNavController())
+fun PreviewShowJuntaMemberView(){
+    ShowJuntaMemberView(navController = rememberNavController())
 }

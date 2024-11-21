@@ -4,7 +4,7 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-11-12T17:44:08.220146300Z">
+        <DropdownSelection timestamp="2024-11-19T10:15:35.966315100Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\Thiago Yabuki\.android\avd\Medium_Phone_API_35.avd" />
@@ -13,6 +13,8 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-    </selectionStates>
+      <SelectionState runConfigName="PreviewAddTransactionView">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
   </component>
 </project>

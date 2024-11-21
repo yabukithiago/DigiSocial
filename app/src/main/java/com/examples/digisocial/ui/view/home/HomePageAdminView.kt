@@ -67,7 +67,7 @@ fun HomePageAdminView(navController: NavController) {
                     ) {
                         Icon(
                             imageVector = Icons.Filled.Person,
-                            contentDescription = "Utilizadores",
+                            contentDescription = "Ícone de Utilizadores",
                             tint = Color.White,
                             modifier = Modifier.size(50.dp)
                         )
@@ -75,7 +75,7 @@ fun HomePageAdminView(navController: NavController) {
                     }
                 }
                 Button(
-                    onClick = { navController.navigate("users") },
+                    onClick = { navController.navigate("addNewTransaction") },
                     modifier = Modifier
                         .size(150.dp)
                         .padding(8.dp),
@@ -88,11 +88,11 @@ fun HomePageAdminView(navController: NavController) {
                     ) {
                         Icon(
                             imageVector = Icons.Filled.Euro,
-                            contentDescription = "",
+                            contentDescription = "Ícone de Finanças",
                             tint = Color.White,
                             modifier = Modifier.size(50.dp)
                         )
-                        Text("Botão 2", color = Color.White)
+                        Text("Financeiro", color = Color.White)
                     }
                 }
             }

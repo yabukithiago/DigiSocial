@@ -14,15 +14,20 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.examples.digisocial.ui.view.buttons.BeneficiaryButtonView
 import com.examples.digisocial.ui.view.buttons.VoluntaryButtonView
+import com.examples.digisocial.ui.view.buttons.JuntaMemberButtonView
 import com.examples.digisocial.ui.view.delete.DeleteBeneficiaryView
 import com.examples.digisocial.ui.view.edit.EditBeneficiaryView
+import com.examples.digisocial.ui.view.finance.AddTransactionView
 import com.examples.digisocial.ui.view.home.HomePageAdminView
 import com.examples.digisocial.ui.view.home.HomePageVoluntario
+import com.examples.digisocial.ui.view.home.HomePageJuntaView
 import com.examples.digisocial.ui.view.login.LoginView
 import com.examples.digisocial.ui.view.login.ResetPasswordView
 import com.examples.digisocial.ui.view.register.RegisterBeneficiaryView
+import com.examples.digisocial.ui.view.register.RegisterJuntaMemberView
 import com.examples.digisocial.ui.view.register.RegisterVoluntaryView
 import com.examples.digisocial.ui.view.show.ShowBeneficiaryView
+import com.examples.digisocial.ui.view.show.ShowJuntaMemberView
 import com.examples.digisocial.ui.view.show.ShowVoluntaryView
 import com.examples.digisocial.ui.view.user.UsersPageView
 
@@ -38,6 +43,7 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
                         "admin" -> "homeAdmin"
                         "voluntary" -> "homeVoluntary"
                         "manager" -> "homeManager"
+                        "juntamember" -> "homeJuntaMember"
                         else -> "login"
                     }
                     navController.navigate(destination)
@@ -54,6 +60,9 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
 
                 HomePageVoluntario(navController)
             }
+            composable("homeJuntaMember") {
+                HomePageJuntaView(navController)
+            }
             composable("users") {
                 UsersPageView(navController)
             }
@@ -64,11 +73,17 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
             composable("registerBeneficiary") {
                 RegisterBeneficiaryView(navController)
             }
+            composable("registerJuntaMember") {
+                RegisterJuntaMemberView(navController)
+            }
             composable("readVoluntary") {
                 ShowVoluntaryView(navController)
             }
             composable("readBeneficiary") {
                 ShowBeneficiaryView(navController)
+            }
+            composable("readJuntaMember") {
+                ShowJuntaMemberView(navController)
             }
             composable(
                 route = "editBeneficiary/{id}",
@@ -87,11 +102,17 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
             composable("deleteVoluntary") {
 //                            DeleteVoluntaryView(navController)
             }
+            composable("addNewTransaction"){
+                AddTransactionView(navController)
+            }
             composable("goToVoluntary") {
                 VoluntaryButtonView(navController)
             }
             composable("goToBeneficiary") {
                 BeneficiaryButtonView(navController)
+            }
+            composable("goToJuntaMember") {
+                JuntaMemberButtonView(navController)
             }
             composable("loading") {
                 Box(

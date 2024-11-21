@@ -24,6 +24,8 @@ playServicesAuth = "21.2.0"
 firebaseDatabaseKtx = "21.0.0"
 animationCoreLint = "1.8.0-alpha06"
 ui = "1.7.5"
+roomKtx = "2.6.1"
+lifecycleLivedataKtx = "2.8.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -59,6 +61,8 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "converte
 firebase-database-ktx = { group = "com.google.firebase", name = "firebase-database-ktx", version.ref = "firebaseDatabaseKtx" }
 androidx-animation-core-lint = { group = "androidx.compose.animation", name = "animation-core-lint", version.ref = "animationCoreLint" }
 ui = { module = "androidx.compose.ui:ui", version.ref = "ui" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
+androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
