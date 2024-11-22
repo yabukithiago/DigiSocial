@@ -13,7 +13,13 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="PreviewAddTransactionView">
+      <SelectionState runConfigName="PreviewShowVoluntaryView">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="RegisterVoluntaryViewPreview">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="PreviewSearchBar">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

@@ -20,7 +20,6 @@ data class Beneficiary(
                 numeroVisitas = (map["numeroVisitas"] as? Long)?.toInt() ?: 0,
                 map["ownerId"] as String
             )
-
         }
     }
 }

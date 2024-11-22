@@ -13,11 +13,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.examples.digisocial.ui.view.buttons.BeneficiaryButtonView
-import com.examples.digisocial.ui.view.buttons.VoluntaryButtonView
 import com.examples.digisocial.ui.view.buttons.JuntaMemberButtonView
 import com.examples.digisocial.ui.view.delete.DeleteBeneficiaryView
 import com.examples.digisocial.ui.view.edit.EditBeneficiaryView
 import com.examples.digisocial.ui.view.finance.AddTransactionView
+import com.examples.digisocial.ui.view.finance.ShowTransactionView
 import com.examples.digisocial.ui.view.home.HomePageAdminView
 import com.examples.digisocial.ui.view.home.HomePageJuntaView
 import com.examples.digisocial.ui.view.login.LoginView
@@ -104,8 +104,8 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
             composable("addNewTransaction"){
                 AddTransactionView(navController)
             }
-            composable("goToVoluntary") {
-                VoluntaryButtonView(navController)
+            composable("showTransaction"){
+                ShowTransactionView(navController)
             }
             composable("goToBeneficiary") {
                 BeneficiaryButtonView(navController)

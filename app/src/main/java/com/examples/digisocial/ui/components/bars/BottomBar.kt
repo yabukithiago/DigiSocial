@@ -22,7 +22,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun BottomBar(navController: NavController){
+fun BottomBar(navController: NavController) {
     BottomAppBar(
         modifier = Modifier.fillMaxWidth().height(56.dp),
         content = {

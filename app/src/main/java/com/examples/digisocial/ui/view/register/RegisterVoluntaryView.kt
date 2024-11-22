@@ -2,6 +2,7 @@ package com.examples.digisocial.ui.view.register
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -45,105 +47,117 @@ fun RegisterVoluntaryView(navController: NavController) {
     var isPrivileged by remember { mutableStateOf(false) }
 
     TopBar(title = "Registar Voluntários", navController = navController)
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Image(
+    Box(modifier = Modifier.fillMaxSize())
+    {
+        Column(
             modifier = Modifier
-                .size(150.dp),
-            painter = painterResource(id = R.drawable.baseline_person_add_24),
-            contentDescription = "User Icon"
-        )
-
-        TextField(
-            value = state.nome,
-            onValueChange = viewModel::onNomeChange,
-            label = { Text("Nome do Voluntário") },
-            colors = TextFieldDefaults.colors(
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
-            ),
-            shape = RoundedCornerShape(12.dp),
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        TextField(
-            value = state.telefone,
-            onValueChange = viewModel::onTelefoneChange,
-            label = { Text("Telefone do Voluntário") },
-            colors = TextFieldDefaults.colors(
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
-            ),
-            shape = RoundedCornerShape(12.dp),
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        TextField(
-            value = state.email,
-            onValueChange = viewModel::onEmailChange,
-            label = { Text("Email do Voluntário") },
-            colors = TextFieldDefaults.colors(
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
-            ),
-            shape = RoundedCornerShape(12.dp),
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        TextField(
-            value = state.password,
-            onValueChange = viewModel::onPasswordChange,
-            label = { Text("Senha do Voluntário") },
-            colors = TextFieldDefaults.colors(
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
-            ),
-            shape = RoundedCornerShape(12.dp),
-            visualTransformation = PasswordVisualTransformation(),
-        )
-
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Privilégios?")
-            Switch(
-                checked = isPrivileged,
-                onCheckedChange = { isPrivileged = it },
-                modifier = Modifier.padding(start = 8.dp)
+            Image(
+                modifier = Modifier
+                    .size(150.dp),
+                painter = painterResource(id = R.drawable.baseline_person_add_24),
+                contentDescription = "User Icon"
             )
-        }
+            TextField(
+                value = state.nome,
+                onValueChange = viewModel::onNomeChange,
+                label = { Text("Nome do Voluntário") },
+                colors = TextFieldDefaults.colors(
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent
+                ),
+                shape = RoundedCornerShape(12.dp),
+            )
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-        Button(
-            onClick = {
-                if (state.email.isNotEmpty() && state.password.isNotEmpty()) {
-                    VoluntaryRepository.createVoluntary(state.email, state.password,
-                        state.nome, state.telefone, isPrivileged,
-                        onSuccess = { navController.popBackStack() },
-                        onFailure = { message -> state.errorMessage = message }
-                    )
-                } else {
-                    state.errorMessage = "Preencha todos os campos."
-                }
-            },
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
-            enabled = !state.isLoading
-        ) {
-            Text(if (state.isLoading) "Carregando..." else "Registar Voluntário")
-        }
+            TextField(
+                value = state.telefone,
+                onValueChange = viewModel::onTelefoneChange,
+                label = { Text("Telefone do Voluntário") },
+                colors = TextFieldDefaults.colors(
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent
+                ),
+                shape = RoundedCornerShape(12.dp),
+            )
 
-        if (state.errorMessage?.isNotEmpty() == true) {
-            state.errorMessage?.let { Text(text = it, color = MaterialTheme.colorScheme.error) }
+            Spacer(modifier = Modifier.height(16.dp))
+
+            TextField(
+                value = state.email,
+                onValueChange = viewModel::onEmailChange,
+                label = { Text("Email do Voluntário") },
+                colors = TextFieldDefaults.colors(
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent
+                ),
+                shape = RoundedCornerShape(12.dp),
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            TextField(
+                value = state.password,
+                onValueChange = viewModel::onPasswordChange,
+                label = { Text("Senha do Voluntário") },
+                colors = TextFieldDefaults.colors(
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent
+                ),
+                shape = RoundedCornerShape(12.dp),
+                visualTransformation = PasswordVisualTransformation(),
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = "Privilégios?",
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.align(Alignment.CenterVertically)
+                )
+
+                Spacer(modifier = Modifier.width(150.dp))
+
+                Switch(
+                    checked = isPrivileged,
+                    onCheckedChange = { isPrivileged = it }
+                )
+            }
+
+            Button(
+                modifier = Modifier.fillMaxWidth(0.63f),
+                onClick = {
+                    if (state.email.isNotEmpty() && state.password.isNotEmpty()) {
+                        VoluntaryRepository.createVoluntary(state.email, state.password,
+                            state.nome, state.telefone, isPrivileged,
+                            onSuccess = { navController.popBackStack() },
+                            onFailure = { message -> state.errorMessage = message }
+                        )
+                    } else {
+                        state.errorMessage = "Preencha todos os campos."
+                    }
+                },
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
+                enabled = !state.isLoading
+            ) {
+                Text(if (state.isLoading) "Carregando..." else "Registar Voluntário")
+            }
+
+            if (state.errorMessage?.isNotEmpty() == true) {
+                state.errorMessage?.let { Text(text = it, color = MaterialTheme.colorScheme.error) }
+            }
         }
     }
 }
