@@ -1,5 +1,6 @@
 package com.examples.digisocial.ui.components.cards
 
+import LoginViewModel
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -38,14 +39,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.ui.components.InfoRow
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 @Composable
 fun BeneficiaryCard(navController: NavController, id: String, nome: String, telefone: String,
-                    nacionalidade: String, agregadoFamiliar: String, numeroVisitas: Int, ownerId: String,userRole: String = "voluntario"){
+                    nacionalidade: String, agregadoFamiliar: String, numeroVisitas: Int,
+                    ownerId: String) {
     var menuExpanded by remember { mutableStateOf(false) }
+    val auth = Firebase.auth
+    val currentUser = auth.currentUser
+    val loginViewModel: LoginViewModel = viewModel()
+    var role = ""
+
+    if (currentUser != null) {
+        loginViewModel.fetchUserRole(currentUser.uid) { role = it }
+    }
 
     Card(
         modifier = Modifier
@@ -115,8 +128,7 @@ fun BeneficiaryCard(navController: NavController, id: String, nome: String, tele
                             menuExpanded = false
                         }
                     )
-                    // Condicional para Excluir
-                    if (userRole == "admin") {
+                    if (role == "admin") {
                         DropdownMenuItem(
                             text = { Text("Excluir") },
                             onClick = {
@@ -137,6 +149,5 @@ fun PreviewBeneficiaryCard() {
     BeneficiaryCard(
         navController = rememberNavController(), id = "123", nome = "João Silva",
         telefone = "912345678", nacionalidade = "Brasileira",
-        agregadoFamiliar = "2", numeroVisitas = 3, ownerId = "123456"
-    )
+        agregadoFamiliar = "2", numeroVisitas = 3, ownerId = "123456")
 }

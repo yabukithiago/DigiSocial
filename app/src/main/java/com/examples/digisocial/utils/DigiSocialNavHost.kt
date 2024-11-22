@@ -3,7 +3,6 @@ package com.examples.digisocial.utils
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -12,8 +11,6 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.examples.digisocial.ui.view.buttons.BeneficiaryButtonView
-import com.examples.digisocial.ui.view.buttons.JuntaMemberButtonView
 import com.examples.digisocial.ui.view.delete.DeleteBeneficiaryView
 import com.examples.digisocial.ui.view.edit.EditBeneficiaryView
 import com.examples.digisocial.ui.view.finance.AddTransactionView
@@ -107,12 +104,6 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
             }
             composable("showTransaction"){
                 ShowTransactionView(navController)
-            }
-            composable("goToBeneficiary") {
-                BeneficiaryButtonView(navController)
-            }
-            composable("goToJuntaMember") {
-                JuntaMemberButtonView(navController)
             }
             composable("loading") {
                 Box(
