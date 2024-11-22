@@ -8,7 +8,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 data class LoginState(
     var email: String = "",
     var password: String = "",
-    val userRole: String? = null,
+    val userRole: String = "",
     var isLoading: Boolean = false,
     var errorMessage: String? = null,
     var privileged: Boolean? = false
@@ -54,11 +54,7 @@ class LoginViewModel : ViewModel() {
                     state.value = state.value.copy(errorMessage = null)
 
                     fetchUserRole(auth.currentUser?.uid) { role ->
-                        if (role != null) {
-                            onLoginSuccess(role)
-                        } else {
-                            state.value = state.value.copy(errorMessage = "Tipo de usuário não encontrado.")
-                        }
+                        onLoginSuccess(role)
                     }
                 } else {
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
@@ -74,10 +70,10 @@ class LoginViewModel : ViewModel() {
         onLogoutSuccess()
     }
 
-    private fun fetchUserRole(userId: String?, onRoleFetched: (String?) -> Unit) {
+    fun fetchUserRole(userId: String?, onRoleFetched: (String) -> Unit) {
         if (userId == null) {
             state.value = state.value.copy(errorMessage = "Erro ao obter UID do usuário")
-            onRoleFetched(null)
+            onRoleFetched("")
             return
         }
 
@@ -86,19 +82,20 @@ class LoginViewModel : ViewModel() {
             .addOnSuccessListener { document ->
                 if (document.exists()) {
                     val role = document.getString("role")
-                    state.value = state.value.copy(userRole = role)
-                    onRoleFetched(role)
+                    state.value = state.value.copy(userRole = role ?: "")
+                    onRoleFetched(role ?: "")
                 } else {
                     state.value = state.value.copy(errorMessage = "Documento do usuário não encontrado")
-                    onRoleFetched(null)
+                    onRoleFetched("")
                 }
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Erro ao buscar o tipo de usuário", exception)
                 state.value = state.value.copy(errorMessage = "Erro ao buscar o tipo de usuário")
-                onRoleFetched(null)
+                onRoleFetched("")
             }
     }
+
     fun fetchUserPermission(onPermissionFetched: (Boolean?) -> Unit) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         if (userId == null) {

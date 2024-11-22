@@ -7,8 +7,8 @@ import com.examples.digisocial.repository.VoluntaryRepository
 
 data class ShowVoluntaryState(
     val listVoluntary: List<Voluntary> = emptyList(),
-            val isLoading: Boolean = false,
-                    val error: String? = null
+    val isLoading: Boolean = false,
+    val error: String? = null
 )
 
 class ShowVoluntaryViewModel : ViewModel(){
