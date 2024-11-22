@@ -10,7 +10,8 @@ data class LoginState(
     var password: String = "",
     val userRole: String? = null,
     var isLoading: Boolean = false,
-    var errorMessage: String? = null
+    var errorMessage: String? = null,
+    var privileged: Boolean? = false
 )
 class LoginViewModel : ViewModel() {
     var state = mutableStateOf(LoginState())
@@ -98,6 +99,33 @@ class LoginViewModel : ViewModel() {
                 onRoleFetched(null)
             }
     }
+    fun fetchUserPermission(onPermissionFetched: (Boolean?) -> Unit) {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        if (userId == null) {
+            state.value = state.value.copy(errorMessage = "Erro ao obter UID do usuário")
+            onPermissionFetched(null)
+            return
+        }
+
+        val db = FirebaseFirestore.getInstance()
+        db.collection("user").document(userId).get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    val privileged = document.getBoolean("privileged")
+                    state.value = state.value.copy(privileged = privileged)
+                    onPermissionFetched(privileged)
+                } else {
+                    state.value = state.value.copy(errorMessage = "Documento do usuário não encontrado")
+                    onPermissionFetched(null)
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Erro ao buscar o tipo de usuário", exception)
+                state.value = state.value.copy(errorMessage = "Erro ao buscar o tipo de usuário")
+                onPermissionFetched(null)
+            }
+    }
+
 
     fun sendPasswordResetEmail(email: String, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
         val auth = FirebaseAuth.getInstance()

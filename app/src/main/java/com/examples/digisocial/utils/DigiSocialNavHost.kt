@@ -19,6 +19,7 @@ import com.examples.digisocial.ui.view.edit.EditBeneficiaryView
 import com.examples.digisocial.ui.view.finance.AddTransactionView
 import com.examples.digisocial.ui.view.finance.ShowTransactionView
 import com.examples.digisocial.ui.view.home.HomePageAdminView
+import com.examples.digisocial.ui.view.home.HomePageVoluntario
 import com.examples.digisocial.ui.view.home.HomePageJuntaView
 import com.examples.digisocial.ui.view.login.LoginView
 import com.examples.digisocial.ui.view.login.ResetPasswordView
@@ -56,8 +57,8 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
                 HomePageAdminView(navController)
             }
             composable("homeVoluntary") {
-                Text("Home Voluntary")
-//                ("CONFERIR SE TEM PERMISSÃO OU NÃO")
+
+                HomePageVoluntario(navController)
             }
             composable("homeJuntaMember") {
                 HomePageJuntaView(navController)
