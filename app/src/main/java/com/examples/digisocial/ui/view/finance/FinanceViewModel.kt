@@ -8,6 +8,7 @@ import com.examples.digisocial.repository.TransactionRepository
 import kotlinx.coroutines.launch
 
 data class FinanceState(
+    val listTransaction: List<Transaction> = emptyList(),
     var description: String = "",
     var amount: String = "",
     var type: String = "",
@@ -20,7 +21,7 @@ class FinanceViewModel : ViewModel() {
     var state = mutableStateOf(FinanceState())
         private set
 
-    var repository = TransactionRepository()
+    var repository = TransactionRepository
         private set
 
     fun onDescriptionChange(newValue: String) {
@@ -50,6 +51,14 @@ class FinanceViewModel : ViewModel() {
             } catch (e: Exception) {
                 onFailure(e.message ?: "Erro desconhecido")
             }
+        }
+    }
+
+    fun loadListTransaction() {
+        TransactionRepository.getAll { listTransaction ->
+            state.value = state.value.copy(
+                listTransaction = listTransaction
+            )
         }
     }
 }

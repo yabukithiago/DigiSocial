@@ -51,7 +51,7 @@ fun UsersPageView(navController: NavController) {
             ) {
 
                 Button(
-                    onClick = { navController.navigate("goToVoluntary") },
+                    onClick = { navController.navigate("readVoluntary") },
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
                     modifier = Modifier.fillMaxWidth(0.7f)
                 ) {

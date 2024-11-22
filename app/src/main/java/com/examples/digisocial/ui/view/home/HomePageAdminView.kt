@@ -2,6 +2,7 @@ package com.examples.digisocial.ui.view.home
 
 import LoginViewModel
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -33,126 +34,132 @@ import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
 fun HomePageAdminView(navController: NavController) {
-    val viewModel : LoginViewModel = viewModel()
+    val viewModel: LoginViewModel = viewModel()
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(50.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+    Box(
+        modifier = Modifier.fillMaxSize()
     ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.CenterHorizontally)
+                .fillMaxSize()
+                .padding(50.dp)
+                .padding(bottom = 70.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth()
-                    .padding(10.dp),
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.CenterHorizontally)
             ) {
-                Button(
-                    onClick = { navController.navigate("users") },
-                    modifier = Modifier
-                        .size(150.dp)
-                        .padding(8.dp),
-                    shape = RoundedCornerShape(0.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+                Row(
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(10.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
+                    Button(
+                        onClick = { navController.navigate("users") },
+                        modifier = Modifier
+                            .size(150.dp)
+                            .padding(8.dp),
+                        shape = RoundedCornerShape(20.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
                     ) {
-                        Icon(
-                            imageVector = Icons.Filled.Person,
-                            contentDescription = "Ícone de Utilizadores",
-                            tint = Color.White,
-                            modifier = Modifier.size(50.dp)
-                        )
-                        Text("Utilizadores", color = Color.White)
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Person,
+                                contentDescription = "Ícone de Utilizadores",
+                                tint = Color.White,
+                                modifier = Modifier.size(50.dp)
+                            )
+                            Text("Utilizadores", color = Color.White)
+                        }
+                    }
+                    Button(
+                        onClick = { navController.navigate("showTransaction") },
+                        modifier = Modifier
+                            .size(150.dp)
+                            .padding(8.dp),
+                        shape = RoundedCornerShape(20.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Euro,
+                                contentDescription = "Ícone de Finanças",
+                                tint = Color.White,
+                                modifier = Modifier.size(50.dp)
+                            )
+                            Text("Financeiro", color = Color.White)
+                        }
                     }
                 }
-                Button(
-                    onClick = { navController.navigate("addNewTransaction") },
-                    modifier = Modifier
-                        .size(150.dp)
-                        .padding(8.dp),
-                    shape = RoundedCornerShape(0.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+                Row(
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(10.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
+                    Button(
+                        onClick = { navController.navigate("users") },
+                        modifier = Modifier
+                            .size(150.dp)
+                            .padding(8.dp),
+                        shape = RoundedCornerShape(20.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
                     ) {
-                        Icon(
-                            imageVector = Icons.Filled.Euro,
-                            contentDescription = "Ícone de Finanças",
-                            tint = Color.White,
-                            modifier = Modifier.size(50.dp)
-                        )
-                        Text("Financeiro", color = Color.White)
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.CalendarMonth,
+                                contentDescription = "",
+                                tint = Color.White,
+                                modifier = Modifier.size(50.dp)
+                            )
+                            Text("Botão 3", color = Color.White)
+                        }
+                    }
+                    Button(
+                        onClick = { navController.navigate("users") },
+                        modifier = Modifier
+                            .size(150.dp)
+                            .padding(8.dp),
+                        shape = RoundedCornerShape(20.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.Article,
+                                contentDescription = "",
+                                tint = Color.White,
+                                modifier = Modifier.size(50.dp)
+                            )
+                            Text("Botão 4", color = Color.White)
+                        }
                     }
                 }
             }
-            Row(
-                modifier = Modifier.fillMaxWidth()
-                    .padding(10.dp),
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Button(
+                onClick = { viewModel.logout(onLogoutSuccess = { navController.navigate("login") }) },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray)
             ) {
-                Button(
-                    onClick = { navController.navigate("users") },
-                    modifier = Modifier
-                        .size(150.dp)
-                        .padding(8.dp),
-                    shape = RoundedCornerShape(0.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
-                ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.CalendarMonth,
-                            contentDescription = "",
-                            tint = Color.White,
-                            modifier = Modifier.size(50.dp)
-                        )
-                        Text("Botão 3", color = Color.White)
-                    }
-                }
-                Button(
-                    onClick = { navController.navigate("users") },
-                    modifier = Modifier
-                        .size(150.dp)
-                        .padding(8.dp),
-                    shape = RoundedCornerShape(0.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
-                ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.Article,
-                            contentDescription = "",
-                            tint = Color.White,
-                            modifier = Modifier.size(50.dp)
-                        )
-                        Text("Botão 4", color = Color.White)
-                    }
-                }
+                Text("Logout")
             }
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Button(onClick = { viewModel.logout(onLogoutSuccess = { navController.navigate("login") }) },
-            colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray)
-        ) {
-            Text("Logout")
         }
     }
 }
