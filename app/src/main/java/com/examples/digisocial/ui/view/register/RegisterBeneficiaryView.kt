@@ -106,7 +106,7 @@ fun RegisterBeneficiaryView(navController: NavController) {
                     BeneficiaryRepository.createBeneficiary(
                         state.nome, state.telefone,
                         state.nacionalidade, state.agregadoFamiliar, state.numeroVisitas,
-                        onSuccess = { navController.navigate("goToBeneficiary") },
+                        onSuccess = { navController.navigate("readBeneficiary") },
                         onFailure = { message -> state.errorMessage = message }
                     )
                 } else {

@@ -21,33 +21,37 @@ object BeneficiaryRepository {
     ) {
 
         val uid = auth.currentUser?.uid
+        if (uid != null) {
+            db.collection("user").document(uid).get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.contains("nome")) {
+                        val userName = document.getString("nome") ?: ""
 
-        val beneficiary = uid?.let {
-            Beneficiary(
-                id = "", nome = nome, telefone = telefone,
-                nacionalidade = nacionalidade, agregadoFamiliar = agregadoFamiliar,
-                numeroVisitas = numeroVisitas, ownerId = it
-            )
-        }
+                        val beneficiary = Beneficiary(
+                            id = "", nome = nome, telefone = telefone,
+                            nacionalidade = nacionalidade, agregadoFamiliar = agregadoFamiliar,
+                            numeroVisitas = numeroVisitas, ownerId = userName
+                        )
 
-        if (beneficiary != null) {
-            db.collection("beneficiary")
-                .add(beneficiary)
-                .addOnCompleteListener { documentReference ->
-                    val generatedId = documentReference.result.id
+                        db.collection("beneficiary")
+                            .add(beneficiary)
+                            .addOnCompleteListener { documentReference ->
+                                val generatedId = documentReference.result.id
 
-                    db.collection("beneficiary")
-                        .document(generatedId)
-                        .update("id", generatedId)
-                        .addOnSuccessListener {
-                            onSuccess("Beneficiário editado com sucesso: $generatedId")
-                        }
-                        .addOnFailureListener { e ->
-                            onFailure(e.message ?: "Erro ao adicionar beneficiário")
-                        }
-                }
-                .addOnFailureListener { e ->
-                    onFailure(e.message ?: "Erro ao adicionar beneficiário")
+                                db.collection("beneficiary")
+                                    .document(generatedId)
+                                    .update("id", generatedId)
+                                    .addOnSuccessListener {
+                                        onSuccess("Beneficiário criado com sucesso: $generatedId")
+                                    }
+                                    .addOnFailureListener { e ->
+                                        onFailure(e.message ?: "Erro ao adicionar beneficiário")
+                                    }
+                            }
+                            .addOnFailureListener { e ->
+                                onFailure(e.message ?: "Erro ao adicionar beneficiário")
+                            }
+                    }
                 }
         }
     }

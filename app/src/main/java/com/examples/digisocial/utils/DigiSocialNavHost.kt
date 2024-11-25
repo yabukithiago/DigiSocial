@@ -34,6 +34,7 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
             navController = navController,
             startDestination = if (isLoading) "loading" else "login"
         ) {
+            //region Login
             composable("login") {
                 LoginView(navController, onLoginSuccess = { role ->
                     val destination = when (role) {
@@ -49,7 +50,9 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
             composable("resetPassword") {
                 ResetPasswordView(navController)
             }
-            //Homes
+            //endregion
+
+            //region Homes
             composable("homeAdmin") {
                 HomePageAdminView(navController)
             }
@@ -63,24 +66,30 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
             composable("users") {
                 UsersPageView(navController)
             }
-            //CRUD's
+            //endregion
+
+            //region CRUD Voluntary
             composable("registerVoluntary") {
                 RegisterVoluntaryView(navController)
-            }
-            composable("registerBeneficiary") {
-                RegisterBeneficiaryView(navController)
-            }
-            composable("registerJuntaMember") {
-                RegisterJuntaMemberView(navController)
             }
             composable("readVoluntary") {
                 ShowVoluntaryView(navController)
             }
+            composable("editVoluntary") {
+//                            EditVoluntaryView(navController)
+            }
+
+            composable("deleteVoluntary") {
+//                            DeleteVoluntaryView(navController)
+            }
+            //endregion
+
+            //region CRUD Beneficiary
+            composable("registerBeneficiary") {
+                RegisterBeneficiaryView(navController)
+            }
             composable("readBeneficiary") {
                 ShowBeneficiaryView(navController)
-            }
-            composable("readJuntaMember") {
-                ShowJuntaMemberView(navController)
             }
             composable(
                 route = "editBeneficiary/{id}",
@@ -89,22 +98,41 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
                 val id = backStackEntry.arguments?.getString("id") ?: ""
                 EditBeneficiaryView(navController, id)
             }
-            composable("editVoluntary") {
-//                            EditVoluntaryView(navController)
-            }
             composable("deleteBeneficiary/{id}") { backStackEntry ->
                 val id = backStackEntry.arguments?.getString("id") ?: ""
                 DeleteBeneficiaryView(navController = navController, id = id)
             }
-            composable("deleteVoluntary") {
-//                            DeleteVoluntaryView(navController)
+            //endregion
+
+            //region CRUD JuntaMember
+            composable("registerJuntaMember") {
+                RegisterJuntaMemberView(navController)
             }
+            composable("readJuntaMember") {
+                ShowJuntaMemberView(navController)
+            }
+//            composable(
+//                route = "editJuntaMember/{id}",
+//                arguments = listOf(navArgument("id") { type = NavType.StringType })
+//            ) { backStackEntry ->
+//                val id = backStackEntry.arguments?.getString("id") ?: ""
+//                EditJuntaMemberView(navController, id)
+//            }
+//            composable("deleteJuntaMember/{id}") { backStackEntry ->
+//                val id = backStackEntry.arguments?.getString("id") ?: ""
+//                DeleteJuntaMemberView(navController = navController, id = id)
+//            }
+            //endregion
+
+            //region Transactions
             composable("addNewTransaction"){
                 AddTransactionView(navController)
             }
             composable("showTransaction"){
                 ShowTransactionView(navController)
             }
+            //endregion
+
             composable("loading") {
                 Box(
                     modifier = Modifier.fillMaxSize(),

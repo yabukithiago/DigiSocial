@@ -35,7 +35,7 @@ import com.examples.digisocial.ui.theme.DigiSocialTheme
 @Composable
 fun HomePageAdminView(navController: NavController) {
     val viewModel: LoginViewModel = viewModel()
-
+    
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
