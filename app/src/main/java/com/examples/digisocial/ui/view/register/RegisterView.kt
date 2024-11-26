@@ -15,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
@@ -86,6 +87,21 @@ fun RegisterView(navController: NavController, onRegisterSuccess: () -> Unit) {
             onValueChange = viewModel::onEmailChange,
             label = { Text("Email") },
             leadingIcon = { Icon(Icons.Filled.Email, contentDescription = "Email Icon") },
+            colors = TextFieldDefaults.colors(
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            ),
+            shape = RoundedCornerShape(20.dp),
+            modifier = Modifier.fillMaxWidth(0.8f)
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        TextField(
+            value = state.telefone,
+            onValueChange = viewModel::onTelefoneChange,
+            label = { Text("Telefone") },
+            leadingIcon = { Icon(Icons.Filled.Phone, contentDescription = "Phone Icon") },
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent

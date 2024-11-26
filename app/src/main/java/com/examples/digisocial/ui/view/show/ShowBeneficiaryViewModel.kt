@@ -3,7 +3,7 @@ package com.examples.digisocial.ui.view.show
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.examples.digisocial.data.models.Beneficiary
-import com.examples.digisocial.repository.BeneficiaryRepository
+import com.examples.digisocial.data.repository.BeneficiaryRepository
 
 data class ShowBeneficiaryState(
     val listBeneficiary: List<Beneficiary> = emptyList(),

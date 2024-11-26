@@ -10,11 +10,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.examples.digisocial.ui.view.edit.DeleteBeneficiaryViewModel
+import com.examples.digisocial.ui.view.edit.DeleteUserViewModel
 
 @Composable
-fun DeleteBeneficiaryView(navController: NavController, id: String) {
-    val viewModel: DeleteBeneficiaryViewModel = viewModel()
+fun DeleteUserView(navController: NavController, id: String) {
+    val viewModel: DeleteUserViewModel = viewModel()
     var showDialog by remember { mutableStateOf(true) }
 
     if (showDialog) {
@@ -24,19 +24,20 @@ fun DeleteBeneficiaryView(navController: NavController, id: String) {
             text = { Text("Tem certeza de que deseja excluir este beneficiário?") },
             confirmButton = {
                 TextButton(onClick = {
-                    viewModel.deleteBeneficiary(id = id, onSuccess = { navController.navigate("readBeneficiary") })
-                }) {
+                    viewModel.deleteUser(id = id, onSuccess = { navController.navigate("readPendingUser")})
+                    }) {
                     Text("Sim")
                 }
             },
             dismissButton = {
                 TextButton(onClick = {
                     showDialog = false
-                    navController.navigate("readBeneficiary") {
-                        popUpTo("readBeneficiary") { inclusive = true }
+                    navController.navigate("readPendingUser") {
+                        popUpTo("readPendingUser") { inclusive = true }
                     }
                 }) {
                     Text("Não")
+
                 }
             }
         )

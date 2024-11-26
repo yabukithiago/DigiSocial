@@ -77,6 +77,17 @@ fun UsersPageView(navController: NavController) {
                 ) {
                     Text("Membros da Junta")
                 }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Button(
+                    onClick = { navController.navigate("readUsersPendents") },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
+                    modifier = Modifier.fillMaxWidth(0.7f)
+                ) {
+                    Text("Utilizadores Pendentes")
+                }
+
             }
         }
     }

@@ -11,17 +11,17 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.examples.digisocial.ui.view.create.CreateBeneficiaryState
+import com.examples.digisocial.data.BeneficiaryState
 import com.examples.digisocial.utils.getCountryNames
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NacionalidadeDropdownMenu(
-    state: CreateBeneficiaryState,
-    onNacionalidadeChange: (String) -> Unit
+    state: BeneficiaryState,
+    onNacionalidadeChange: (String) -> Unit,
+    isEditing: Boolean = false
 ) {
     var expanded by remember { mutableStateOf(false) }
     var nacionalidades by remember { mutableStateOf<List<String>>(emptyList()) }
@@ -47,7 +47,7 @@ fun NacionalidadeDropdownMenu(
             modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryEditable, enabled = true),
             value = state.nacionalidade,
             onValueChange = { },
-            label = { Text("Nacionalidade") },
+            label = { Text(if (isEditing)"Editar Nacionalidade" else "Nacionalidade") },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
             shape = RoundedCornerShape(12.dp),
             colors = ExposedDropdownMenuDefaults.textFieldColors(
@@ -73,11 +73,4 @@ fun NacionalidadeDropdownMenu(
             }
         }
     }
-}
-
-@Preview (showBackground = true)
-@Composable
-fun NacionalidadeDropdownMenuPreview() {
-    val state = CreateBeneficiaryState()
-    NacionalidadeDropdownMenu(state, onNacionalidadeChange = {})
 }

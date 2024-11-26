@@ -88,10 +88,11 @@ fun LoginView(navController: NavController, onLoginSuccess: (String) -> Unit) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Row(modifier = Modifier
-            .fillMaxWidth(0.8f),
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(0.8f),
             horizontalArrangement = Arrangement.SpaceBetween
-            ) {
+        ) {
             Button(
                 onClick = {
                     viewModel.login(onLoginSuccess = onLoginSuccess, onLoginFailure = { message ->
@@ -125,14 +126,7 @@ fun LoginView(navController: NavController, onLoginSuccess: (String) -> Unit) {
                 modifier = Modifier.weight(1f)
                     .padding(start = 8.dp)
             ) {
-                if (state.isLoading) {
-                    CircularProgressIndicator(
-                        color = Color.White,
-                        modifier = Modifier.size(24.dp)
-                    )
-                } else {
-                    Text(text = "Registar")
-                }
+                Text(text = "Registar")
             }
         }
 

@@ -4,9 +4,9 @@ import LoginViewModel
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Message
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Message
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PersonAdd
 import androidx.compose.material3.Button
@@ -136,7 +136,7 @@ fun HomePageVoluntario(navController: NavController) {
                 Text("Mensagens", color = Color.White)
                 Spacer(modifier = Modifier.height(8.dp))
                 Icon(
-                    imageVector = Icons.Filled.Message,
+                    imageVector = Icons.AutoMirrored.Filled.Message,
                     contentDescription = "Mensagens",
                     tint = Color.White,
                     modifier = Modifier.size(50.dp)

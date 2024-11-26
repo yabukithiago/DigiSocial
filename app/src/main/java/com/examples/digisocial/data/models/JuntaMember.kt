@@ -5,9 +5,10 @@ data class JuntaMember(
     override var nome: String,
     override var telefone: String,
     override var email: String,
-    val role: String = "juntamember",
-//        val escala: List<Escala>
-) : User(id, nome, telefone, email) {
+    override var status: String,
+    override var role: String,
+    override var privileged: Boolean,
+) : User(id, nome, telefone, email, status, role, privileged = false) {
 
     companion object {
         fun fromMap(map: Map<String, Any>): JuntaMember {
@@ -16,6 +17,9 @@ data class JuntaMember(
                 map["nome"] as String,
                 map["telefone"] as String,
                 map["email"] as String,
+                map["status"] as String,
+                map["role"] as String,
+                map["privileged"] as Boolean
             )
         }
     }

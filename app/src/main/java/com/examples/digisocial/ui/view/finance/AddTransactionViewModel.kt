@@ -4,10 +4,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.examples.digisocial.data.models.Transaction
-import com.examples.digisocial.repository.TransactionRepository
+import com.examples.digisocial.data.repository.TransactionRepository
 import kotlinx.coroutines.launch
 
-data class FinanceState(
+data class TransactionState(
     val listTransaction: List<Transaction> = emptyList(),
     var description: String = "",
     var amount: String = "",
@@ -18,7 +18,7 @@ data class FinanceState(
 )
 
 class FinanceViewModel : ViewModel() {
-    var state = mutableStateOf(FinanceState())
+    var state = mutableStateOf(TransactionState())
         private set
 
     var repository = TransactionRepository

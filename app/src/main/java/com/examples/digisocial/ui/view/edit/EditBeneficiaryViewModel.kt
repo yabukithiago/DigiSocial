@@ -1,23 +1,22 @@
-package com.examples.digisocial.ui.view.create
+package com.examples.digisocial.ui.view.edit
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.examples.digisocial.data.BeneficiaryState
 import com.examples.digisocial.data.repository.BeneficiaryRepository
 
-data class CreateBeneficiaryState(
+data class EditBeneficiaryState(
     var nome: String = "",
     var telefone: String = "",
     override var nacionalidade: String = "",
-    var editedNacionalidade: String = "",
     var agregadoFamiliar: String = "",
     var numeroVisitas: Int = 0,
     val isLoading: Boolean = false,
     var errorMessage: String? = null
 ) : BeneficiaryState
 
-class CreateBeneficiaryViewModel : ViewModel() {
-    var state = mutableStateOf(CreateBeneficiaryState())
+class EditBeneficiaryViewModel : ViewModel() {
+    var state = mutableStateOf(EditBeneficiaryState())
         private set
 
     private val nome
@@ -45,8 +44,8 @@ class CreateBeneficiaryViewModel : ViewModel() {
         state.value = state.value.copy(agregadoFamiliar = newValue)
     }
 
-    fun create(onSuccess: () -> Unit){
-        BeneficiaryRepository.createBeneficiary(nome = nome,
+    fun update(id: String, onSuccess: () -> Unit){
+        BeneficiaryRepository.updateBeneficiary(id = id, nome = nome,
             telefone = telefone, nacionalidade = nacionalidade,
             agregadoFamiliar = agregadoFamiliar, numeroVisitas = 0,
             onSuccess = onSuccess, onFailure = { } )

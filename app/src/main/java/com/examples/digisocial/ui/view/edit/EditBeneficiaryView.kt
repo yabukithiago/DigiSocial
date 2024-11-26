@@ -30,15 +30,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.R
-import com.examples.digisocial.repository.BeneficiaryRepository
 import com.examples.digisocial.ui.components.bars.TopBar
 import com.examples.digisocial.ui.theme.DigiSocialTheme
-import com.examples.digisocial.ui.view.create.CreateBeneficiaryViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
 fun EditBeneficiaryView(navController: NavController, id: String) {
-    val viewModel: CreateBeneficiaryViewModel = viewModel()
+    val viewModel: EditBeneficiaryViewModel = viewModel()
     val state by viewModel.state
     val db = FirebaseFirestore.getInstance()
 
@@ -58,7 +56,7 @@ fun EditBeneficiaryView(navController: NavController, id: String) {
             }
     }
 
-    TopBar(title = "Editar Beneficiário s", navController = navController)
+    TopBar(title = "Editar Beneficiários", navController = navController)
 
     Column(
         modifier = Modifier
@@ -102,7 +100,8 @@ fun EditBeneficiaryView(navController: NavController, id: String) {
 
         NacionalidadeDropdownMenu(
             state = state,
-            onNacionalidadeChange = viewModel::onNacionalidadeChange
+            onNacionalidadeChange = viewModel::onNacionalidadeChange,
+            isEditing = true
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -124,11 +123,7 @@ fun EditBeneficiaryView(navController: NavController, id: String) {
             onClick = {
                 if (state.nome.isNotEmpty() && state.telefone.isNotEmpty()
                     && state.nacionalidade.isNotEmpty() && state.agregadoFamiliar.isNotEmpty()) {
-                    BeneficiaryRepository.updateBeneficiary(id, state.nome, state.telefone,
-                        state.nacionalidade, state.agregadoFamiliar, state.numeroVisitas,
-                        onSuccess = { navController.navigate("readBeneficiary") },
-                        onFailure = { message -> state.errorMessage = message }
-                    )
+                    viewModel.update(id, onSuccess = { navController.navigate("readBeneficiary")})
                 } else {
                     state.errorMessage = "Preencha todos os campos."
                 }

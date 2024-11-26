@@ -28,7 +28,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.R
-import com.examples.digisocial.repository.BeneficiaryRepository
 import com.examples.digisocial.ui.components.bars.TopBar
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 
@@ -81,7 +80,8 @@ fun CreateBeneficiaryView(navController: NavController) {
 
         NacionalidadeDropdownMenu(
             state = state,
-            onNacionalidadeChange = viewModel::onNacionalidadeChange
+            onNacionalidadeChange = viewModel::onNacionalidadeChange,
+            isEditing = false
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -103,12 +103,7 @@ fun CreateBeneficiaryView(navController: NavController) {
             onClick = {
                 if (state.nome.isNotEmpty() && state.telefone.isNotEmpty()
                     && state.nacionalidade.isNotEmpty() && state.agregadoFamiliar.isNotEmpty()) {
-                    BeneficiaryRepository.createBeneficiary(
-                        state.nome, state.telefone,
-                        state.nacionalidade, state.agregadoFamiliar, state.numeroVisitas,
-                        onSuccess = { navController.navigate("readBeneficiary") },
-                        onFailure = { message -> state.errorMessage = message }
-                    )
+                    viewModel.create(onSuccess = { navController.navigate("readBeneficiary")})
                 } else {
                     state.errorMessage = "Preencha todos os campos."
                 }

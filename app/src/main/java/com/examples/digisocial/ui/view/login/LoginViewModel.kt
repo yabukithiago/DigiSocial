@@ -122,27 +122,4 @@ class LoginViewModel : ViewModel() {
                 onPermissionFetched(null)
             }
     }
-
-
-    fun sendPasswordResetEmail(email: String, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
-        val auth = FirebaseAuth.getInstance()
-
-        if(email.isEmpty()){
-            state.value = state.value.copy(errorMessage = "Por favor, insira um email.")
-            return
-        }
-
-        state.value = state.value.copy(isLoading = true)
-
-        auth.sendPasswordResetEmail(email)
-            .addOnCompleteListener { task ->
-                state.value = state.value.copy(isLoading = false)
-                if (task.isSuccessful) {
-                    Log.d(TAG, "Email enviado.")
-                    onSuccess()
-                } else {
-                    onFailure(task.exception?.message ?: "Erro ao enviar email")
-                }
-            }
-    }
 }

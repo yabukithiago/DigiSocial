@@ -19,14 +19,16 @@ import com.examples.digisocial.ui.view.home.HomePageAdminView
 import com.examples.digisocial.ui.view.home.HomePageVoluntario
 import com.examples.digisocial.ui.view.home.HomePageJuntaView
 import com.examples.digisocial.ui.view.login.LoginView
-import com.examples.digisocial.ui.view.login.ResetPasswordView
+import com.examples.digisocial.ui.view.resetpassword.ResetPasswordView
 import com.examples.digisocial.ui.view.create.CreateBeneficiaryView
-import com.examples.digisocial.ui.view.create.CreateJuntaMemberView
-import com.examples.digisocial.ui.view.create.CreateVoluntaryView
+import com.examples.digisocial.ui.view.delete.DeleteUserView
+import com.examples.digisocial.ui.view.edit.EditUserView
+import com.examples.digisocial.ui.view.home.HomePageView
 import com.examples.digisocial.ui.view.register.RegisterView
 import com.examples.digisocial.ui.view.show.ShowBeneficiaryView
 import com.examples.digisocial.ui.view.show.ShowJuntaMemberView
 import com.examples.digisocial.ui.view.show.ShowVoluntaryView
+import com.examples.digisocial.ui.view.user.PendingUserView
 import com.examples.digisocial.ui.view.user.UsersPageView
 
 @Composable
@@ -43,6 +45,7 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
                         "voluntary" -> "homeVoluntary"
                         "manager" -> "homeManager"
                         "juntamember" -> "homeJuntaMember"
+                        "" -> "homePage"
                         else -> "login"
                     }
                     navController.navigate(destination)
@@ -55,7 +58,22 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
                 ResetPasswordView(navController)
             }
             //endregion
-
+            //region User
+            composable("readPendingUser"){
+                PendingUserView(navController)
+            }
+            composable(
+                route = "editUser/{id}",
+                arguments = listOf(navArgument("id") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val id = backStackEntry.arguments?.getString("id") ?: ""
+                EditUserView(navController, id)
+            }
+            composable("deleteUser/{id}") { backStackEntry ->
+                val id = backStackEntry.arguments?.getString("id") ?: ""
+                DeleteUserView(navController = navController, id = id)
+            }
+            //endregion
             //region Homes
             composable("homeAdmin") {
                 HomePageAdminView(navController)
@@ -67,15 +85,15 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
             composable("homeJuntaMember") {
                 HomePageJuntaView(navController)
             }
+            composable("homePage") {
+                HomePageView(navController)
+            }
             composable("users") {
                 UsersPageView(navController)
             }
             //endregion
 
             //region CRUD Voluntary
-            composable("registerVoluntary") {
-                CreateVoluntaryView(navController)
-            }
             composable("readVoluntary") {
                 ShowVoluntaryView(navController)
             }
@@ -89,7 +107,7 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
             //endregion
 
             //region CRUD Beneficiary
-            composable("registerBeneficiary") {
+            composable("createBeneficiary") {
                 CreateBeneficiaryView(navController)
             }
             composable("readBeneficiary") {
@@ -109,9 +127,6 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
             //endregion
 
             //region CRUD JuntaMember
-            composable("registerJuntaMember") {
-                CreateJuntaMemberView(navController)
-            }
             composable("readJuntaMember") {
                 ShowJuntaMemberView(navController)
             }
