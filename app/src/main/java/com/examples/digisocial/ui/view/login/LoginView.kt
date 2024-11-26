@@ -86,26 +86,53 @@ fun LoginView(navController: NavController, onLoginSuccess: (String) -> Unit) {
             modifier = Modifier.fillMaxWidth(0.8f)
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-        Button(
-            onClick = {
-                viewModel.login(onLoginSuccess = onLoginSuccess, onLoginFailure = { message ->
-                    state.errorMessage = message
-                })
-            },
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
-            shape = RoundedCornerShape(20.dp),
-            modifier = Modifier.fillMaxWidth(0.8f),
-            enabled = state.email.isNotEmpty() && !state.isLoading
-        ) {
-            if (state.isLoading) {
-                CircularProgressIndicator(
-                    color = Color.White,
-                    modifier = Modifier.size(24.dp)
-                )
-            } else {
-                Text(text = "Entrar")
+        Row(modifier = Modifier
+            .fillMaxWidth(0.8f),
+            horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+            Button(
+                onClick = {
+                    viewModel.login(onLoginSuccess = onLoginSuccess, onLoginFailure = { message ->
+                        state.errorMessage = message
+                    })
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
+                shape = RoundedCornerShape(20.dp),
+                modifier = Modifier.weight(1f)
+                    .padding(end = 8.dp),
+                enabled = state.email.isNotEmpty() && !state.isLoading
+            ) {
+                if (state.isLoading) {
+                    CircularProgressIndicator(
+                        color = Color.White,
+                        modifier = Modifier.size(24.dp)
+                    )
+                } else {
+                    Text(text = "Entrar")
+                }
+            }
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            Button(
+                onClick = {
+                    navController.navigate("register")
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
+                shape = RoundedCornerShape(20.dp),
+                modifier = Modifier.weight(1f)
+                    .padding(start = 8.dp)
+            ) {
+                if (state.isLoading) {
+                    CircularProgressIndicator(
+                        color = Color.White,
+                        modifier = Modifier.size(24.dp)
+                    )
+                } else {
+                    Text(text = "Registar")
+                }
             }
         }
 

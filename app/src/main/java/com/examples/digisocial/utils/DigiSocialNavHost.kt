@@ -20,9 +20,10 @@ import com.examples.digisocial.ui.view.home.HomePageVoluntario
 import com.examples.digisocial.ui.view.home.HomePageJuntaView
 import com.examples.digisocial.ui.view.login.LoginView
 import com.examples.digisocial.ui.view.login.ResetPasswordView
-import com.examples.digisocial.ui.view.register.RegisterBeneficiaryView
-import com.examples.digisocial.ui.view.register.RegisterJuntaMemberView
-import com.examples.digisocial.ui.view.register.RegisterVoluntaryView
+import com.examples.digisocial.ui.view.create.CreateBeneficiaryView
+import com.examples.digisocial.ui.view.create.CreateJuntaMemberView
+import com.examples.digisocial.ui.view.create.CreateVoluntaryView
+import com.examples.digisocial.ui.view.register.RegisterView
 import com.examples.digisocial.ui.view.show.ShowBeneficiaryView
 import com.examples.digisocial.ui.view.show.ShowJuntaMemberView
 import com.examples.digisocial.ui.view.show.ShowVoluntaryView
@@ -47,6 +48,9 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
                     navController.navigate(destination)
                 })
             }
+            composable("register"){
+                RegisterView(navController, onRegisterSuccess = { navController.navigate("login") })
+            }
             composable("resetPassword") {
                 ResetPasswordView(navController)
             }
@@ -70,7 +74,7 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
 
             //region CRUD Voluntary
             composable("registerVoluntary") {
-                RegisterVoluntaryView(navController)
+                CreateVoluntaryView(navController)
             }
             composable("readVoluntary") {
                 ShowVoluntaryView(navController)
@@ -86,7 +90,7 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
 
             //region CRUD Beneficiary
             composable("registerBeneficiary") {
-                RegisterBeneficiaryView(navController)
+                CreateBeneficiaryView(navController)
             }
             composable("readBeneficiary") {
                 ShowBeneficiaryView(navController)
@@ -106,7 +110,7 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
 
             //region CRUD JuntaMember
             composable("registerJuntaMember") {
-                RegisterJuntaMemberView(navController)
+                CreateJuntaMemberView(navController)
             }
             composable("readJuntaMember") {
                 ShowJuntaMemberView(navController)

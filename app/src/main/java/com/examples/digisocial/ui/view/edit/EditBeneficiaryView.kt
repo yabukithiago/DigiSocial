@@ -33,12 +33,12 @@ import com.examples.digisocial.R
 import com.examples.digisocial.repository.BeneficiaryRepository
 import com.examples.digisocial.ui.components.bars.TopBar
 import com.examples.digisocial.ui.theme.DigiSocialTheme
-import com.examples.digisocial.ui.view.register.RegisterBeneficiaryViewModel
+import com.examples.digisocial.ui.view.create.CreateBeneficiaryViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
 fun EditBeneficiaryView(navController: NavController, id: String) {
-    val viewModel: RegisterBeneficiaryViewModel = viewModel()
+    val viewModel: CreateBeneficiaryViewModel = viewModel()
     val state by viewModel.state
     val db = FirebaseFirestore.getInstance()
 

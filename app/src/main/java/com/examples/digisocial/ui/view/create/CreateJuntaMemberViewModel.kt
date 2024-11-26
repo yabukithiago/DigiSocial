@@ -1,9 +1,9 @@
-package com.examples.digisocial.ui.view.register
+package com.examples.digisocial.ui.view.create
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 
-data class RegisterState(
+data class CreateJuntaMemberState(
     var nome: String = "",
     var telefone: String = "",
     var email: String = "",
@@ -11,8 +11,8 @@ data class RegisterState(
     val isLoading: Boolean = false,
     var errorMessage: String? = null
 )
-class RegisterVoluntaryViewModel : ViewModel() {
-    var state = mutableStateOf(RegisterState())
+class CreateJuntaMemberViewModel : ViewModel() {
+    var state = mutableStateOf(CreateJuntaMemberState())
         private set
 
     fun onEmailChange(newValue: String) {

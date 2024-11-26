@@ -13,14 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.examples.digisocial.ui.view.register.RegisterBeneficiaryState
+import com.examples.digisocial.ui.view.create.CreateBeneficiaryState
 import com.examples.digisocial.utils.getCountryNames
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NacionalidadeDropdownMenu(
-    state: RegisterBeneficiaryState,
+    state: CreateBeneficiaryState,
     onNacionalidadeChange: (String) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -78,6 +78,6 @@ fun NacionalidadeDropdownMenu(
 @Preview (showBackground = true)
 @Composable
 fun NacionalidadeDropdownMenuPreview() {
-    val state = RegisterBeneficiaryState()
+    val state = CreateBeneficiaryState()
     NacionalidadeDropdownMenu(state, onNacionalidadeChange = {})
 }

@@ -1,9 +1,9 @@
-package com.examples.digisocial.ui.view.register
+package com.examples.digisocial.ui.view.create
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 
-data class RegisterBeneficiaryState(
+data class CreateBeneficiaryState(
     var nome: String = "",
     var telefone: String = "",
     var nacionalidade: String = "",
@@ -13,8 +13,8 @@ data class RegisterBeneficiaryState(
     var errorMessage: String? = null
 )
 
-class RegisterBeneficiaryViewModel : ViewModel() {
-    var state = mutableStateOf(RegisterBeneficiaryState())
+class CreateBeneficiaryViewModel : ViewModel() {
+    var state = mutableStateOf(CreateBeneficiaryState())
         private set
 
     fun onNomeChange(newValue: String) {

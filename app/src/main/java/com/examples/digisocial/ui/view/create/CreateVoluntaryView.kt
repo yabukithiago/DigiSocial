@@ -1,4 +1,4 @@
-package com.examples.digisocial.ui.view.register
+package com.examples.digisocial.ui.view.create
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -41,8 +41,8 @@ import com.examples.digisocial.ui.components.bars.TopBar
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
-fun RegisterVoluntaryView(navController: NavController) {
-    val viewModel: RegisterVoluntaryViewModel = viewModel()
+fun CreateVoluntaryView(navController: NavController) {
+    val viewModel: CreateVoluntaryViewModel = viewModel()
     val state by viewModel.state
     var isPrivileged by remember { mutableStateOf(false) }
 
@@ -164,8 +164,8 @@ fun RegisterVoluntaryView(navController: NavController) {
 
 @Preview (showBackground = true)
 @Composable
-fun RegisterVoluntaryViewPreview() {
+fun CreateVoluntaryViewPreview() {
     DigiSocialTheme {
-        RegisterVoluntaryView(navController = rememberNavController())
+        CreateVoluntaryView(navController = rememberNavController())
     }
 }

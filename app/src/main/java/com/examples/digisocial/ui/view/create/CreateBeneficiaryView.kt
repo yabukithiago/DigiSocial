@@ -1,5 +1,6 @@
-package com.examples.digisocial.ui.view.register
+package com.examples.digisocial.ui.view.create
 
+import com.examples.digisocial.ui.components.NacionalidadeDropdownMenu
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,28 +18,27 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.R
-import com.examples.digisocial.repository.JuntaMemberRepository
+import com.examples.digisocial.repository.BeneficiaryRepository
 import com.examples.digisocial.ui.components.bars.TopBar
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
-fun RegisterJuntaMemberView(navController: NavController) {
-    val viewmodel: RegisterJuntaMemberViewModel = viewModel()
-    val state by viewmodel.state
+fun CreateBeneficiaryView(navController: NavController) {
+    val viewModel: CreateBeneficiaryViewModel = viewModel()
+    val state by viewModel.state
 
-    TopBar(title = "Registar Membros da Junta", navController = navController)
+    TopBar(title = "Registar Beneficiários", navController = navController)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -55,8 +55,8 @@ fun RegisterJuntaMemberView(navController: NavController) {
 
         TextField(
             value = state.nome,
-            onValueChange = viewmodel::onNomeChange,
-            label = { Text("Nome do Membro da Junta") },
+            onValueChange = viewModel::onNomeChange,
+            label = { Text("Nome") },
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
@@ -68,8 +68,8 @@ fun RegisterJuntaMemberView(navController: NavController) {
 
         TextField(
             value = state.telefone,
-            onValueChange = viewmodel::onTelefoneChange,
-            label = { Text("Telefone do Membro da Junta") },
+            onValueChange = viewModel::onTelefoneChange,
+            label = { Text("Telefone") },
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
@@ -79,40 +79,34 @@ fun RegisterJuntaMemberView(navController: NavController) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        TextField(
-            value = state.email,
-            onValueChange = viewmodel::onEmailChange,
-            label = { Text("Email do Membro da Junta") },
-            colors = TextFieldDefaults.colors(
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
-            ),
-            shape = RoundedCornerShape(12.dp),
+        NacionalidadeDropdownMenu(
+            state = state,
+            onNacionalidadeChange = viewModel::onNacionalidadeChange
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         TextField(
-            value = state.password,
-            onValueChange = viewmodel::onPasswordChange,
-            label = { Text("Senha do Membro da Junta") },
+            value = state.agregadoFamiliar,
+            onValueChange = viewModel::onAgregadoFamiliarChange,
+            label = { Text("Agregado Familiar") },
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
             ),
             shape = RoundedCornerShape(12.dp),
-            visualTransformation = PasswordVisualTransformation(),
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
             onClick = {
-                if (state.email.isNotEmpty() && state.password.isNotEmpty()) {
-                    JuntaMemberRepository.createJuntaMember(
-                        state.email, state.password,
+                if (state.nome.isNotEmpty() && state.telefone.isNotEmpty()
+                    && state.nacionalidade.isNotEmpty() && state.agregadoFamiliar.isNotEmpty()) {
+                    BeneficiaryRepository.createBeneficiary(
                         state.nome, state.telefone,
-                        onSuccess = { navController.popBackStack() },
+                        state.nacionalidade, state.agregadoFamiliar, state.numeroVisitas,
+                        onSuccess = { navController.navigate("readBeneficiary") },
                         onFailure = { message -> state.errorMessage = message }
                     )
                 } else {
@@ -122,7 +116,7 @@ fun RegisterJuntaMemberView(navController: NavController) {
             colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
             enabled = !state.isLoading
         ) {
-            Text(if (state.isLoading) "Carregando..." else "Registar Membro da Junta")
+            Text(if (state.isLoading) "Carregando..." else "Registar Beneficiário")
         }
 
         if (state.errorMessage?.isNotEmpty() == true) {
@@ -133,8 +127,8 @@ fun RegisterJuntaMemberView(navController: NavController) {
 
 @Preview (showBackground = true)
 @Composable
-fun RegisterJuntaMemberViewPreview() {
+fun CreateBeneficiaryViewPreview() {
     DigiSocialTheme {
-        RegisterJuntaMemberView(navController = rememberNavController())
+        CreateBeneficiaryView(navController = rememberNavController())
     }
 }
