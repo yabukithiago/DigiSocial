@@ -58,6 +58,7 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
                 ResetPasswordView(navController)
             }
             //endregion
+
             //region User
             composable("readPendingUser"){
                 PendingUserView(navController)
@@ -74,6 +75,7 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
                 DeleteUserView(navController = navController, id = id)
             }
             //endregion
+            
             //region Homes
             composable("homeAdmin") {
                 HomePageAdminView(navController)

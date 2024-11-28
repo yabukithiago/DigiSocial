@@ -1,4 +1,4 @@
-package com.examples.digisocial.ui.view.edit
+package com.examples.digisocial.ui.view.delete
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel

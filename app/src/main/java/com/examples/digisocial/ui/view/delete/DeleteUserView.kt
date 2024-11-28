@@ -10,7 +10,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.examples.digisocial.ui.view.edit.DeleteUserViewModel
 
 @Composable
 fun DeleteUserView(navController: NavController, id: String) {

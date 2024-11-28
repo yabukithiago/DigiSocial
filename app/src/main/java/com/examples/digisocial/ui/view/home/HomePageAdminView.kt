@@ -41,9 +41,7 @@ fun HomePageAdminView(navController: NavController) {
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(50.dp)
-                .padding(bottom = 70.dp),
+                .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {

@@ -81,7 +81,7 @@ fun UsersPageView(navController: NavController) {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Button(
-                    onClick = { navController.navigate("readUsersPendents") },
+                    onClick = { navController.navigate("readPendingUser") },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
                     modifier = Modifier.fillMaxWidth(0.7f)
                 ) {

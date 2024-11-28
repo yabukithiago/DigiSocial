@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -59,6 +60,7 @@ fun LoginView(navController: NavController, onLoginSuccess: (String) -> Unit) {
             ),
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier.fillMaxWidth(0.8f)
+                .shadow(4.dp, shape = RoundedCornerShape(20.dp))
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -84,6 +86,7 @@ fun LoginView(navController: NavController, onLoginSuccess: (String) -> Unit) {
             shape = RoundedCornerShape(20.dp),
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth(0.8f)
+                .shadow(4.dp, shape = RoundedCornerShape(20.dp))
         )
 
         Spacer(modifier = Modifier.height(16.dp))

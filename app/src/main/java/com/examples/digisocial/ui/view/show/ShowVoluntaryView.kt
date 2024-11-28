@@ -87,19 +87,19 @@ fun ShowVoluntaryView(navController: NavController, modifier: Modifier = Modifie
             }
         }
 
-        FloatingActionButton(
-            onClick = { navController.navigate("registerVoluntary") },
-            containerColor = Color.Blue,
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(16.dp)
-        ) {
-            Icon(
-                imageVector = Icons.Default.Add,
-                contentDescription = "Adicionar voluntário",
-                tint = Color.White
-            )
-        }
+//        FloatingActionButton(
+//            onClick = { navController.navigate("registerVoluntary") },
+//            containerColor = Color.Blue,
+//            modifier = Modifier
+//                .align(Alignment.BottomEnd)
+//                .padding(16.dp)
+//        ) {
+//            Icon(
+//                imageVector = Icons.Default.Add,
+//                contentDescription = "Adicionar voluntário",
+//                tint = Color.White
+//            )
+//        }
     }
     LaunchedEffect (key1 = Unit){
         viewModel.loadListVoluntary()

@@ -35,13 +35,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.R
 
 @Composable
@@ -78,6 +81,7 @@ fun RegisterView(navController: NavController, onRegisterSuccess: () -> Unit) {
             ),
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier.fillMaxWidth(0.8f)
+                .shadow(4.dp, shape = RoundedCornerShape(20.dp))
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -93,6 +97,7 @@ fun RegisterView(navController: NavController, onRegisterSuccess: () -> Unit) {
             ),
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier.fillMaxWidth(0.8f)
+                .shadow(4.dp, shape = RoundedCornerShape(20.dp))
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -108,6 +113,7 @@ fun RegisterView(navController: NavController, onRegisterSuccess: () -> Unit) {
             ),
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier.fillMaxWidth(0.8f)
+                .shadow(4.dp, shape = RoundedCornerShape(20.dp))
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -133,6 +139,7 @@ fun RegisterView(navController: NavController, onRegisterSuccess: () -> Unit) {
             shape = RoundedCornerShape(20.dp),
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth(0.8f)
+                .shadow(4.dp, shape = RoundedCornerShape(20.dp))
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -158,6 +165,7 @@ fun RegisterView(navController: NavController, onRegisterSuccess: () -> Unit) {
             shape = RoundedCornerShape(20.dp),
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth(0.8f)
+                .shadow(4.dp, shape = RoundedCornerShape(20.dp))
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -187,10 +195,15 @@ fun RegisterView(navController: NavController, onRegisterSuccess: () -> Unit) {
             }
         }
 
-        TextButton(onClick = {
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Button(onClick = {
             navController.navigate("login")
-        }) {
-            Text("Já tem uma conta? Faça login")
+        },
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
+            shape = RoundedCornerShape(20.dp),
+            modifier = Modifier.fillMaxWidth(0.8f),) {
+            Text("Voltar")
         }
 
         if (state.errorMessage != null) {
@@ -204,3 +217,8 @@ fun RegisterView(navController: NavController, onRegisterSuccess: () -> Unit) {
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun PreviewRegisterView(){
+    RegisterView(navController = rememberNavController(), onRegisterSuccess = {})
+}
