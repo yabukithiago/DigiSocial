@@ -3,7 +3,7 @@ package com.examples.digisocial.ui.view.show
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.examples.digisocial.data.models.Voluntary
-import com.examples.digisocial.repository.VoluntaryRepository
+import com.examples.digisocial.data.repository.VoluntaryRepository
 
 data class ShowVoluntaryState(
     val listVoluntary: List<Voluntary> = emptyList(),

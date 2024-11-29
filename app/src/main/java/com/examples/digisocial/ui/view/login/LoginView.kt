@@ -1,6 +1,5 @@
 package com.examples.digisocial.ui.view.login
 
-import LoginViewModel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,6 +17,7 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -59,6 +59,7 @@ fun LoginView(navController: NavController, onLoginSuccess: (String) -> Unit) {
             ),
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier.fillMaxWidth(0.8f)
+                .shadow(4.dp, shape = RoundedCornerShape(20.dp))
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -84,28 +85,50 @@ fun LoginView(navController: NavController, onLoginSuccess: (String) -> Unit) {
             shape = RoundedCornerShape(20.dp),
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth(0.8f)
+                .shadow(4.dp, shape = RoundedCornerShape(20.dp))
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-        Button(
-            onClick = {
-                viewModel.login(onLoginSuccess = onLoginSuccess, onLoginFailure = { message ->
-                    state.errorMessage = message
-                })
-            },
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
-            shape = RoundedCornerShape(20.dp),
-            modifier = Modifier.fillMaxWidth(0.8f),
-            enabled = state.email.isNotEmpty() && !state.isLoading
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(0.8f),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            if (state.isLoading) {
-                CircularProgressIndicator(
-                    color = Color.White,
-                    modifier = Modifier.size(24.dp)
-                )
-            } else {
-                Text(text = "Entrar")
+            Button(
+                onClick = {
+                    viewModel.login(onLoginSuccess = onLoginSuccess, onLoginFailure = { message ->
+                        state.errorMessage = message
+                    })
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
+                shape = RoundedCornerShape(20.dp),
+                modifier = Modifier.weight(1f)
+                    .padding(end = 8.dp),
+                enabled = state.email.isNotEmpty() && !state.isLoading
+            ) {
+                if (state.isLoading) {
+                    CircularProgressIndicator(
+                        color = Color.White,
+                        modifier = Modifier.size(24.dp)
+                    )
+                } else {
+                    Text(text = "Entrar")
+                }
+            }
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            Button(
+                onClick = {
+                    navController.navigate("register")
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
+                shape = RoundedCornerShape(20.dp),
+                modifier = Modifier.weight(1f)
+                    .padding(start = 8.dp)
+            ) {
+                Text(text = "Registar")
             }
         }
 

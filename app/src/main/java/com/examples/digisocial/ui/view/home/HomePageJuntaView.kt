@@ -1,6 +1,6 @@
 package com.examples.digisocial.ui.view.home
 
-import LoginViewModel
+import com.examples.digisocial.ui.view.login.LoginViewModel
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

@@ -1,8 +1,9 @@
-package com.examples.digisocial.repository
+package com.examples.digisocial.data.repository
 
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.examples.digisocial.data.models.Beneficiary
+import com.examples.digisocial.data.models.Visit
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -15,39 +16,42 @@ object BeneficiaryRepository {
         telefone: String,
         nacionalidade: String,
         agregadoFamiliar: String,
-        numeroVisitas: Int,
-        onSuccess: (String) -> Unit,
+        onSuccess: () -> Unit,
         onFailure: (String) -> Unit
     ) {
 
         val uid = auth.currentUser?.uid
+        if (uid != null) {
+            db.collection("user").document(uid).get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.contains("nome")) {
+                        val userName = document.getString("nome") ?: ""
 
-        val beneficiary = uid?.let {
-            Beneficiary(
-                id = "", nome = nome, telefone = telefone,
-                nacionalidade = nacionalidade, agregadoFamiliar = agregadoFamiliar,
-                numeroVisitas = numeroVisitas, ownerId = it
-            )
-        }
+                        val beneficiary = Beneficiary(
+                            id = "", nome = nome, telefone = telefone,
+                            nacionalidade = nacionalidade, agregadoFamiliar = agregadoFamiliar,
+                            ownerId = userName
+                        )
 
-        if (beneficiary != null) {
-            db.collection("beneficiary")
-                .add(beneficiary)
-                .addOnCompleteListener { documentReference ->
-                    val generatedId = documentReference.result.id
+                        db.collection("beneficiary")
+                            .add(beneficiary)
+                            .addOnCompleteListener { documentReference ->
+                                val generatedId = documentReference.result.id
 
-                    db.collection("beneficiary")
-                        .document(generatedId)
-                        .update("id", generatedId)
-                        .addOnSuccessListener {
-                            onSuccess("Beneficiário editado com sucesso: $generatedId")
-                        }
-                        .addOnFailureListener { e ->
-                            onFailure(e.message ?: "Erro ao adicionar beneficiário")
-                        }
-                }
-                .addOnFailureListener { e ->
-                    onFailure(e.message ?: "Erro ao adicionar beneficiário")
+                                db.collection("beneficiary")
+                                    .document(generatedId)
+                                    .update("id", generatedId)
+                                    .addOnSuccessListener {
+                                        onSuccess()
+                                    }
+                                    .addOnFailureListener { e ->
+                                        onFailure(e.message ?: "Erro ao adicionar beneficiário")
+                                    }
+                            }
+                            .addOnFailureListener { e ->
+                                onFailure(e.message ?: "Erro ao adicionar beneficiário")
+                            }
+                    }
                 }
         }
     }
@@ -83,8 +87,7 @@ object BeneficiaryRepository {
         telefone: String,
         nacionalidade: String,
         agregadoFamiliar: String,
-        numeroVisitas: Int,
-        onSuccess: (String) -> Unit,
+        onSuccess: () -> Unit,
         onFailure: (String) -> Unit
     ) {
         val updates = mapOf(
@@ -92,14 +95,13 @@ object BeneficiaryRepository {
             "telefone" to telefone,
             "nacionalidade" to nacionalidade,
             "agregadoFamiliar" to agregadoFamiliar,
-            "numeroVisitas" to numeroVisitas
         )
 
         db.collection("beneficiary")
             .document(id)
             .update(updates)
             .addOnSuccessListener {
-                onSuccess("Beneficiário editado com sucesso: $id")
+                onSuccess()
             }
             .addOnFailureListener { e ->
                 onFailure("Erro ao atualizar beneficiário: ${e.message}")

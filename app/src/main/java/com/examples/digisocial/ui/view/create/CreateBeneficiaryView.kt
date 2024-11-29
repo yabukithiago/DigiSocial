@@ -1,4 +1,4 @@
-package com.examples.digisocial.ui.view.register
+package com.examples.digisocial.ui.view.create
 
 import com.examples.digisocial.ui.components.NacionalidadeDropdownMenu
 import androidx.compose.foundation.Image
@@ -28,13 +28,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.R
-import com.examples.digisocial.repository.BeneficiaryRepository
 import com.examples.digisocial.ui.components.bars.TopBar
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
-fun RegisterBeneficiaryView(navController: NavController) {
-    val viewModel: RegisterBeneficiaryViewModel = viewModel()
+fun CreateBeneficiaryView(navController: NavController) {
+    val viewModel: CreateBeneficiaryViewModel = viewModel()
     val state by viewModel.state
 
     TopBar(title = "Registar Beneficiários", navController = navController)
@@ -81,7 +80,8 @@ fun RegisterBeneficiaryView(navController: NavController) {
 
         NacionalidadeDropdownMenu(
             state = state,
-            onNacionalidadeChange = viewModel::onNacionalidadeChange
+            onNacionalidadeChange = viewModel::onNacionalidadeChange,
+            isEditing = false
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -103,12 +103,7 @@ fun RegisterBeneficiaryView(navController: NavController) {
             onClick = {
                 if (state.nome.isNotEmpty() && state.telefone.isNotEmpty()
                     && state.nacionalidade.isNotEmpty() && state.agregadoFamiliar.isNotEmpty()) {
-                    BeneficiaryRepository.createBeneficiary(
-                        state.nome, state.telefone,
-                        state.nacionalidade, state.agregadoFamiliar, state.numeroVisitas,
-                        onSuccess = { navController.navigate("goToBeneficiary") },
-                        onFailure = { message -> state.errorMessage = message }
-                    )
+                    viewModel.create(onSuccess = { navController.navigate("readBeneficiary")})
                 } else {
                     state.errorMessage = "Preencha todos os campos."
                 }
@@ -127,8 +122,8 @@ fun RegisterBeneficiaryView(navController: NavController) {
 
 @Preview (showBackground = true)
 @Composable
-fun RegisterBeneficiaryViewPreview() {
+fun CreateBeneficiaryViewPreview() {
     DigiSocialTheme {
-        RegisterBeneficiaryView(navController = rememberNavController())
+        CreateBeneficiaryView(navController = rememberNavController())
     }
 }

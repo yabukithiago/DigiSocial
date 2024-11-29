@@ -51,6 +51,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.play.services.wearable)
     implementation(libs.ui)
     implementation(libs.material3)
     implementation(libs.androidx.material.icons.extended)

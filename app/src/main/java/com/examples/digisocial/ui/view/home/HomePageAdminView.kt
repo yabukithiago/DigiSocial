@@ -1,6 +1,6 @@
 package com.examples.digisocial.ui.view.home
 
-import LoginViewModel
+import com.examples.digisocial.ui.view.login.LoginViewModel
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,15 +35,13 @@ import com.examples.digisocial.ui.theme.DigiSocialTheme
 @Composable
 fun HomePageAdminView(navController: NavController) {
     val viewModel: LoginViewModel = viewModel()
-
+    
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(50.dp)
-                .padding(bottom = 70.dp),
+                .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -125,7 +123,7 @@ fun HomePageAdminView(navController: NavController) {
                                 tint = Color.White,
                                 modifier = Modifier.size(50.dp)
                             )
-                            Text("Botão 3", color = Color.White)
+                            Text("Horários", color = Color.White)
                         }
                     }
                     Button(
@@ -146,7 +144,7 @@ fun HomePageAdminView(navController: NavController) {
                                 tint = Color.White,
                                 modifier = Modifier.size(50.dp)
                             )
-                            Text("Botão 4", color = Color.White)
+                            Text("Relatórios", color = Color.White)
                         }
                     }
                 }

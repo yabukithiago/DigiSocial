@@ -1,3 +1,5 @@
+package com.examples.digisocial.ui.view.login
+
 import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
@@ -120,29 +122,6 @@ class LoginViewModel : ViewModel() {
                 Log.w(TAG, "Erro ao buscar o tipo de usuário", exception)
                 state.value = state.value.copy(errorMessage = "Erro ao buscar o tipo de usuário")
                 onPermissionFetched(null)
-            }
-    }
-
-
-    fun sendPasswordResetEmail(email: String, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
-        val auth = FirebaseAuth.getInstance()
-
-        if(email.isEmpty()){
-            state.value = state.value.copy(errorMessage = "Por favor, insira um email.")
-            return
-        }
-
-        state.value = state.value.copy(isLoading = true)
-
-        auth.sendPasswordResetEmail(email)
-            .addOnCompleteListener { task ->
-                state.value = state.value.copy(isLoading = false)
-                if (task.isSuccessful) {
-                    Log.d(TAG, "Email enviado.")
-                    onSuccess()
-                } else {
-                    onFailure(task.exception?.message ?: "Erro ao enviar email")
-                }
             }
     }
 }

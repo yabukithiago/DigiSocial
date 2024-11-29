@@ -1,6 +1,5 @@
-package com.examples.digisocial.ui.view.login
+package com.examples.digisocial.ui.view.resetpassword
 
-import LoginViewModel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -38,7 +37,7 @@ import com.examples.digisocial.R
 
 @Composable
 fun ResetPasswordView(navController: NavController) {
-    val viewModel: LoginViewModel = viewModel()
+    val viewModel: ResetPasswordViewModel = viewModel()
     val state by viewModel.state
 
     Column(

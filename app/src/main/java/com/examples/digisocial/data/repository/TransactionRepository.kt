@@ -1,4 +1,4 @@
-package com.examples.digisocial.repository
+package com.examples.digisocial.data.repository
 
 import android.content.ContentValues.TAG
 import android.util.Log

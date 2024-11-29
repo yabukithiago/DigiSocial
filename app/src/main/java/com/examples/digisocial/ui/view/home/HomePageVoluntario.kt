@@ -1,14 +1,14 @@
 package com.examples.digisocial.ui.view.home
 
-import LoginViewModel
+import com.examples.digisocial.ui.view.login.LoginViewModel
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Message
 import androidx.compose.material.icons.filled.CalendarMonth
+import androidx.compose.material.icons.filled.Checklist
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Message
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.PersonAdd
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -45,33 +45,6 @@ fun HomePageVoluntario(navController: NavController) {
 
         // Exibe apenas para usuários privilegiados
         if (privileged == true) {
-            // Botão de Registar Beneficiário
-            Button(
-                onClick = { navController.navigate("registerBeneficiary") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp),
-                shape = RoundedCornerShape(8.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
-            ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text("Registar Beneficiários", color = Color.White)
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Icon(
-                        imageVector = Icons.Filled.PersonAdd,
-                        contentDescription = "Registar Beneficiários",
-                        tint = Color.White,
-                        modifier = Modifier.size(50.dp)
-                    )
-                }
-            }
-        }
-
-        // Botão de Editar Beneficiário - apenas para privilegiados
-        if (privileged == true) {
             Button(
                 onClick = { navController.navigate("readBeneficiary") },
                 modifier = Modifier
@@ -84,7 +57,7 @@ fun HomePageVoluntario(navController: NavController) {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    Text("Editar Beneficiários", color = Color.White)
+                    Text("Beneficiarios", color = Color.White)
                     Spacer(modifier = Modifier.height(8.dp))
                     Icon(
                         imageVector = Icons.Filled.Edit,
@@ -93,6 +66,30 @@ fun HomePageVoluntario(navController: NavController) {
                         modifier = Modifier.size(50.dp)
                     )
                 }
+            }
+        }
+
+        // Botão de Registo de Presenças
+        Button(
+            onClick = { navController.navigate("readBeneficiary") },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            shape = RoundedCornerShape(8.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text("Registar Presença", color = Color.White)
+                Spacer(modifier = Modifier.height(8.dp))
+                Icon(
+                    imageVector = Icons.Filled.Checklist,
+                    contentDescription = "Presença",
+                    tint = Color.White,
+                    modifier = Modifier.size(50.dp)
+                )
             }
         }
 
@@ -136,7 +133,7 @@ fun HomePageVoluntario(navController: NavController) {
                 Text("Mensagens", color = Color.White)
                 Spacer(modifier = Modifier.height(8.dp))
                 Icon(
-                    imageVector = Icons.Filled.Message,
+                    imageVector = Icons.AutoMirrored.Filled.Message,
                     contentDescription = "Mensagens",
                     tint = Color.White,
                     modifier = Modifier.size(50.dp)
@@ -185,7 +182,7 @@ fun HomePageVoluntario(navController: NavController) {
 
 @Preview(showBackground = true)
 @Composable
-fun HomePageVoluntario() {
+fun HomePageVoluntarioPreview() {
     DigiSocialTheme {
         HomePageVoluntario(navController = rememberNavController())
     }

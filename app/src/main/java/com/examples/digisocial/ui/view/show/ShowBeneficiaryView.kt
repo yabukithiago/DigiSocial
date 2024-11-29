@@ -36,7 +36,6 @@ import com.examples.digisocial.ui.components.cards.BeneficiaryCard
 
 @Composable
 fun ShowBeneficiaryView(navController: NavController, modifier: Modifier = Modifier) {
-
     val viewModel: ShowBeneficiaryViewModel = viewModel()
     val state by viewModel.state
     var searchQuery by remember { mutableStateOf("") }
@@ -83,7 +82,6 @@ fun ShowBeneficiaryView(navController: NavController, modifier: Modifier = Modif
                             telefone = item.telefone,
                             nacionalidade = item.nacionalidade,
                             agregadoFamiliar = item.agregadoFamiliar,
-                            numeroVisitas = item.numeroVisitas,
                             ownerId = item.ownerId
                         )
                     }
@@ -91,7 +89,7 @@ fun ShowBeneficiaryView(navController: NavController, modifier: Modifier = Modif
             }
         }
         FloatingActionButton(
-            onClick = { navController.navigate("registerBeneficiary") },
+            onClick = { navController.navigate("createBeneficiary") },
             containerColor = Color.Blue,
             modifier = Modifier
                 .align(Alignment.BottomEnd)

@@ -75,8 +75,8 @@ fun AddTransactionView(navController: NavController) {
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 RadioButton(
-                    selected = state.type == "ENTRY",
-                    onClick = { viewModel.onTypeChange("ENTRY") },
+                    selected = state.type == "ENTRADA",
+                    onClick = { viewModel.onTypeChange("ENTRADA") },
                     modifier = Modifier.scale(0.8f)
                 )
                 Text(
@@ -84,8 +84,8 @@ fun AddTransactionView(navController: NavController) {
                 )
 
                 RadioButton(
-                    selected = state.type == "EXIT",
-                    onClick = { viewModel.onTypeChange("EXIT") },
+                    selected = state.type == "SAIDA",
+                    onClick = { viewModel.onTypeChange("SAIDA") },
                     modifier = Modifier.scale(0.8f)
                 )
                 Text(

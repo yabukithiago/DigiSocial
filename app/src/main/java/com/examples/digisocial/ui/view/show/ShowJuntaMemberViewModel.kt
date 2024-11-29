@@ -3,7 +3,7 @@ package com.examples.digisocial.ui.view.show
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.examples.digisocial.data.models.JuntaMember
-import com.examples.digisocial.repository.JuntaMemberRepository
+import com.examples.digisocial.data.repository.JuntaMemberRepository
 
 data class ShowJuntaMemberState(
     val listJuntaMember: List<JuntaMember> = emptyList(),
