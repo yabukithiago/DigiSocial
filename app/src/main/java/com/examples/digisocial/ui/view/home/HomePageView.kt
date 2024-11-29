@@ -1,6 +1,6 @@
 package com.examples.digisocial.ui.view.home
 
-import LoginViewModel
+import com.examples.digisocial.ui.view.login.LoginViewModel
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -34,7 +34,7 @@ fun HomePageView(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "Não tem acesso, por favor entre em contato com o administrador",
+        Text(text = "Não possui acesso, por favor entre em contato com o administrador.",
             textAlign = Center,
             softWrap = true,
             overflow = TextOverflow.Ellipsis)

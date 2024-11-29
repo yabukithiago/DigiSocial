@@ -82,7 +82,6 @@ fun ShowBeneficiaryView(navController: NavController, modifier: Modifier = Modif
                             telefone = item.telefone,
                             nacionalidade = item.nacionalidade,
                             agregadoFamiliar = item.agregadoFamiliar,
-                            numeroVisitas = item.numeroVisitas,
                             ownerId = item.ownerId
                         )
                     }

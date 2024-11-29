@@ -11,8 +11,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.examples.digisocial.ui.view.attendance.AttendanceRegisterView
 import com.examples.digisocial.ui.view.delete.DeleteBeneficiaryView
-import com.examples.digisocial.ui.view.edit.EditBeneficiaryView
 import com.examples.digisocial.ui.view.finance.AddTransactionView
 import com.examples.digisocial.ui.view.finance.ShowTransactionView
 import com.examples.digisocial.ui.view.home.HomePageAdminView
@@ -22,6 +22,7 @@ import com.examples.digisocial.ui.view.login.LoginView
 import com.examples.digisocial.ui.view.resetpassword.ResetPasswordView
 import com.examples.digisocial.ui.view.create.CreateBeneficiaryView
 import com.examples.digisocial.ui.view.delete.DeleteUserView
+import com.examples.digisocial.ui.view.edit.EditBeneficiaryView
 import com.examples.digisocial.ui.view.edit.EditUserView
 import com.examples.digisocial.ui.view.home.HomePageView
 import com.examples.digisocial.ui.view.register.RegisterView
@@ -151,6 +152,13 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
             }
             composable("showTransaction"){
                 ShowTransactionView(navController)
+            }
+            //endregion
+
+            //region Attendance
+            composable("attendanceRegister/{id}") { backStackEntry ->
+                val id = backStackEntry.arguments?.getString("id") ?: ""
+                AttendanceRegisterView(navController = navController, id = id)
             }
             //endregion
 

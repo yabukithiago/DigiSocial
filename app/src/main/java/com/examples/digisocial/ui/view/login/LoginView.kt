@@ -1,6 +1,5 @@
 package com.examples.digisocial.ui.view.login
 
-import LoginViewModel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape

@@ -144,6 +144,9 @@ fun EditBeneficiaryView(navController: NavController, id: String) {
 @Composable
 fun EditBeneficiaryViewPreview() {
     DigiSocialTheme {
-        EditBeneficiaryView(navController = rememberNavController(), id="123")
+        EditBeneficiaryView(
+            navController = rememberNavController(),
+            id = "123"
+        )
     }
 }

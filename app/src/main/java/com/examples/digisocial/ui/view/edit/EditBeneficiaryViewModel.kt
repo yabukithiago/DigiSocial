@@ -47,7 +47,7 @@ class EditBeneficiaryViewModel : ViewModel() {
     fun update(id: String, onSuccess: () -> Unit){
         BeneficiaryRepository.updateBeneficiary(id = id, nome = nome,
             telefone = telefone, nacionalidade = nacionalidade,
-            agregadoFamiliar = agregadoFamiliar, numeroVisitas = 0,
+            agregadoFamiliar = agregadoFamiliar,
             onSuccess = onSuccess, onFailure = { } )
     }
 }

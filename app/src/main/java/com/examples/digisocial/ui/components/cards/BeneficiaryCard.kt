@@ -1,6 +1,6 @@
 package com.examples.digisocial.ui.components.cards
 
-import LoginViewModel
+import com.examples.digisocial.ui.view.login.LoginViewModel
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -42,22 +42,29 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.examples.digisocial.data.models.Visit
+import com.examples.digisocial.data.repository.VisitRepository
 import com.examples.digisocial.ui.components.InfoRow
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
 @Composable
 fun BeneficiaryCard(navController: NavController, id: String, nome: String, telefone: String,
-                    nacionalidade: String, agregadoFamiliar: String, numeroVisitas: Int,
-                    ownerId: String) {
+                    nacionalidade: String, agregadoFamiliar: String, ownerId: String) {
     var menuExpanded by remember { mutableStateOf(false) }
     val auth = Firebase.auth
     val currentUser = auth.currentUser
     val loginViewModel: LoginViewModel = viewModel()
     var role = ""
+    var privileged = false
 
     if (currentUser != null) {
         loginViewModel.fetchUserRole(currentUser.uid) { role = it }
+        loginViewModel.fetchUserPermission {
+            if (it != null) {
+                privileged = it
+            }
+        }
     }
 
     Card(
@@ -104,7 +111,6 @@ fun BeneficiaryCard(navController: NavController, id: String, nome: String, tele
                 InfoRow(icon = Icons.Default.Phone, text = telefone)
                 InfoRow(icon = Icons.Filled.LocationOn, text = nacionalidade)
                 InfoRow(icon = Icons.Default.Face, text = agregadoFamiliar)
-                InfoRow(icon = Icons.Default.Star, text = numeroVisitas.toString())
                 InfoRow(icon = Icons.Default.Done, text = ownerId)
             }
 
@@ -122,13 +128,20 @@ fun BeneficiaryCard(navController: NavController, id: String, nome: String, tele
                     modifier = Modifier.align(Alignment.TopEnd)
                 ) {
                     DropdownMenuItem(
-                        text = { Text("Editar") },
+                        text = { Text("Registar Presença") },
                         onClick = {
-                            navController.navigate("editBeneficiary/$id")
+                            navController.navigate("attendanceRegister/$id")
                             menuExpanded = false
                         }
                     )
-                    if (role == "admin") {
+                    if (role == "admin" || privileged) {
+                        DropdownMenuItem(
+                            text = { Text("Editar") },
+                            onClick = {
+                                navController.navigate("editBeneficiary/$id")
+                                menuExpanded = false
+                            }
+                        )
                         DropdownMenuItem(
                             text = { Text("Excluir") },
                             onClick = {
@@ -149,5 +162,5 @@ fun PreviewBeneficiaryCard() {
     BeneficiaryCard(
         navController = rememberNavController(), id = "123", nome = "João Silva",
         telefone = "912345678", nacionalidade = "Brasileira",
-        agregadoFamiliar = "2", numeroVisitas = 3, ownerId = "123456")
+        agregadoFamiliar = "2", ownerId = "123456")
 }
