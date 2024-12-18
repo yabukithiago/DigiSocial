@@ -3,7 +3,6 @@ package com.examples.digisocial.data.repository
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.examples.digisocial.data.models.Beneficiary
-import com.examples.digisocial.data.models.Visit
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -30,7 +29,7 @@ object BeneficiaryRepository {
                         val beneficiary = Beneficiary(
                             id = "", nome = nome, telefone = telefone,
                             nacionalidade = nacionalidade, agregadoFamiliar = agregadoFamiliar,
-                            ownerId = userName
+                            numeroVisita = 0, ownerId = userName
                         )
 
                         db.collection("beneficiary")

@@ -82,7 +82,11 @@ fun ShowBeneficiaryView(navController: NavController, modifier: Modifier = Modif
                             telefone = item.telefone,
                             nacionalidade = item.nacionalidade,
                             agregadoFamiliar = item.agregadoFamiliar,
-                            ownerId = item.ownerId
+                            numeroVisita = item.numeroVisita,
+                            ownerId = item.ownerId,
+                            onClick = {
+                                navController.navigate("showAttendance/${item.id}")
+                            }
                         )
                     }
                 }

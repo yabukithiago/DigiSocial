@@ -11,7 +11,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.examples.digisocial.ui.view.attendance.AttendanceRegisterView
+import com.examples.digisocial.ui.view.visit.AttendanceRegisterView
+import com.examples.digisocial.ui.view.visit.ShowAttendanceView
 import com.examples.digisocial.ui.view.delete.DeleteBeneficiaryView
 import com.examples.digisocial.ui.view.finance.AddTransactionView
 import com.examples.digisocial.ui.view.finance.ShowTransactionView
@@ -22,6 +23,7 @@ import com.examples.digisocial.ui.view.login.LoginView
 import com.examples.digisocial.ui.view.resetpassword.ResetPasswordView
 import com.examples.digisocial.ui.view.create.CreateBeneficiaryView
 import com.examples.digisocial.ui.view.delete.DeleteUserView
+import com.examples.digisocial.ui.view.delete.DeleteVoluntaryView
 import com.examples.digisocial.ui.view.edit.EditBeneficiaryView
 import com.examples.digisocial.ui.view.edit.EditUserView
 import com.examples.digisocial.ui.view.home.HomePageView
@@ -104,8 +106,9 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
 //                            EditVoluntaryView(navController)
             }
 
-            composable("deleteVoluntary") {
-//                            DeleteVoluntaryView(navController)
+            composable("deleteVoluntary/{id}") { backStackEntry ->
+                val id = backStackEntry.arguments?.getString("id") ?: ""
+                DeleteVoluntaryView(navController = navController, id = id)
             }
             //endregion
 
@@ -159,6 +162,10 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
             composable("attendanceRegister/{id}") { backStackEntry ->
                 val id = backStackEntry.arguments?.getString("id") ?: ""
                 AttendanceRegisterView(navController = navController, id = id)
+            }
+            composable("showAttendance/{id}") { backStackEntry ->
+                val id = backStackEntry.arguments?.getString("id") ?: ""
+                ShowAttendanceView(navController, beneficiaryId = id)
             }
             //endregion
 
