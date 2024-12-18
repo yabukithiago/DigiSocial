@@ -33,8 +33,9 @@ fun NacionalidadeDropdownMenu(
         coroutineScope.launch {
             try {
                 nacionalidades = getCountryNames().sorted()
-                isLoading = false
             } catch (e: Exception) {
+                // Handle error
+            } finally {
                 isLoading = false
             }
         }
@@ -57,19 +58,21 @@ fun NacionalidadeDropdownMenu(
             readOnly = true
         )
 
-        ExposedDropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-        ) {
-            nacionalidades.forEach { selectionOption ->
-                DropdownMenuItem(
-                    text = { Text(selectionOption) },
-                    onClick = {
-                        onNacionalidadeChange(selectionOption)
-                        expanded = false
-                    },
-                    contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
-                )
+        if (!isLoading) {
+            ExposedDropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+            ) {
+                nacionalidades.forEach { selectionOption ->
+                    DropdownMenuItem(
+                        text = { Text(selectionOption) },
+                        onClick = {
+                            onNacionalidadeChange(selectionOption)
+                            expanded = false
+                        },
+                        contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
+                    )
+                }
             }
         }
     }
