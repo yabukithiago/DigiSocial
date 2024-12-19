@@ -7,21 +7,21 @@ import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import java.util.Date
 
-data class AttendanceState(
+data class VisitState(
     var data: Date = Date(),
     val isLoading: Boolean = false,
     var errorMessage: String? = null
 )
 
-class AttendanceRegisterViewModel : ViewModel() {
-    var state = mutableStateOf(AttendanceState())
+class VisitRegisterViewModel : ViewModel() {
+    var state = mutableStateOf(VisitState())
         private set
     private val db = Firebase.firestore
 
     private val date
         get() = state.value.data
 
-    fun attendanceRegister(id: String, onSuccess: () -> Unit){
+    fun visitRegister(id: String, onSuccess: () -> Unit){
         val beneficiaryRef = db.collection("beneficiary").document(id)
         db.runTransaction { transaction ->
             val snapshot = transaction.get(beneficiaryRef)

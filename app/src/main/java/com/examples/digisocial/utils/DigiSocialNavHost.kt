@@ -1,5 +1,6 @@
 package com.examples.digisocial.utils
 
+import UsersPageView
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
@@ -11,7 +12,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.examples.digisocial.ui.view.visit.AttendanceRegisterView
+import com.examples.digisocial.ui.view.visit.VisitRegisterView
 import com.examples.digisocial.ui.view.visit.ShowAttendanceView
 import com.examples.digisocial.ui.view.delete.DeleteBeneficiaryView
 import com.examples.digisocial.ui.view.finance.AddTransactionView
@@ -32,7 +33,6 @@ import com.examples.digisocial.ui.view.show.ShowBeneficiaryView
 import com.examples.digisocial.ui.view.show.ShowJuntaMemberView
 import com.examples.digisocial.ui.view.show.ShowVoluntaryView
 import com.examples.digisocial.ui.view.user.PendingUserView
-import com.examples.digisocial.ui.view.user.UsersPageView
 
 @Composable
 fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
@@ -161,7 +161,7 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
             //region Attendance
             composable("attendanceRegister/{id}") { backStackEntry ->
                 val id = backStackEntry.arguments?.getString("id") ?: ""
-                AttendanceRegisterView(navController = navController, id = id)
+                VisitRegisterView(navController = navController, id = id)
             }
             composable("showAttendance/{id}") { backStackEntry ->
                 val id = backStackEntry.arguments?.getString("id") ?: ""

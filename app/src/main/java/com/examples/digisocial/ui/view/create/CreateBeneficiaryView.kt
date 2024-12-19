@@ -109,7 +109,7 @@ fun CreateBeneficiaryView(navController: NavController) {
                     viewModel.create(onSuccess = {
                         Toast.makeText(context, "Beneficiário criado com sucesso",
                             Toast.LENGTH_SHORT).show()
-                        navController.navigate("readBeneficiary")})
+                        navController.popBackStack()})
                 } else {
                     state.errorMessage = "Preencha todos os campos."
                 }

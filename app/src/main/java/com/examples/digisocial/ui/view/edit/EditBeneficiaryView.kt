@@ -2,6 +2,7 @@ package com.examples.digisocial.ui.view.edit
 
 import com.examples.digisocial.ui.components.NacionalidadeDropdownMenu
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,6 +24,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -39,6 +41,7 @@ fun EditBeneficiaryView(navController: NavController, id: String) {
     val viewModel: EditBeneficiaryViewModel = viewModel()
     val state by viewModel.state
     val db = FirebaseFirestore.getInstance()
+    val context = LocalContext.current
 
     LaunchedEffect(id) {
         db.collection("beneficiary").document(id).get()
@@ -123,7 +126,9 @@ fun EditBeneficiaryView(navController: NavController, id: String) {
             onClick = {
                 if (state.nome.isNotEmpty() && state.telefone.isNotEmpty()
                     && state.nacionalidade.isNotEmpty() && state.agregadoFamiliar.isNotEmpty()) {
-                    viewModel.update(id, onSuccess = { navController.navigate("readBeneficiary")})
+                    viewModel.update(id, onSuccess = {
+                        Toast.makeText(context, "Beneficiário editado com sucesso", Toast.LENGTH_SHORT).show()
+                        navController.navigate("readBeneficiary")})
                 } else {
                     state.errorMessage = "Preencha todos os campos."
                 }
