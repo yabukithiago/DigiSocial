@@ -33,4 +33,22 @@ object VisitRepository {
                     }
             }
     }
+
+    fun fetchVisit(
+        beneficiaryId: String,
+        onSuccess: (List<Visit>) -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        db.collection("beneficiary")
+            .document(beneficiaryId)
+            .collection("visits")
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                val visits = querySnapshot.documents.mapNotNull { it.toObject(Visit::class.java) }
+                onSuccess(visits)
+            }
+            .addOnFailureListener { e ->
+                onFailure("Erro ao buscar visitas: ${e.message}")
+            }
+    }
 }

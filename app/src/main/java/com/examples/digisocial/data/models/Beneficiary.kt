@@ -6,6 +6,7 @@ data class Beneficiary(
     var telefone: String,
     val nacionalidade: String,
     var agregadoFamiliar: String,
+    var numeroVisita: Long,
     val ownerId: String
 ) {
     companion object {
@@ -16,6 +17,7 @@ data class Beneficiary(
                 map["telefone"] as String,
                 map["nacionalidade"] as String,
                 map["agregadoFamiliar"] as String,
+                map["numeroVisita"] as Long,
                 map["ownerId"] as String,
             )
         }

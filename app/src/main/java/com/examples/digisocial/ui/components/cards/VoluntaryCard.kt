@@ -41,7 +41,7 @@ import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.ui.components.InfoRow
 
 @Composable
-fun VoluntaryCard(navController: NavController, nome: String, telefone: String, email: String, isPrivileged: Boolean){
+fun VoluntaryCard(navController: NavController, id: String, nome: String, telefone: String, email: String, isPrivileged: Boolean) {
     var menuExpanded by remember { mutableStateOf(false) }
 
     Card(
@@ -113,7 +113,7 @@ fun VoluntaryCard(navController: NavController, nome: String, telefone: String, 
                     DropdownMenuItem(
                         text = { Text("Excluir") },
                         onClick = {
-                            navController.navigate("deleteVoluntary")
+                            navController.navigate("deleteVoluntary/$id")
                             menuExpanded = false
                         }
                     )
@@ -126,6 +126,6 @@ fun VoluntaryCard(navController: NavController, nome: String, telefone: String, 
 @Preview(showBackground = true)
 @Composable
 fun PreviewVoluntaryCard(){
-    VoluntaryCard(navController = rememberNavController(), nome = "João Silva",
+    VoluntaryCard(navController = rememberNavController(), id = "123", nome = "João Silva",
         telefone = "912345678", email = "preview@preview.com", isPrivileged = true)
 }

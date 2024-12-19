@@ -58,7 +58,7 @@ fun ShowTransactionView(navController: NavController, modifier: Modifier = Modif
         ) {
             Icon(
                 imageVector = Icons.Default.Add,
-                contentDescription = "Adicionar voluntário",
+                contentDescription = "Adicionar transação",
                 tint = Color.White
             )
         }

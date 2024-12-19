@@ -1,5 +1,6 @@
 package com.examples.digisocial.ui.view.resetpassword
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,6 +28,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -39,6 +41,7 @@ import com.examples.digisocial.R
 fun ResetPasswordView(navController: NavController) {
     val viewModel: ResetPasswordViewModel = viewModel()
     val state by viewModel.state
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -76,6 +79,7 @@ fun ResetPasswordView(navController: NavController) {
             onClick = {
                     viewModel.sendPasswordResetEmail(state.email,
                         onSuccess = {
+                            Toast.makeText(context, "Por favor, confira seu e-mail.", Toast.LENGTH_SHORT).show()
                             navController.navigate("login")
                         },
                         onFailure = { message ->

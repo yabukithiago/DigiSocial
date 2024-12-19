@@ -71,10 +71,12 @@ fun ShowVoluntaryView(navController: NavController, modifier: Modifier = Modifie
                     ) { _, item ->
                         VoluntaryCard(
                             navController = navController,
+                            id = item.id,
                             nome = item.nome,
                             email = item.email,
                             telefone = item.telefone,
-                            isPrivileged = item.privileged
+                            isPrivileged = item.privileged,
+
                         )
                     }
                 }

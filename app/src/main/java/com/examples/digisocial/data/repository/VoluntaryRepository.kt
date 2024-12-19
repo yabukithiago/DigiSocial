@@ -3,7 +3,6 @@ package com.examples.digisocial.data.repository
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.examples.digisocial.data.models.Voluntary
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 object VoluntaryRepository {
@@ -12,6 +11,7 @@ object VoluntaryRepository {
     fun getAll(onSuccess: (List<Voluntary>) -> Unit) {
         db.collection("user")
             .whereEqualTo("role", "voluntary")
+            .whereEqualTo("status", "ativo")
             .addSnapshotListener { value, error ->
                 if(error != null){
                     Log.w(TAG, "Listen failed.", error)
@@ -27,6 +27,17 @@ object VoluntaryRepository {
                     }
                 }
                 onSuccess(listVoluntary)
+            }
+    }
+
+    fun deleteVoluntary(id: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+        db.collection("user").document(id)
+            .update("status", "inativo")
+            .addOnSuccessListener {
+                onSuccess()
+            }
+            .addOnFailureListener { exception ->
+                onFailure(exception)
             }
     }
 }
