@@ -62,21 +62,7 @@ fun HomePageAdminView(navController: NavController) {
             DropdownMenu(
                 expanded = expanded,
                 onDismissRequest = { expanded = false }
-            ) {
-                DropdownMenuItem(
-                    text = { Text("Configurações") },
-                    onClick = {
-                        expanded = false
-                        navController.navigate("settings")
-                    }
-                )
-                DropdownMenuItem(
-                    text = { Text("Perfil") },
-                    onClick = {
-                        expanded = false
-                        navController.navigate("profile")
-                    }
-                )
+                ) {
                 DropdownMenuItem(
                     text = { Text("Logout") },
                     onClick = {

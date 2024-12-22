@@ -1,6 +1,5 @@
 package com.examples.digisocial.utils
 
-import UsersPageView
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
@@ -33,6 +32,7 @@ import com.examples.digisocial.ui.view.show.ShowBeneficiaryView
 import com.examples.digisocial.ui.view.show.ShowJuntaMemberView
 import com.examples.digisocial.ui.view.show.ShowVoluntaryView
 import com.examples.digisocial.ui.view.user.PendingUserView
+import com.examples.digisocial.ui.view.user.UsersPageView
 
 @Composable
 fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {

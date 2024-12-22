@@ -1,5 +1,6 @@
-//package com.examples.digisocial.ui.view.user
+package com.examples.digisocial.ui.view.user
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -26,66 +27,108 @@ import com.examples.digisocial.ui.theme.DigiSocialTheme
 @Composable
 fun UsersPageView(navController: NavController) {
     TopBar(title = "Utilizadores", navController = navController)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .fillMaxWidth()
-            .padding(16.dp)
     ) {
         Box(
             modifier = Modifier.weight(1f)
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp)
-            ) {
-
-                Spacer(modifier = Modifier.width(8.dp))
-
-            }
             Column(
-                modifier = Modifier.align(Alignment.Center),
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier = Modifier
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
-
                 Button(
                     onClick = { navController.navigate("readVoluntary") },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
-                    modifier = Modifier.fillMaxWidth(0.7f)
+                    shape = RoundedCornerShape(20.dp),
+                    modifier = Modifier.fillMaxWidth(0.6f)
+                        .height(60.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
                 ) {
-                    Text("Voluntários")
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            "Voluntários",
+                            color = Color.White,
+                            modifier = Modifier.padding(start = 16.dp)
+                        )
+                    }
                 }
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
                     onClick = { navController.navigate("readBeneficiary") },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
-                    modifier = Modifier.fillMaxWidth(0.7f)
+                    shape = RoundedCornerShape(20.dp),
+                    modifier = Modifier.fillMaxWidth(0.6f)
+                        .height(60.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
                 ) {
-                    Text("Beneficiários")
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            "Beneficiários",
+                            color = Color.White,
+                            modifier = Modifier.padding(start = 16.dp)
+                        )
+                    }
                 }
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
                     onClick = { navController.navigate("readJuntaMember") },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
-                    modifier = Modifier.fillMaxWidth(0.7f)
+                    shape = RoundedCornerShape(20.dp),
+                    modifier = Modifier.fillMaxWidth(0.6f)
+                        .height(60.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
                 ) {
-                    Text("Membros da Junta")
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            "Membros da Junta",
+                            color = Color.White,
+                            modifier = Modifier.padding(start = 16.dp)
+                        )
+                    }
                 }
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
                     onClick = { navController.navigate("readPendingUser") },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
-                    modifier = Modifier.fillMaxWidth(0.7f)
+                    shape = RoundedCornerShape(20.dp),
+                    modifier = Modifier.fillMaxWidth(0.6f)
+                        .height(60.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
                 ) {
-                    Text("Utilizadores Pendentes")
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            "Utilizadores Pendentes",
+                            color = Color.White,
+                            modifier = Modifier.padding(start = 16.dp)
+                        )
+                    }
                 }
 
             }
