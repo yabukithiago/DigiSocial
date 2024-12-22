@@ -51,7 +51,7 @@ fun CreateBeneficiaryView(navController: NavController) {
         Image(
             modifier = Modifier
                 .size(150.dp),
-            painter = painterResource(id = R.drawable.baseline_person_add_24),
+            painter = painterResource(id = R.drawable.ativo1),
             contentDescription = "User Icon"
         )
 

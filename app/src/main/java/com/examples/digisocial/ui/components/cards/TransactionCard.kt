@@ -1,5 +1,6 @@
 package com.examples.digisocial.ui.components.cards
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,8 +22,6 @@ import androidx.compose.material.icons.filled.TypeSpecimen
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,10 +29,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.examples.digisocial.ui.components.InfoRow
+import java.text.SimpleDateFormat
+import java.util.Date
 
 @Composable
-fun TransactionCard(
-    id: String, description: String, amount: Double, type: String,
+fun TransactionCard(description: String, amount: Double, type: String,
     date: Long
 ) {
     Card(
@@ -71,26 +71,25 @@ fun TransactionCard(
                 verticalArrangement = Arrangement.spacedBy(4.dp),
                 modifier = Modifier.weight(1f)
             ) {
-                Text(
-                    text = id,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = Color(0xFF333333),
-                    maxLines = 1
-                )
                 InfoRow(icon = Icons.Default.Info, text = description)
                 InfoRow(icon = Icons.Default.Euro, text = amount.toString())
                 InfoRow(icon = Icons.Default.TypeSpecimen, text = type)
-                InfoRow(icon = Icons.Default.DateRange, text = date.toString())
+                InfoRow(icon = Icons.Default.DateRange, text = convertDateToString(Date(date)))
             }
         }
     }
 }
 
+@SuppressLint("SimpleDateFormat")
+fun convertDateToString(date: Date): String {
+    val formatter = SimpleDateFormat("dd/MM/yyyy")
+    return formatter.format(date)
+}
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewTransactionCard(){
-    TransactionCard(
-        id = "123", description = "João Silva", amount = 0.0,
+    TransactionCard(description = "João Silva", amount = 0.0,
         type = "Brasileira", date = 5
     )
 }

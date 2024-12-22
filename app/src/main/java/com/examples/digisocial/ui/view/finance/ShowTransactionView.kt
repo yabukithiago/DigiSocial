@@ -40,7 +40,6 @@ fun ShowTransactionView(navController: NavController, modifier: Modifier = Modif
                     items = state.listTransaction
                 ) { _, item ->
                     TransactionCard (
-                        id = item.id,
                         description = item.description,
                         amount = item.amount,
                         type = item.type,
