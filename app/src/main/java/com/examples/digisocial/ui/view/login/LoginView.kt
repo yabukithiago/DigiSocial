@@ -40,9 +40,9 @@ fun LoginView(navController: NavController, onLoginSuccess: (String) -> Unit) {
     ) {
         Image(
             modifier = Modifier
-                .width(200.dp)
-                .height(200.dp),
-            painter = painterResource(id = R.drawable.logo),
+                .width(250.dp)
+                .height(250.dp),
+            painter = painterResource(id = R.drawable.ativo1),
             contentDescription = "Logo DigiSocial"
         )
 

@@ -1,5 +1,6 @@
 package com.examples.digisocial.ui.view.home
 
+import androidx.compose.foundation.background
 import com.examples.digisocial.ui.view.login.LoginViewModel
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,17 +12,23 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Article
-import androidx.compose.material.icons.filled.CalendarMonth
-import androidx.compose.material.icons.filled.Euro
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,128 +42,148 @@ import com.examples.digisocial.ui.theme.DigiSocialTheme
 @Composable
 fun HomePageAdminView(navController: NavController) {
     val viewModel: LoginViewModel = viewModel()
-    
+    var expanded by remember { mutableStateOf(false) }
+
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        Column(
+        Box(
             modifier = Modifier
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+                .align(Alignment.TopEnd)
+                .padding(16.dp)
+                .statusBarsPadding()
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.CenterHorizontally)
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth()
-                        .padding(10.dp),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Button(
-                        onClick = { navController.navigate("users") },
-                        modifier = Modifier
-                            .size(150.dp)
-                            .padding(8.dp),
-                        shape = RoundedCornerShape(20.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
-                    ) {
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Icon(
-                                imageVector = Icons.Filled.Person,
-                                contentDescription = "Ícone de Utilizadores",
-                                tint = Color.White,
-                                modifier = Modifier.size(50.dp)
-                            )
-                            Text("Utilizadores", color = Color.White)
-                        }
-                    }
-                    Button(
-                        onClick = { navController.navigate("showTransaction") },
-                        modifier = Modifier
-                            .size(150.dp)
-                            .padding(8.dp),
-                        shape = RoundedCornerShape(20.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
-                    ) {
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Icon(
-                                imageVector = Icons.Filled.Euro,
-                                contentDescription = "Ícone de Finanças",
-                                tint = Color.White,
-                                modifier = Modifier.size(50.dp)
-                            )
-                            Text("Financeiro", color = Color.White)
-                        }
-                    }
-                }
-                Row(
-                    modifier = Modifier.fillMaxWidth()
-                        .padding(10.dp),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Button(
-                        onClick = { navController.navigate("users") },
-                        modifier = Modifier
-                            .size(150.dp)
-                            .padding(8.dp),
-                        shape = RoundedCornerShape(20.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
-                    ) {
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Icon(
-                                imageVector = Icons.Filled.CalendarMonth,
-                                contentDescription = "",
-                                tint = Color.White,
-                                modifier = Modifier.size(50.dp)
-                            )
-                            Text("Horários", color = Color.White)
-                        }
-                    }
-                    Button(
-                        onClick = { navController.navigate("users") },
-                        modifier = Modifier
-                            .size(150.dp)
-                            .padding(8.dp),
-                        shape = RoundedCornerShape(20.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
-                    ) {
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.Article,
-                                contentDescription = "",
-                                tint = Color.White,
-                                modifier = Modifier.size(50.dp)
-                            )
-                            Text("Relatórios", color = Color.White)
-                        }
-                    }
-                }
+            IconButton(onClick = { expanded = true }) {
+                Icon(
+                    imageVector = Icons.Filled.Menu,
+                    contentDescription = "Menu",
+                    tint = Color.Blue
+                )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Button(
-                onClick = { viewModel.logout(onLogoutSuccess = { navController.navigate("login") }) },
-                colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray)
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false }
             ) {
-                Text("Logout")
+                DropdownMenuItem(
+                    text = { Text("Configurações") },
+                    onClick = {
+                        expanded = false
+                        navController.navigate("settings")
+                    }
+                )
+                DropdownMenuItem(
+                    text = { Text("Perfil") },
+                    onClick = {
+                        expanded = false
+                        navController.navigate("profile")
+                    }
+                )
+                DropdownMenuItem(
+                    text = { Text("Logout") },
+                    onClick = {
+                        expanded = false
+                        viewModel.logout(onLogoutSuccess = {
+                            navController.navigate("login")
+                        })
+                    }
+                )
+            }
+        }
+    }
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Button(
+            onClick = { navController.navigate("users") },
+            shape = RoundedCornerShape(20.dp),
+            modifier = Modifier.fillMaxWidth(0.6f)
+                .height(60.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    "Utilizadores",
+                    color = Color.White,
+                    modifier = Modifier.padding(start = 16.dp)
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.size(16.dp))
+
+        Button(
+            onClick = { navController.navigate("showTransaction") },
+            shape = RoundedCornerShape(20.dp),
+            modifier = Modifier.fillMaxWidth(0.6f)
+                .height(60.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    "Transações",
+                    color = Color.White,
+                    modifier = Modifier.padding(start = 16.dp)
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.size(16.dp))
+
+        Button(
+            onClick = { navController.navigate("users") },
+            shape = RoundedCornerShape(20.dp),
+            modifier = Modifier.fillMaxWidth(0.6f)
+                .height(60.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    "Horários",
+                    color = Color.White,
+                    modifier = Modifier.padding(start = 16.dp)
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.size(16.dp))
+
+        Button(
+            onClick = { navController.navigate("users") },
+            shape = RoundedCornerShape(20.dp),
+            modifier = Modifier.fillMaxWidth(0.6f)
+                .height(60.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    "Relatórios",
+                    color = Color.White,
+                    modifier = Modifier.padding(start = 16.dp)
+                )
             }
         }
     }
