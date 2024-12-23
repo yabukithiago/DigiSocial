@@ -42,7 +42,7 @@ fun LoginView(navController: NavController, onLoginSuccess: (String) -> Unit) {
             modifier = Modifier
                 .width(250.dp)
                 .height(250.dp),
-            painter = painterResource(id = R.drawable.ativo1),
+            painter = painterResource(id = R.drawable.logo),
             contentDescription = "Logo DigiSocial"
         )
 
@@ -58,7 +58,8 @@ fun LoginView(navController: NavController, onLoginSuccess: (String) -> Unit) {
                 unfocusedIndicatorColor = Color.Transparent
             ),
             shape = RoundedCornerShape(20.dp),
-            modifier = Modifier.fillMaxWidth(0.8f)
+            modifier = Modifier
+                .fillMaxWidth(0.8f)
                 .shadow(4.dp, shape = RoundedCornerShape(20.dp))
         )
 
@@ -84,7 +85,8 @@ fun LoginView(navController: NavController, onLoginSuccess: (String) -> Unit) {
             ),
             shape = RoundedCornerShape(20.dp),
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-            modifier = Modifier.fillMaxWidth(0.8f)
+            modifier = Modifier
+                .fillMaxWidth(0.8f)
                 .shadow(4.dp, shape = RoundedCornerShape(20.dp))
         )
 
@@ -103,7 +105,8 @@ fun LoginView(navController: NavController, onLoginSuccess: (String) -> Unit) {
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
                 shape = RoundedCornerShape(20.dp),
-                modifier = Modifier.weight(1f)
+                modifier = Modifier
+                    .weight(1f)
                     .padding(end = 8.dp),
                 enabled = state.email.isNotEmpty() && !state.isLoading
             ) {
@@ -125,7 +128,8 @@ fun LoginView(navController: NavController, onLoginSuccess: (String) -> Unit) {
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
                 shape = RoundedCornerShape(20.dp),
-                modifier = Modifier.weight(1f)
+                modifier = Modifier
+                    .weight(1f)
                     .padding(start = 8.dp)
             ) {
                 Text(text = "Registar")

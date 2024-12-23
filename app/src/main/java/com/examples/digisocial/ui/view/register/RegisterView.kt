@@ -66,11 +66,9 @@ fun RegisterView(navController: NavController, onRegisterSuccess: () -> Unit) {
             modifier = Modifier
                 .width(200.dp)
                 .height(200.dp),
-            painter = painterResource(id = R.drawable.logo),
+            painter = painterResource(id = R.drawable.digisocial),
             contentDescription = "Logo DigiSocial"
         )
-
-        Spacer(modifier = Modifier.height(16.dp))
 
         TextField(
             value = state.name,
