@@ -32,7 +32,7 @@ import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
 fun AddTransactionView(navController: NavController) {
-    val viewModel: FinanceViewModel = viewModel()
+    val viewModel: AddTransactionViewModel = viewModel()
     val state by viewModel.state
     val context = LocalContext.current
 

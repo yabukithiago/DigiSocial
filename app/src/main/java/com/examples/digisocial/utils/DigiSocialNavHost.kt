@@ -1,5 +1,6 @@
 package com.examples.digisocial.utils
 
+import com.examples.digisocial.ui.view.finance.FinanceDashboardView
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
@@ -155,6 +156,9 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
             }
             composable("showTransaction"){
                 ShowTransactionView(navController)
+            }
+            composable("showDashboard") {
+                FinanceDashboardView(navController)
             }
             //endregion
 

@@ -4,7 +4,7 @@ data class Transaction (
     val id: String = "",
     val description: String = "",
     val amount: Double = 0.0,
-    val type: String = "ENTRY",
+    val type: String = "",
     val date: Long = System.currentTimeMillis()
 ) {
     companion object {
