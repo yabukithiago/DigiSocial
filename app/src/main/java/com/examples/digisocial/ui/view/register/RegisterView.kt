@@ -1,5 +1,6 @@
 package com.examples.digisocial.ui.view.register
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,7 +26,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -37,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -52,6 +53,7 @@ fun RegisterView(navController: NavController, onRegisterSuccess: () -> Unit) {
     val viewModel: RegisterViewModel = viewModel()
     val state by viewModel.state
     var passwordVisible by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -64,11 +66,9 @@ fun RegisterView(navController: NavController, onRegisterSuccess: () -> Unit) {
             modifier = Modifier
                 .width(200.dp)
                 .height(200.dp),
-            painter = painterResource(id = R.drawable.logo),
+            painter = painterResource(id = R.drawable.digisocial),
             contentDescription = "Logo DigiSocial"
         )
-
-        Spacer(modifier = Modifier.height(16.dp))
 
         TextField(
             value = state.name,
@@ -172,9 +172,17 @@ fun RegisterView(navController: NavController, onRegisterSuccess: () -> Unit) {
 
         Button(
             onClick = {
-                viewModel.register(onRegisterSuccess = onRegisterSuccess, onRegisterFailure = { message ->
-                    state.errorMessage = message
-                })
+                viewModel.register(onRegisterSuccess = {
+                    Toast.makeText(
+                        context,
+                        "Registrado com sucesso",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    onRegisterSuccess()
+                },
+                    onRegisterFailure = { message ->
+                        state.errorMessage = message
+                    })
             },
             colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
             shape = RoundedCornerShape(20.dp),

@@ -1,4 +1,4 @@
-package com.examples.digisocial.ui.view.delete
+package com.examples.digisocial.ui.view.visit
 
 import android.widget.Toast
 import androidx.compose.material3.AlertDialog
@@ -14,30 +14,29 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 
 @Composable
-fun DeleteUserView(navController: NavController, id: String) {
-    val viewModel: DeleteUserViewModel = viewModel()
+fun VisitRegisterView(navController: NavController, id: String) {
+    val viewModel: VisitRegisterViewModel = viewModel()
     var showDialog by remember { mutableStateOf(true) }
     val context = LocalContext.current
 
     if (showDialog) {
         AlertDialog(
             onDismissRequest = { showDialog = false },
-            title = { Text("Confirmar Exclusão") },
-            text = { Text("Tem certeza de que deseja excluir este utilizador?") },
+            title = { Text("Confirma Presença") },
+            text = { Text("O beneficiário está presente?") },
             confirmButton = {
                 TextButton(onClick = {
-                    viewModel.deleteUser(id = id, onSuccess = {
-                        Toast.makeText(context, "Utilizador excluído com sucesso", Toast.LENGTH_SHORT).show()
-                        navController.popBackStack()})
-                    }) {
+                    Toast.makeText(context, "Visita registrada com sucesso", Toast.LENGTH_SHORT).show()
+                    viewModel.visitRegister(id = id, onSuccess = { navController.popBackStack()})
+                }) {
                     Text("Sim")
                 }
             },
             dismissButton = {
                 TextButton(onClick = {
                     showDialog = false
-                    navController.navigate("readPendingUser") {
-                        popUpTo("readPendingUser") { inclusive = true }
+                    navController.navigate("readBeneficiary") {
+                        popUpTo("readBeneficiary") { inclusive = true }
                     }
                 }) {
                     Text("Não")

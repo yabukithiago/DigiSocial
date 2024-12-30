@@ -6,12 +6,16 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults.buttonColors
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -27,11 +31,11 @@ import com.examples.digisocial.ui.components.bars.TopBar
 import com.examples.digisocial.ui.components.cards.TransactionCard
 
 @Composable
-fun ShowTransactionView(navController: NavController, modifier: Modifier = Modifier) {
-    val viewModel: FinanceViewModel = viewModel()
+fun ShowTransactionView(navController: NavController) {
+    val viewModel: ShowTransactionViewModel = viewModel()
     val state by viewModel.state
 
-    Box(modifier = modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize()) {
         Column {
             TopBar(title = "Transações", navController = navController)
             LazyColumn(contentPadding = PaddingValues(16.dp),
@@ -40,7 +44,6 @@ fun ShowTransactionView(navController: NavController, modifier: Modifier = Modif
                     items = state.listTransaction
                 ) { _, item ->
                     TransactionCard (
-                        id = item.id,
                         description = item.description,
                         amount = item.amount,
                         type = item.type,
@@ -54,15 +57,26 @@ fun ShowTransactionView(navController: NavController, modifier: Modifier = Modif
             containerColor = Color.Blue,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(16.dp)
+                .size(80.dp)
+                .padding(20.dp)
         ) {
             Icon(
                 imageVector = Icons.Default.Add,
-                contentDescription = "Adicionar voluntário",
+                contentDescription = "Adicionar transação",
                 tint = Color.White
             )
         }
+        Button(
+            onClick = { navController.navigate("showDashboard") },
+            colors = buttonColors(Color.Blue),
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .padding(20.dp)
+        ) {
+            Text("Dashboard Financeiro")
+        }
     }
+
     LaunchedEffect (key1 = Unit){
         viewModel.loadListTransaction()
     }

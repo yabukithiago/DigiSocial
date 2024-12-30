@@ -1,5 +1,6 @@
 package com.examples.digisocial.ui.view.finance
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -30,8 +32,9 @@ import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
 fun AddTransactionView(navController: NavController) {
-    val viewModel: FinanceViewModel = viewModel()
+    val viewModel: AddTransactionViewModel = viewModel()
     val state by viewModel.state
+    val context = LocalContext.current
 
     TopBar(title = "Adicionar Transação", navController = navController)
     Column(
@@ -100,7 +103,8 @@ fun AddTransactionView(navController: NavController) {
                 state.amount.toDouble(),
                 state.type,
                 onSuccess = {
-                    navController.navigate("homeAdmin")
+                    Toast.makeText(context, "Transação criada com sucesso", Toast.LENGTH_SHORT).show()
+                    navController.popBackStack()
                 },
                 onFailure = { errorMessage ->
                     state.errorMessage = errorMessage

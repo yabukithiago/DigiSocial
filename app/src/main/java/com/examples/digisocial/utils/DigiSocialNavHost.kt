@@ -1,5 +1,6 @@
 package com.examples.digisocial.utils
 
+import com.examples.digisocial.ui.view.finance.FinanceDashboardView
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
@@ -11,7 +12,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.examples.digisocial.ui.view.attendance.AttendanceRegisterView
+import com.examples.digisocial.ui.view.visit.VisitRegisterView
+import com.examples.digisocial.ui.view.visit.ShowAttendanceView
 import com.examples.digisocial.ui.view.delete.DeleteBeneficiaryView
 import com.examples.digisocial.ui.view.finance.AddTransactionView
 import com.examples.digisocial.ui.view.finance.ShowTransactionView
@@ -22,6 +24,7 @@ import com.examples.digisocial.ui.view.login.LoginView
 import com.examples.digisocial.ui.view.resetpassword.ResetPasswordView
 import com.examples.digisocial.ui.view.create.CreateBeneficiaryView
 import com.examples.digisocial.ui.view.delete.DeleteUserView
+import com.examples.digisocial.ui.view.delete.DeleteVoluntaryView
 import com.examples.digisocial.ui.view.edit.EditBeneficiaryView
 import com.examples.digisocial.ui.view.edit.EditUserView
 import com.examples.digisocial.ui.view.home.HomePageView
@@ -104,8 +107,9 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
 //                            EditVoluntaryView(navController)
             }
 
-            composable("deleteVoluntary") {
-//                            DeleteVoluntaryView(navController)
+            composable("deleteVoluntary/{id}") { backStackEntry ->
+                val id = backStackEntry.arguments?.getString("id") ?: ""
+                DeleteVoluntaryView(navController = navController, id = id)
             }
             //endregion
 
@@ -153,12 +157,19 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
             composable("showTransaction"){
                 ShowTransactionView(navController)
             }
+            composable("showDashboard") {
+                FinanceDashboardView(navController)
+            }
             //endregion
 
             //region Attendance
             composable("attendanceRegister/{id}") { backStackEntry ->
                 val id = backStackEntry.arguments?.getString("id") ?: ""
-                AttendanceRegisterView(navController = navController, id = id)
+                VisitRegisterView(navController = navController, id = id)
+            }
+            composable("showAttendance/{id}") { backStackEntry ->
+                val id = backStackEntry.arguments?.getString("id") ?: ""
+                ShowAttendanceView(navController, beneficiaryId = id)
             }
             //endregion
 

@@ -51,37 +51,45 @@ android {
 }
 
 dependencies {
+    // Firebase and Play Services
+    implementation(platform(libs.firebase.bom)) // Use a single BOM version
+    implementation(libs.firebase.firestore.ktx)
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.database.ktx)
+    implementation(libs.firebase.analytics)
+    implementation(libs.play.services.auth)
     implementation(libs.play.services.wearable)
-    implementation(libs.ui)
-    implementation(libs.material3)
-    implementation(libs.androidx.material.icons.extended)
+
+
+    // Retrofit and GSON
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.androidx.datastore.preferences)
-    implementation(libs.firebase.firestore.ktx)
-    implementation(platform(libs.firebase.bom))
-    implementation(platform(libs.firebase.bom.v3210))
-    implementation(libs.firebase.auth)
-    implementation(libs.play.services.auth)
-    implementation(libs.firebase.analytics)
+
+    // AndroidX and Material
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.material.icons.extended)
+    implementation(libs.androidx.animation.core.lint)
+
+    // Compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
+    implementation(libs.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
-    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.compose.material)
-    implementation(libs.firebase.auth.ktx)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlinx.coroutines.android)
+
+    // DataStore and Room
+    implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.datastore.preferences.core.jvm)
-    implementation(libs.firebase.database.ktx)
-    implementation(libs.androidx.espresso.core)
-    implementation(libs.androidx.animation.core.lint)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
+
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

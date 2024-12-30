@@ -1,5 +1,6 @@
 package com.examples.digisocial.ui.view.create
 
+import android.widget.Toast
 import com.examples.digisocial.ui.components.NacionalidadeDropdownMenu
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -7,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -21,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,20 +36,20 @@ import com.examples.digisocial.ui.theme.DigiSocialTheme
 fun CreateBeneficiaryView(navController: NavController) {
     val viewModel: CreateBeneficiaryViewModel = viewModel()
     val state by viewModel.state
+    val context = LocalContext.current
 
     TopBar(title = "Registar Beneficiários", navController = navController)
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
+            .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
             modifier = Modifier
-                .size(150.dp),
-            painter = painterResource(id = R.drawable.baseline_person_add_24),
+                .size(200.dp),
+            painter = painterResource(id = R.drawable.digisocial),
             contentDescription = "User Icon"
         )
 
@@ -103,7 +104,10 @@ fun CreateBeneficiaryView(navController: NavController) {
             onClick = {
                 if (state.nome.isNotEmpty() && state.telefone.isNotEmpty()
                     && state.nacionalidade.isNotEmpty() && state.agregadoFamiliar.isNotEmpty()) {
-                    viewModel.create(onSuccess = { navController.navigate("readBeneficiary")})
+                    viewModel.create(onSuccess = {
+                        Toast.makeText(context, "Beneficiário criado com sucesso",
+                            Toast.LENGTH_SHORT).show()
+                        navController.popBackStack()})
                 } else {
                     state.errorMessage = "Preencha todos os campos."
                 }

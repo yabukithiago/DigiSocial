@@ -17,7 +17,7 @@ data class TransactionState(
     var errorMessage: String? = null
 )
 
-class FinanceViewModel : ViewModel() {
+class AddTransactionViewModel : ViewModel() {
     var state = mutableStateOf(TransactionState())
         private set
 
@@ -51,14 +51,6 @@ class FinanceViewModel : ViewModel() {
             } catch (e: Exception) {
                 onFailure(e.message ?: "Erro desconhecido")
             }
-        }
-    }
-
-    fun loadListTransaction() {
-        TransactionRepository.getAll { listTransaction ->
-            state.value = state.value.copy(
-                listTransaction = listTransaction
-            )
         }
     }
 }

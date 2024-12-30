@@ -21,7 +21,7 @@ import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Phone
-import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.SafetyDivider
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
@@ -42,15 +42,15 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.examples.digisocial.data.models.Visit
-import com.examples.digisocial.data.repository.VisitRepository
 import com.examples.digisocial.ui.components.InfoRow
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
 @Composable
-fun BeneficiaryCard(navController: NavController, id: String, nome: String, telefone: String,
-                    nacionalidade: String, agregadoFamiliar: String, ownerId: String) {
+fun BeneficiaryCard(
+    navController: NavController, id: String, nome: String, telefone: String,
+    nacionalidade: String, agregadoFamiliar: String,
+    numeroVisita: Long, ownerId: String, onClick: () -> Unit) {
     var menuExpanded by remember { mutableStateOf(false) }
     val auth = Firebase.auth
     val currentUser = auth.currentUser
@@ -70,6 +70,7 @@ fun BeneficiaryCard(navController: NavController, id: String, nome: String, tele
     Card(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable(onClick = onClick)
             .padding(horizontal = 16.dp, vertical = 8.dp),
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(6.dp),
@@ -111,6 +112,7 @@ fun BeneficiaryCard(navController: NavController, id: String, nome: String, tele
                 InfoRow(icon = Icons.Default.Phone, text = telefone)
                 InfoRow(icon = Icons.Filled.LocationOn, text = nacionalidade)
                 InfoRow(icon = Icons.Default.Face, text = agregadoFamiliar)
+                InfoRow(icon = Icons.Default.SafetyDivider, text = numeroVisita.toString())
                 InfoRow(icon = Icons.Default.Done, text = ownerId)
             }
 
@@ -162,5 +164,5 @@ fun PreviewBeneficiaryCard() {
     BeneficiaryCard(
         navController = rememberNavController(), id = "123", nome = "João Silva",
         telefone = "912345678", nacionalidade = "Brasileira",
-        agregadoFamiliar = "2", ownerId = "123456")
+        agregadoFamiliar = "2", numeroVisita = 0, ownerId = "123456", onClick = {})
 }
