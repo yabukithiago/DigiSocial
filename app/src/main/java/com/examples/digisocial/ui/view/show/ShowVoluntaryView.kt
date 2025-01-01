@@ -76,7 +76,6 @@ fun ShowVoluntaryView(navController: NavController, modifier: Modifier = Modifie
                             email = item.email,
                             telefone = item.telefone,
                             isPrivileged = item.privileged,
-
                         )
                     }
                 }

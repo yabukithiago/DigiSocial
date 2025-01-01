@@ -46,7 +46,7 @@ fun ShowBeneficiaryView(navController: NavController, modifier: Modifier = Modif
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TopBar(title = "Listar Beneficiários", navController = navController)
+            TopBar(title = "Beneficiários", navController = navController)
 
             SearchBar(
                 searchQuery = searchQuery,

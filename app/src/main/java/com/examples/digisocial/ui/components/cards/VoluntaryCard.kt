@@ -104,13 +104,6 @@ fun VoluntaryCard(navController: NavController, id: String, nome: String, telefo
                     modifier = Modifier.align(Alignment.TopEnd)
                 ) {
                     DropdownMenuItem(
-                        text = { Text("Editar") },
-                        onClick = {
-                            navController.navigate("editVoluntary")
-                            menuExpanded = false
-                        }
-                    )
-                    DropdownMenuItem(
                         text = { Text("Excluir") },
                         onClick = {
                             navController.navigate("deleteVoluntary/$id")

@@ -18,4 +18,5 @@ fun DigiSocialApp() {
             )
         HandleUserAuthentication(navController)
     }
+
 }

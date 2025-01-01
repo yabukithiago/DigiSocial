@@ -34,7 +34,7 @@ fun ShowJuntaMemberView(navController: NavController, modifier: Modifier = Modif
 
     Box(modifier = modifier.fillMaxSize()) {
         Column {
-            TopBar(title = "Listar Membros da Junta", navController = navController)
+            TopBar(title = "Membros da Junta", navController = navController)
             LazyColumn(
                 contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)

@@ -21,6 +21,7 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.examples.digisocial.ui.components.bars.BottomBar
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
@@ -42,6 +44,14 @@ fun HomePageAdminView(navController: NavController) {
     val viewModel: LoginViewModel = viewModel()
     var expanded by remember { mutableStateOf(false) }
 
+    Scaffold(
+        bottomBar = { BottomBar(navController = navController, userRole = "admin") },
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier.padding(innerPadding)
+        ) {
+        }
+    }
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
