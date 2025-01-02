@@ -3,7 +3,6 @@ package com.examples.digisocial.ui.view.create
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.examples.digisocial.data.BeneficiaryState
-import com.examples.digisocial.data.models.Visit
 import com.examples.digisocial.data.repository.BeneficiaryRepository
 
 data class CreateBeneficiaryState(
@@ -46,9 +45,9 @@ class CreateBeneficiaryViewModel : ViewModel() {
         state.value = state.value.copy(agregadoFamiliar = newValue)
     }
 
-    fun create(onSuccess: () -> Unit){
+    fun create(onSuccess: () -> Unit, onFailure: (String) -> Unit) {
         BeneficiaryRepository.createBeneficiary(nome = nome,
             telefone = telefone, nacionalidade = nacionalidade, agregadoFamiliar = agregadoFamiliar,
-            onSuccess = onSuccess, onFailure = { } )
+            onSuccess = onSuccess, onFailure = onFailure)
     }
 }
