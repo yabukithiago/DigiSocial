@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.compose.compiler)
     id("com.google.gms.google-services")
 }
 
@@ -88,6 +89,7 @@ dependencies {
     implementation(libs.androidx.datastore.preferences.core.jvm)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.appcompat)
 
     // Testing
     testImplementation(libs.junit)

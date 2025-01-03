@@ -1,6 +1,7 @@
 package com.examples.digisocial.ui.view.edit
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -52,6 +54,7 @@ fun EditUserView(navController: NavController, id: String) {
     var isMembroJunta by remember { mutableStateOf(false) }
     var hasPrivilegios by remember { mutableStateOf(false) }
     var user by remember { mutableStateOf<User>(User("", "", "", "", "", "", false))}
+    val context = LocalContext.current
 
     LaunchedEffect(id) {
         db.collection("user").document(id).get()
@@ -204,13 +207,14 @@ fun EditUserView(navController: NavController, id: String) {
             )
         }
 
-
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
             onClick = {
                 if (state.nome.isNotEmpty() && state.telefone.isNotEmpty()) {
-                    viewModel.update(id)
+                    viewModel.update(id, onSuccess = {
+                        Toast.makeText(context, "Utilizador editado com sucesso", Toast.LENGTH_SHORT).show()
+                        navController.navigate("readPendingUser")})
                 } else {
                     state.errorMessage = "Preencha todos os campos."
                 }
@@ -218,7 +222,7 @@ fun EditUserView(navController: NavController, id: String) {
             colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
             enabled = !state.isLoading
         ) {
-            Text(if (state.isLoading) "Carregando..." else "Editar Beneficiário")
+            Text(if (state.isLoading) "Carregando..." else "Editar Utilizador")
         }
 
         if (state.errorMessage?.isNotEmpty() == true) {

@@ -18,40 +18,58 @@ object BeneficiaryRepository {
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit
     ) {
-
         val uid = auth.currentUser?.uid
         if (uid != null) {
             db.collection("user").document(uid).get()
                 .addOnSuccessListener { document ->
                     if (document != null && document.contains("nome")) {
                         val userName = document.getString("nome") ?: ""
-
-                        val beneficiary = Beneficiary(
-                            id = "", nome = nome, telefone = telefone,
-                            nacionalidade = nacionalidade, agregadoFamiliar = agregadoFamiliar,
-                            numeroVisita = 0, ownerId = userName
-                        )
-
                         db.collection("beneficiary")
-                            .add(beneficiary)
-                            .addOnCompleteListener { documentReference ->
-                                val generatedId = documentReference.result.id
+                            .whereEqualTo("nome", nome)
+                            .get()
+                            .addOnSuccessListener { documents ->
+                                if (documents.isEmpty) {
+                                    val beneficiary = Beneficiary(
+                                        id = "",
+                                        nome = nome,
+                                        telefone = telefone,
+                                        nacionalidade = nacionalidade,
+                                        agregadoFamiliar = agregadoFamiliar,
+                                        numeroVisita = 0,
+                                        ownerId = userName
+                                    )
 
-                                db.collection("beneficiary")
-                                    .document(generatedId)
-                                    .update("id", generatedId)
-                                    .addOnSuccessListener {
-                                        onSuccess()
-                                    }
-                                    .addOnFailureListener { e ->
-                                        onFailure(e.message ?: "Erro ao adicionar beneficiário")
-                                    }
+                                    db.collection("beneficiary")
+                                        .add(beneficiary)
+                                        .addOnCompleteListener { documentReference ->
+                                            val generatedId = documentReference.result.id
+
+                                            db.collection("beneficiary")
+                                                .document(generatedId)
+                                                .update("id", generatedId)
+                                                .addOnSuccessListener {
+                                                    onSuccess()
+                                                }
+                                        }
+                                        .addOnFailureListener { e ->
+                                            onFailure("Erro ao adicionar beneficiário: ${e.message}")
+                                        }
+                                } else {
+                                    onFailure("Beneficiário com o nome '$nome' já existe.")
+                                }
                             }
                             .addOnFailureListener { e ->
-                                onFailure(e.message ?: "Erro ao adicionar beneficiário")
+                                onFailure("Erro ao verificar beneficiário existente: ${e.message}")
                             }
+                    } else {
+                        onFailure("Erro: Usuário não encontrado ou sem nome cadastrado.")
                     }
                 }
+                .addOnFailureListener { e ->
+                    onFailure("Erro ao obter usuário: ${e.message}")
+                }
+        } else {
+            onFailure("Erro: Usuário não autenticado.")
         }
     }
 

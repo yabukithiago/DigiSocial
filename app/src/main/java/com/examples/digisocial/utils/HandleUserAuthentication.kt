@@ -23,7 +23,6 @@ fun HandleUserAuthentication(navController: NavController) {
                         when (role) {
                             "admin" -> navController.navigate("homeAdmin")
                             "voluntary" -> navController.navigate("homeVoluntary")
-                            //"manager" -> navController.navigate("homeManager")
                             "juntamember" -> navController.navigate("homeJuntaMember")
                             else -> navController.navigate("login")
                         }
