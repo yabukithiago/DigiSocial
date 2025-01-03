@@ -13,6 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.examples.digisocial.ui.view.create.CreateBeneficiaryView
 import com.examples.digisocial.ui.view.delete.DeleteBeneficiaryView
+import com.examples.digisocial.ui.view.delete.DeleteJuntaMemberView
 import com.examples.digisocial.ui.view.delete.DeleteUserView
 import com.examples.digisocial.ui.view.delete.DeleteVoluntaryView
 import com.examples.digisocial.ui.view.edit.EditBeneficiaryView
@@ -60,6 +61,8 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
         }
         composable("resetPassword") {
             ResetPasswordView(navController)
+        }
+        composable("settings") {
         }
         //endregion
 
@@ -133,17 +136,10 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
         composable("readJuntaMember") {
             ShowJuntaMemberView(navController)
         }
-//            composable(
-//                route = "editJuntaMember/{id}",
-//                arguments = listOf(navArgument("id") { type = NavType.StringType })
-//            ) { backStackEntry ->
-//                val id = backStackEntry.arguments?.getString("id") ?: ""
-//                EditJuntaMemberView(navController, id)
-//            }
-//            composable("deleteJuntaMember/{id}") { backStackEntry ->
-//                val id = backStackEntry.arguments?.getString("id") ?: ""
-//                DeleteJuntaMemberView(navController = navController, id = id)
-//            }
+        composable("deleteJuntaMember/{id}") { backStackEntry ->
+            val id = backStackEntry.arguments?.getString("id") ?: ""
+            DeleteJuntaMemberView(navController = navController, id = id)
+        }
         //endregion
 
         //region Transactions

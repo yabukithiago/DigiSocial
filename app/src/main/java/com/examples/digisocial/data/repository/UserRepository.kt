@@ -2,7 +2,6 @@ package com.examples.digisocial.data.repository
 
 import android.content.ContentValues.TAG
 import android.util.Log
-import com.examples.digisocial.data.models.JuntaMember
 import com.examples.digisocial.data.models.User
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -36,7 +35,7 @@ object UserRepository {
         telefone: String,
         role: String,
         privileged: Boolean,
-        onSuccess: (String) -> Unit,
+        onSuccess: () -> Unit,
         onFailure: (String) -> Unit
     ) {
         val updates = mapOf(
@@ -51,7 +50,7 @@ object UserRepository {
             .document(id)
             .update(updates)
             .addOnSuccessListener {
-                onSuccess("Utilizador editado com sucesso: $id")
+                onSuccess()
             }
             .addOnFailureListener { e ->
                 onFailure("Erro ao atualizar beneficiário: ${e.message}")

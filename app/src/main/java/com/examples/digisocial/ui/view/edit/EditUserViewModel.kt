@@ -40,9 +40,9 @@ class EditUserViewModel : ViewModel() {
         state.value = state.value.copy(telefone = newValue)
     }
 
-    fun update(id: String){
+    fun update(id: String, onSuccess: () -> Unit){
         UserRepository.updateUser(id = id, nome = nome,
             telefone = telefone, role = role, privileged = privileged,
-            onSuccess = { }, onFailure = { } )
+            onSuccess = onSuccess, onFailure = { } )
     }
 }

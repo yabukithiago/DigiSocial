@@ -73,6 +73,15 @@ fun HomePageAdminView(navController: NavController) {
                 expanded = expanded,
                 onDismissRequest = { expanded = false }
                 ) {
+//                DropdownMenuItem(
+//                    text = { Text("Configurações") },
+//                    onClick = {
+//                        expanded = false
+//                        viewModel.logout(onLogoutSuccess = {
+//                            navController.navigate("settings")
+//                        })
+//                    }
+//                )
                 DropdownMenuItem(
                     text = { Text("Logout") },
                     onClick = {
@@ -85,6 +94,7 @@ fun HomePageAdminView(navController: NavController) {
             }
         }
     }
+
     Column(
         modifier = Modifier
             .fillMaxSize(),
