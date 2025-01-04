@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.examples.digisocial"
-        minSdk = 25
+        minSdk = 26
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -61,6 +61,9 @@ dependencies {
     implementation(libs.play.services.auth)
     implementation(libs.play.services.wearable)
 
+    // Excel
+    implementation(libs.poi)
+    implementation(libs.poi.ooxml)
 
     // Retrofit and GSON
     implementation(libs.retrofit)

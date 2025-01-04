@@ -105,7 +105,6 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
         composable("readVoluntary") {
             ShowVoluntaryView(navController)
         }
-
         composable("deleteVoluntary/{id}") { backStackEntry ->
             val id = backStackEntry.arguments?.getString("id") ?: ""
             DeleteVoluntaryView(navController = navController, id = id)

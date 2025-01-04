@@ -22,6 +22,8 @@ playServicesAuth = "21.3.0"
 firebaseDatabaseKtx = "21.0.0"
 animationCoreLint = "1.8.0-alpha07"
 playServicesWearable = "19.0.0"
+poi = "5.3.0"
+poiOoxml = "5.2.3"
 ui = "1.7.6"
 roomKtx = "2.6.1"
 lifecycleLivedataKtx = "2.8.7"
@@ -55,6 +57,8 @@ androidx-datastore-preferences-core-jvm = { group = "androidx.datastore", name =
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 play-services-wearable = { module = "com.google.android.gms:play-services-wearable", version.ref = "playServicesWearable" }
+poi = { module = "org.apache.poi:poi", version.ref = "poi" }
+poi-ooxml = { module = "org.apache.poi:poi-ooxml", version.ref = "poiOoxml" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "converterGson" }
 firebase-database-ktx = { group = "com.google.firebase", name = "firebase-database-ktx", version.ref = "firebaseDatabaseKtx" }
 androidx-animation-core-lint = { group = "androidx.compose.animation", name = "animation-core-lint", version.ref = "animationCoreLint" }
