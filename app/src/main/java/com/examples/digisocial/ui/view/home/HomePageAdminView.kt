@@ -1,5 +1,6 @@
 package com.examples.digisocial.ui.view.home
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -40,6 +42,7 @@ import com.examples.digisocial.utils.importExcelToFirestore
 @Composable
 fun HomePageAdminView(navController: NavController) {
     var expanded by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     Scaffold(
         bottomBar = { BottomBar(navController = navController, userRole = "admin") },
@@ -67,7 +70,13 @@ fun HomePageAdminView(navController: NavController) {
             }
             FileImportDropdownMenu(expanded, onDismiss = { expanded = false },
                 onFileSelected = { filePath ->
-                    importExcelToFirestore(filePath)
+                    importExcelToFirestore(filePath, onSuccess = {
+                        expanded = false
+                        Toast.makeText(context, "Documento importado com sucesso.", Toast.LENGTH_SHORT).show()
+                    }, onFailure = {
+                        expanded = false
+                        Toast.makeText(context, "Não foi possível importar o documento.", Toast.LENGTH_SHORT).show()
+                    })
                 })
         }
     }
