@@ -1,6 +1,6 @@
 package com.examples.digisocial.ui.view.home
 
-import com.examples.digisocial.ui.view.login.LoginViewModel
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,8 +17,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -31,18 +29,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.examples.digisocial.ui.components.FileImportDropdownMenu
 import com.examples.digisocial.ui.components.bars.BottomBar
 import com.examples.digisocial.ui.theme.DigiSocialTheme
+import com.examples.digisocial.utils.importExcelToFirestore
 
 @Composable
 fun HomePageAdminView(navController: NavController) {
-    val viewModel: LoginViewModel = viewModel()
     var expanded by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     Scaffold(
         bottomBar = { BottomBar(navController = navController, userRole = "admin") },
@@ -68,30 +68,16 @@ fun HomePageAdminView(navController: NavController) {
                     tint = Color.Blue
                 )
             }
-
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false }
-                ) {
-//                DropdownMenuItem(
-//                    text = { Text("Configurações") },
-//                    onClick = {
-//                        expanded = false
-//                        viewModel.logout(onLogoutSuccess = {
-//                            navController.navigate("settings")
-//                        })
-//                    }
-//                )
-                DropdownMenuItem(
-                    text = { Text("Logout") },
-                    onClick = {
+            FileImportDropdownMenu(expanded, onDismiss = { expanded = false },
+                onFileSelected = { filePath ->
+                    importExcelToFirestore(filePath, onSuccess = {
                         expanded = false
-                        viewModel.logout(onLogoutSuccess = {
-                            navController.navigate("login")
-                        })
-                    }
-                )
-            }
+                        Toast.makeText(context, "Documento importado com sucesso.", Toast.LENGTH_SHORT).show()
+                    }, onFailure = {
+                        expanded = false
+                        Toast.makeText(context, "Não foi possível importar o documento.", Toast.LENGTH_SHORT).show()
+                    })
+                })
         }
     }
 
