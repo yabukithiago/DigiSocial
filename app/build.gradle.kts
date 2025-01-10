@@ -93,6 +93,7 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.ui.test.android)
 
     // Testing
     testImplementation(libs.junit)

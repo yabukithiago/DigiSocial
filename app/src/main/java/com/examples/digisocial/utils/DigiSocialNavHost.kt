@@ -28,6 +28,7 @@ import com.examples.digisocial.ui.view.home.HomePageVoluntario
 import com.examples.digisocial.ui.view.login.LoginView
 import com.examples.digisocial.ui.view.register.RegisterView
 import com.examples.digisocial.ui.view.resetpassword.ResetPasswordView
+import com.examples.digisocial.ui.view.schedule.CreateScheduleView
 import com.examples.digisocial.ui.view.show.ShowBeneficiaryView
 import com.examples.digisocial.ui.view.show.ShowJuntaMemberView
 import com.examples.digisocial.ui.view.show.ShowVoluntaryView
@@ -55,6 +56,9 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
                 }
                 navController.navigate(destination)
             })
+        }
+        composable("logout") {
+            navController.navigate("login")
         }
         composable("register") {
             RegisterView(navController, onRegisterSuccess = { navController.navigate("login") })
@@ -150,6 +154,13 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
         }
         composable("showDashboard") {
             FinanceDashboardView(navController)
+        }
+        //endregion
+
+        //region Schedule
+        composable("addSchedule/{id}") { backStackEntry ->
+            val id = backStackEntry.arguments?.getString("id") ?: ""
+            CreateScheduleView(navController = navController, id = id)
         }
         //endregion
 

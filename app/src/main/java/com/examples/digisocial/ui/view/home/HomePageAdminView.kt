@@ -68,7 +68,7 @@ fun HomePageAdminView(navController: NavController) {
                     tint = Color.Blue
                 )
             }
-            FileImportDropdownMenu(expanded, onDismiss = { expanded = false },
+            FileImportDropdownMenu(navController, expanded, onDismiss = { expanded = false },
                 onFileSelected = { filePath ->
                     importExcelToFirestore(filePath, onSuccess = {
                         expanded = false

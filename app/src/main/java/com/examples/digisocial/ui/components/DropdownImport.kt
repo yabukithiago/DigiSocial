@@ -12,7 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.NavController
 import com.examples.digisocial.ui.view.login.LoginViewModel
 import java.io.File
 import java.io.FileOutputStream
@@ -20,6 +20,7 @@ import java.io.InputStream
 
 @Composable
 fun FileImportDropdownMenu(
+    navController: NavController,
     expanded: Boolean,
     onDismiss: () -> Unit,
     onFileSelected: (String) -> Unit
@@ -27,7 +28,6 @@ fun FileImportDropdownMenu(
     val context = LocalContext.current
     var selectedFilePath by remember { mutableStateOf<String?>(null) }
     val viewModel: LoginViewModel = viewModel()
-    val navController = rememberNavController()
 
     val filePickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
