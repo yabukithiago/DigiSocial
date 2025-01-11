@@ -36,14 +36,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.ui.components.InfoRow
+import com.examples.digisocial.ui.view.login.LoginViewModel
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 @Composable
 fun VoluntaryCard(navController: NavController, id: String, nome: String, telefone: String, email: String, isPrivileged: Boolean) {
     var menuExpanded by remember { mutableStateOf(false) }
-    var role = ""
+    val auth = Firebase.auth
+    val currentUser = auth.currentUser
+    val loginViewModel: LoginViewModel = viewModel()
+    var role by remember { mutableStateOf("") }
+
+    if (currentUser != null) {
+        loginViewModel.fetchUserRole(currentUser.uid) { role = it }
+    }
 
     Card(
         modifier = Modifier
