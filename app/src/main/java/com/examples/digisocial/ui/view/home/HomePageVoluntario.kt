@@ -138,7 +138,7 @@ fun HomePageVoluntario(navController: NavController) {
         Spacer(modifier = Modifier.size(16.dp))
 
         Button(
-            onClick = { navController.navigate("horarios") },
+            onClick = { navController.navigate("readSchedule") },
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier.fillMaxWidth(0.6f)
                 .height(60.dp),
@@ -151,7 +151,7 @@ fun HomePageVoluntario(navController: NavController) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    "Horários",
+                    "Escalas",
                     color = Color.White,
                     modifier = Modifier.padding(start = 16.dp)
                 )

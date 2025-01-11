@@ -175,7 +175,7 @@ fun RegisterView(navController: NavController, onRegisterSuccess: () -> Unit) {
                 viewModel.register(onRegisterSuccess = {
                     Toast.makeText(
                         context,
-                        "Registrado com sucesso",
+                        "Registado com sucesso",
                         Toast.LENGTH_SHORT
                     ).show()
                     onRegisterSuccess()
@@ -199,7 +199,7 @@ fun RegisterView(navController: NavController, onRegisterSuccess: () -> Unit) {
                     modifier = Modifier.size(24.dp)
                 )
             } else {
-                Text(text = "Registrar")
+                Text(text = "Registar")
             }
         }
 

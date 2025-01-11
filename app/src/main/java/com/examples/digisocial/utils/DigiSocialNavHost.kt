@@ -27,7 +27,14 @@ import com.examples.digisocial.ui.view.home.HomePageView
 import com.examples.digisocial.ui.view.home.HomePageVoluntario
 import com.examples.digisocial.ui.view.login.LoginView
 import com.examples.digisocial.ui.view.register.RegisterView
+import com.examples.digisocial.ui.view.report.ReportView
 import com.examples.digisocial.ui.view.resetpassword.ResetPasswordView
+import com.examples.digisocial.ui.view.schedule.CreateScheduleView
+import com.examples.digisocial.ui.view.schedule.DeleteScheduleView
+import com.examples.digisocial.ui.view.schedulevoluntary.RegisterVoluntaryScheduleView
+import com.examples.digisocial.ui.view.schedule.ShowScheduleView
+import com.examples.digisocial.ui.view.schedulevoluntary.DeleteVoluntaryScheduleView
+import com.examples.digisocial.ui.view.schedulevoluntary.ShowVoluntaryScheduleView
 import com.examples.digisocial.ui.view.show.ShowBeneficiaryView
 import com.examples.digisocial.ui.view.show.ShowJuntaMemberView
 import com.examples.digisocial.ui.view.show.ShowVoluntaryView
@@ -55,6 +62,9 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
                 }
                 navController.navigate(destination)
             })
+        }
+        composable("logout") {
+            navController.navigate("login")
         }
         composable("register") {
             RegisterView(navController, onRegisterSuccess = { navController.navigate("login") })
@@ -153,6 +163,34 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
         }
         //endregion
 
+        //region Schedule
+        composable("createSchedule") {
+            CreateScheduleView(navController = navController)
+        }
+        composable("readSchedule") {
+            ShowScheduleView(navController = navController)
+        }
+        composable("deleteSchedule/{id}") { backStackEntry ->
+            val id = backStackEntry.arguments?.getString("id") ?: ""
+            DeleteScheduleView(navController = navController, id = id)
+        }
+        //endregion
+
+        //region Schedule Voluntary
+        composable("addVoluntaryOnSchedule/{id}") { backStackEntry ->
+            val id = backStackEntry.arguments?.getString("id") ?: ""
+            RegisterVoluntaryScheduleView(navController, id = id)
+        }
+        composable("deleteVoluntaryOnSchedule/{id}") { backStackEntry ->
+            val id = backStackEntry.arguments?.getString("id") ?: ""
+            DeleteVoluntaryScheduleView(navController, id = id)
+        }
+        composable("showVoluntaryOnSchedule/{id}") { backStackEntry ->
+            val id = backStackEntry.arguments?.getString("id") ?: ""
+            ShowVoluntaryScheduleView(navController, id = id)
+        }
+        //endregion
+
         //region Attendance
         composable("attendanceRegister/{id}") { backStackEntry ->
             val id = backStackEntry.arguments?.getString("id") ?: ""
@@ -164,6 +202,13 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
         }
         //endregion
 
+        //region Reports
+        composable("reports"){
+            ReportView(navController)
+        }
+        //endregion
+
+        //region Loading
         composable("loading") {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -172,5 +217,6 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
                 CircularProgressIndicator()
             }
         }
+        //endregion
     }
 }

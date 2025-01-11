@@ -65,6 +65,10 @@ dependencies {
     implementation(libs.poi)
     implementation(libs.poi.ooxml)
 
+    // PDF
+    implementation(libs.itextpdf.itext7.core)
+
+
     // Retrofit and GSON
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
@@ -93,6 +97,7 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.ui.test.android)
 
     // Testing
     testImplementation(libs.junit)

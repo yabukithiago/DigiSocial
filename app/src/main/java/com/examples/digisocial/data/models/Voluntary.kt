@@ -1,14 +1,13 @@
 package com.examples.digisocial.data.models
 
 data class Voluntary(
-    override val id: String,
-    override var nome: String,
-    override var telefone: String,
-    override var email: String,
-    override var status: String,
+    override val id: String = "",
+    override var nome: String = "",
+    override var telefone: String = "",
+    override var email: String = "",
+    override var status: String = "",
     override var privileged: Boolean = false,
-    override var role: String,
-//        val escala: List<Escala>
+    override var role: String = ""
 ) : User(id, nome, telefone, email, status, role, privileged) {
 
     companion object {
