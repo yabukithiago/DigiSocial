@@ -12,7 +12,6 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,22 +28,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.examples.digisocial.ui.components.bars.BottomBar
 
 @Composable
-fun HomePageVoluntario(navController: NavController) {
+fun HomePageVoluntary(navController: NavController) {
     val viewModel: LoginViewModel = viewModel()
     val privileged = viewModel.state.value.privileged
     var expanded by remember { mutableStateOf(false) }
-
-    Scaffold(
-        bottomBar = { BottomBar(navController = navController, userRole = "voluntary") },
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier.padding(innerPadding)
-        ) {
-        }
-    }
 
     LaunchedEffect(Unit) {
         viewModel.fetchUserPermission { _ -> }
@@ -62,7 +51,7 @@ fun HomePageVoluntario(navController: NavController) {
                 Icon(
                     imageVector = Icons.Filled.Menu,
                     contentDescription = "Menu",
-                    tint = Color.Blue
+                    tint = Color(0xFF044AA6)
                 )
             }
 
@@ -95,7 +84,7 @@ fun HomePageVoluntario(navController: NavController) {
                 shape = RoundedCornerShape(20.dp),
                 modifier = Modifier.fillMaxWidth(0.6f)
                     .height(60.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6))
             ) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -119,7 +108,7 @@ fun HomePageVoluntario(navController: NavController) {
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier.fillMaxWidth(0.6f)
                 .height(60.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6))
         ) {
             Row(
                 modifier = Modifier
@@ -142,7 +131,7 @@ fun HomePageVoluntario(navController: NavController) {
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier.fillMaxWidth(0.6f)
                 .height(60.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6))
         ) {
             Row(
                 modifier = Modifier
@@ -160,49 +149,6 @@ fun HomePageVoluntario(navController: NavController) {
 
         Spacer(modifier = Modifier.size(16.dp))
 
-        Button(
-            onClick = { navController.navigate("mensagens") },
-            shape = RoundedCornerShape(20.dp),
-            modifier = Modifier.fillMaxWidth(0.6f)
-                .height(60.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    "Mensagens",
-                    color = Color.White,
-                    modifier = Modifier.padding(start = 16.dp)
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.size(16.dp))
-
-        Button(
-            onClick = { navController.navigate("editar_informacoes") },
-            shape = RoundedCornerShape(20.dp),
-            modifier = Modifier.fillMaxWidth(0.6f)
-                .height(60.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    "Editar Informações",
-                    color = Color.White,
-                    modifier = Modifier.padding(start = 16.dp)
-                )
-            }
-        }
     }
 }
 
@@ -210,6 +156,6 @@ fun HomePageVoluntario(navController: NavController) {
 @Composable
 fun HomePageVoluntarioPreview() {
     DigiSocialTheme {
-        HomePageVoluntario(navController = rememberNavController())
+        HomePageVoluntary(navController = rememberNavController())
     }
 }

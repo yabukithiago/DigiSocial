@@ -103,7 +103,7 @@ fun LoginView(navController: NavController, onLoginSuccess: (String) -> Unit) {
                         state.errorMessage = message
                     })
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6)),
                 shape = RoundedCornerShape(20.dp),
                 modifier = Modifier
                     .weight(1f)
@@ -126,7 +126,7 @@ fun LoginView(navController: NavController, onLoginSuccess: (String) -> Unit) {
                 onClick = {
                     navController.navigate("register")
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6)),
                 shape = RoundedCornerShape(20.dp),
                 modifier = Modifier
                     .weight(1f)

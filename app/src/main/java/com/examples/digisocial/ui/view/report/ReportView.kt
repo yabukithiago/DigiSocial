@@ -56,7 +56,7 @@ fun ReportView(navController: NavController) {
             }, shape = RoundedCornerShape(20.dp),
             modifier = Modifier.fillMaxWidth(0.6f)
                 .height(60.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6))
         ) {
             Text("Exportar Relatório de Nacionalidade")
         }
@@ -85,7 +85,7 @@ fun ReportView(navController: NavController) {
             }, shape = RoundedCornerShape(20.dp),
             modifier = Modifier.fillMaxWidth(0.6f)
                 .height(60.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6))
         ) {
             Text("Exportar Relatório Financeiro")
         }

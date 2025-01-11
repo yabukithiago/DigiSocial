@@ -87,7 +87,7 @@ fun ResetPasswordView(navController: NavController) {
                         }
                     )
             },
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6)),
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier.fillMaxWidth(0.8f),
             enabled = state.email.isNotEmpty() && !state.isLoading

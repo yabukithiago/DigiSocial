@@ -75,7 +75,7 @@ fun CreateScheduleView(navController: NavController) {
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
             ).show()
-        }, colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)) {
+        }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6))) {
             Text(text = "Selecionar Data")
         }
 
@@ -99,7 +99,7 @@ fun CreateScheduleView(navController: NavController) {
                     ).show()
                 }
             },
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6)),
             enabled = !state.isLoading
         ) {
             Text(if (state.isLoading) "Carregando..." else "Criar Escala")

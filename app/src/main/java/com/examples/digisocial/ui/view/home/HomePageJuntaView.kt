@@ -46,12 +46,12 @@ fun HomePageJuntaView(navController: NavController) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Button(
-                    onClick = { /* INSERIR CAMINHO PARA RELATORIOS */ },
+                    onClick = { navController.navigate("reports") },
                     modifier = Modifier
                         .fillMaxWidth(0.8f)
                         .height(80.dp)
                         .padding(8.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6))
                 ) {
                     Text("Relatórios")
                 }
