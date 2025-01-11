@@ -24,7 +24,7 @@ import com.examples.digisocial.ui.view.finance.ShowTransactionView
 import com.examples.digisocial.ui.view.home.HomePageAdminView
 import com.examples.digisocial.ui.view.home.HomePageJuntaView
 import com.examples.digisocial.ui.view.home.HomePageView
-import com.examples.digisocial.ui.view.home.HomePageVoluntario
+import com.examples.digisocial.ui.view.home.HomePageVoluntary
 import com.examples.digisocial.ui.view.login.LoginView
 import com.examples.digisocial.ui.view.register.RegisterView
 import com.examples.digisocial.ui.view.report.ReportView
@@ -72,8 +72,6 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
         composable("resetPassword") {
             ResetPasswordView(navController)
         }
-        composable("settings") {
-        }
         //endregion
 
         //region User
@@ -98,7 +96,7 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
             HomePageAdminView(navController)
         }
         composable("homeVoluntary") {
-            HomePageVoluntario(navController)
+            HomePageVoluntary(navController)
         }
         composable("homeJuntaMember") {
             HomePageJuntaView(navController)

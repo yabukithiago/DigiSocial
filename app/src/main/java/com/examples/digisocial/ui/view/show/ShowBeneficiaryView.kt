@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -48,13 +50,15 @@ fun ShowBeneficiaryView(navController: NavController, modifier: Modifier = Modif
         ) {
             TopBar(title = "Beneficiários", navController = navController)
 
+            Spacer(modifier = Modifier.height(8.dp))
+
             SearchBar(
                 searchQuery = searchQuery,
                 onSearchQueryChanged = { searchQuery = it }
             )
 
             LazyColumn(
-                contentPadding = PaddingValues(16.dp),
+                contentPadding = PaddingValues(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.fillMaxSize()
             ) {
@@ -94,7 +98,7 @@ fun ShowBeneficiaryView(navController: NavController, modifier: Modifier = Modif
         }
         FloatingActionButton(
             onClick = { navController.navigate("createBeneficiary") },
-            containerColor = Color.Blue,
+            containerColor = Color(0xFF044AA6),
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(16.dp)

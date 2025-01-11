@@ -74,7 +74,7 @@ fun ShowScheduleView(navController: NavController, modifier: Modifier = Modifier
         if (role == "admin") {
             FloatingActionButton(
                 onClick = { navController.navigate("createSchedule") },
-                containerColor = Color.Blue,
+                containerColor = Color(0xFF044AA6),
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .padding(16.dp)

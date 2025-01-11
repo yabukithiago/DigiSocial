@@ -148,15 +148,11 @@ fun RegisterView(navController: NavController, onRegisterSuccess: () -> Unit) {
             value = state.confirmPassword,
             onValueChange = viewModel::onConfirmPasswordChange,
             label = { Text("Confirmar Password") },
-            leadingIcon = { Icon(Icons.Filled.Lock, contentDescription = "Confirmar Password Icon") },
-            trailingIcon = {
-                val image = if (passwordVisible)
-                    Icons.Filled.Visibility
-                else Icons.Filled.VisibilityOff
-
-                IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                    Icon(imageVector = image, contentDescription = "Password Visibility Icon")
-                }
+            leadingIcon = {
+                Icon(
+                    Icons.Filled.Lock,
+                    contentDescription = "Confirmar Password Icon"
+                )
             },
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
@@ -184,7 +180,7 @@ fun RegisterView(navController: NavController, onRegisterSuccess: () -> Unit) {
                         state.errorMessage = message
                     })
             },
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6)),
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier.fillMaxWidth(0.8f),
             enabled = state.name.isNotEmpty() &&
@@ -205,12 +201,14 @@ fun RegisterView(navController: NavController, onRegisterSuccess: () -> Unit) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Button(onClick = {
-            navController.navigate("login")
-        },
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
+        Button(
+            onClick = {
+                navController.navigate("login")
+            },
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6)),
             shape = RoundedCornerShape(20.dp),
-            modifier = Modifier.fillMaxWidth(0.8f),) {
+            modifier = Modifier.fillMaxWidth(0.8f),
+        ) {
             Text("Voltar")
         }
 

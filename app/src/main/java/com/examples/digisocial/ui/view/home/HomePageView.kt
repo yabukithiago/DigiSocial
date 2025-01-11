@@ -42,7 +42,7 @@ fun HomePageView(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = { viewModel.logout(onLogoutSuccess = { navController.navigate("login") }) },
-            colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray)
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6))
         ) {
             Text("Voltar")
         }

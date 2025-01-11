@@ -57,7 +57,7 @@ fun UsersPageView(navController: NavController) {
                     shape = RoundedCornerShape(20.dp),
                     modifier = Modifier.fillMaxWidth(0.6f)
                         .height(60.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6))
                 ) {
                     Row(
                         modifier = Modifier
@@ -80,7 +80,7 @@ fun UsersPageView(navController: NavController) {
                     shape = RoundedCornerShape(20.dp),
                     modifier = Modifier.fillMaxWidth(0.6f)
                         .height(60.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6))
                 ) {
                     Row(
                         modifier = Modifier
@@ -103,7 +103,7 @@ fun UsersPageView(navController: NavController) {
                     shape = RoundedCornerShape(20.dp),
                     modifier = Modifier.fillMaxWidth(0.6f)
                         .height(60.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6))
                 ) {
                     Row(
                         modifier = Modifier
@@ -126,7 +126,7 @@ fun UsersPageView(navController: NavController) {
                     shape = RoundedCornerShape(20.dp),
                     modifier = Modifier.fillMaxWidth(0.6f)
                         .height(60.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6))
                 ) {
                     Row(
                         modifier = Modifier

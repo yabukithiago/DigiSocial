@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
-import androidx.compose.material.icons.filled.Analytics
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.PieChart
 import androidx.compose.material.icons.filled.SupervisorAccount
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
@@ -29,7 +29,7 @@ fun BottomBar(navController: NavController, userRole: String) {
                         Icon(Icons.Default.SupervisorAccount, contentDescription = "Manage Beneficiary")
                     }
                     IconButton(onClick = { navController.navigate("showDashboard") }) {
-                        Icon(Icons.Default.Analytics, contentDescription = "Show Dashboard")
+                        Icon(Icons.Default.PieChart, contentDescription = "Show Dashboard")
                     }
                 }
                 "voluntary" -> {

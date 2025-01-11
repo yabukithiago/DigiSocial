@@ -115,7 +115,7 @@ fun CreateBeneficiaryView(navController: NavController) {
                     state.errorMessage = "Preencha todos os campos."
                 }
             },
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6)),
             enabled = !state.isLoading
         ) {
             Text(if (state.isLoading) "Carregando..." else "Registar Beneficiário")

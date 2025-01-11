@@ -32,6 +32,7 @@ import com.examples.digisocial.ui.components.cards.TransactionCard
 fun ShowTransactionView(navController: NavController) {
     val viewModel: ShowTransactionViewModel = viewModel()
     val state by viewModel.state
+    val sortedTransactions = state.listTransaction.sortedByDescending { it.date }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column {
@@ -39,7 +40,7 @@ fun ShowTransactionView(navController: NavController) {
             LazyColumn(contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 itemsIndexed(
-                    items = state.listTransaction
+                    items = sortedTransactions
                 ) { _, item ->
                     TransactionCard (
                         description = item.description,
@@ -52,7 +53,7 @@ fun ShowTransactionView(navController: NavController) {
         }
         FloatingActionButton(
             onClick = { navController.navigate("addNewTransaction") },
-            containerColor = Color.Blue,
+            containerColor = Color(0xFF044AA6),
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .size(80.dp)
@@ -66,7 +67,7 @@ fun ShowTransactionView(navController: NavController) {
         }
         Button(
             onClick = { navController.navigate("showDashboard") },
-            colors = buttonColors(Color.Blue),
+            colors = buttonColors(Color(0xFF044AA6)),
             modifier = Modifier
                 .align(Alignment.BottomStart)
                 .padding(20.dp)
