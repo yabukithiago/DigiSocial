@@ -134,7 +134,7 @@ fun HomePageAdminView(navController: NavController) {
         Spacer(modifier = Modifier.size(16.dp))
 
         Button(
-            onClick = { navController.navigate("users") },
+            onClick = { navController.navigate("readSchedule") },
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier.fillMaxWidth(0.6f)
                 .height(60.dp),
@@ -147,7 +147,7 @@ fun HomePageAdminView(navController: NavController) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    "Horários",
+                    "Escalas",
                     color = Color.White,
                     modifier = Modifier.padding(start = 16.dp)
                 )
@@ -157,7 +157,7 @@ fun HomePageAdminView(navController: NavController) {
         Spacer(modifier = Modifier.size(16.dp))
 
         Button(
-            onClick = { navController.navigate("users") },
+            onClick = { navController.navigate("reports") },
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier.fillMaxWidth(0.6f)
                 .height(60.dp),

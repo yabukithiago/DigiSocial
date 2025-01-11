@@ -7,7 +7,7 @@ import java.util.Date
 
 data class ScheduleState(
     var data: Date = Date(),
-    var tarefa: String = "",
+    var vagasTotais: Int = 0,
     val isLoading: Boolean = false,
     var errorMessage: String? = null
 )
@@ -18,22 +18,21 @@ class CreateScheduleViewModel : ViewModel() {
 
     private val data
         get() = state.value.data
-    private val tarefa
-        get() = state.value.tarefa
+    private val vagasTotais
+        get() = state.value.vagasTotais
 
     fun onDateChange(newValue: Date) {
         state.value = state.value.copy(data = newValue)
     }
 
-    fun onTarefaChange(newValue: String) {
-        state.value = state.value.copy(tarefa = newValue)
+    fun onVagasTotaisChange(newValue: Int) {
+        state.value = state.value.copy(vagasTotais = newValue)
     }
 
-    fun addSchedule(id: String, onSuccess: () -> Unit) {
+    fun addSchedule(onSuccess: () -> Unit) {
         ScheduleRepository.addSchedule(
-            id = id,
             data = data,
-            tarefa = tarefa,
+            vagasTotais = vagasTotais,
             onSuccess = onSuccess,
             onFailure = { })
     }

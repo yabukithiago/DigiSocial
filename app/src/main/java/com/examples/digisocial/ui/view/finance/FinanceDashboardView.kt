@@ -30,7 +30,7 @@ fun FinanceDashboardView(navController: NavController) {
     LaunchedEffect(Unit) {
         viewModel.loadListTransaction()
     }
-    TopBar(title = "Dashboard Financeiro", navController = navController)
+    TopBar(title = "Relatório Financeiro", navController = navController)
 
     Column(modifier = Modifier
         .fillMaxSize()
@@ -42,7 +42,7 @@ fun FinanceDashboardView(navController: NavController) {
 
         Text(
             modifier = Modifier.align(Alignment.CenterHorizontally),
-            text = "Saldo: R$ ${(state.totalIncome - state.totalExpense)}",
+            text = "Saldo: ${(state.totalIncome - state.totalExpense)} €",
             style = MaterialTheme.typography.titleLarge
         )
 
@@ -51,24 +51,19 @@ fun FinanceDashboardView(navController: NavController) {
                 modifier = Modifier.weight(1f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text("Receitas", color = Color.Green)
-                Text("R$ ${state.totalIncome}")
+                Text("Receitas", color = Color(0xFF4CAF50))
+                Text("${state.totalIncome} €")
             }
             Column(
                 modifier = Modifier.weight(1f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text("Despesas", color = Color.Red)
-                Text("R$ ${state.totalExpense}")
+                Text("Despesas", color = Color(0xFFD00D00))
+                Text("${state.totalExpense} €")
             }
         }
-
-        Spacer(modifier = Modifier.height(50.dp))
-
         PieChart(income = state.totalIncome, expense = state.totalExpense)
-
     }
-
 }
 
 @Composable
@@ -79,13 +74,13 @@ fun PieChart(income: Double, expense: Double) {
         val expenseAngle = (expense / total * 360).toFloat()
 
         drawArc(
-            color = Color.Green,
+            color = Color(0xFF4CAF50),
             startAngle = 0f,
             sweepAngle = incomeAngle,
             useCenter = true
         )
         drawArc(
-            color = Color.Red,
+            color = Color(0xFFD00D00),
             startAngle = incomeAngle,
             sweepAngle = expenseAngle,
             useCenter = true

@@ -128,7 +128,7 @@ fun EditBeneficiaryView(navController: NavController, id: String) {
                     && state.nacionalidade.isNotEmpty() && state.agregadoFamiliar.isNotEmpty()) {
                     viewModel.update(id, onSuccess = {
                         Toast.makeText(context, "Beneficiário editado com sucesso", Toast.LENGTH_SHORT).show()
-                        navController.navigate("readBeneficiary")})
+                        navController.popBackStack()})
                 } else {
                     state.errorMessage = "Preencha todos os campos."
                 }

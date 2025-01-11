@@ -214,7 +214,7 @@ fun EditUserView(navController: NavController, id: String) {
                 if (state.nome.isNotEmpty() && state.telefone.isNotEmpty()) {
                     viewModel.update(id, onSuccess = {
                         Toast.makeText(context, "Utilizador editado com sucesso", Toast.LENGTH_SHORT).show()
-                        navController.navigate("readPendingUser")})
+                        navController.popBackStack()})
                 } else {
                     state.errorMessage = "Preencha todos os campos."
                 }

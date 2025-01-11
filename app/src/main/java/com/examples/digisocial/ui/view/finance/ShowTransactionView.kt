@@ -22,11 +22,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.ui.components.bars.TopBar
 import com.examples.digisocial.ui.components.cards.TransactionCard
 
@@ -73,17 +71,11 @@ fun ShowTransactionView(navController: NavController) {
                 .align(Alignment.BottomStart)
                 .padding(20.dp)
         ) {
-            Text("Dashboard Financeiro")
+            Text("Relatório Financeiro")
         }
     }
 
     LaunchedEffect (key1 = Unit){
         viewModel.loadListTransaction()
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewShowBeneficiaryView(){
-    com.examples.digisocial.ui.view.show.ShowBeneficiaryView(navController = rememberNavController())
 }

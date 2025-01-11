@@ -65,6 +65,10 @@ dependencies {
     implementation(libs.poi)
     implementation(libs.poi.ooxml)
 
+    // PDF
+    implementation(libs.itextpdf.itext7.core)
+
+
     // Retrofit and GSON
     implementation(libs.retrofit)
     implementation(libs.converter.gson)

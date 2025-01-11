@@ -30,6 +30,20 @@ object VoluntaryRepository {
             }
     }
 
+    fun getVoluntary(id: String, onSuccess: (Voluntary) -> Unit) {
+        db.collection("user")
+            .document(id)
+            .get()
+            .addOnSuccessListener { document ->
+                document.data?.let { data ->
+                    onSuccess(Voluntary.fromMap(data))
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents: ", exception)
+            }
+    }
+
     fun deleteVoluntary(id: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
         db.collection("user").document(id)
             .update("status", "inativo")
