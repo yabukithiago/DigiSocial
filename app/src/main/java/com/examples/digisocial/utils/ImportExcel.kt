@@ -16,6 +16,11 @@ fun importExcelToFirestore(filePath: String, onSuccess: () -> Unit, onFailure: (
         return
     }
 
+    val headerMapping = mapOf(
+        "agregado familiar" to "agregadoFamiliar",
+        "numero de visitas" to "numeroVisitas"
+    )
+
     FileInputStream(file).use { fis ->
         val workbook = WorkbookFactory.create(fis)
         val sheet = workbook.getSheetAt(0)
@@ -30,20 +35,21 @@ fun importExcelToFirestore(filePath: String, onSuccess: () -> Unit, onFailure: (
             val dataMap = mutableMapOf<String, Any>()
 
             for (j in 0 until headerRow.physicalNumberOfCells) {
-                val headerName = headerRow.getCell(j).toString()
+                val headerName = headerRow.getCell(j).toString().trim()
+                val mappedHeaderName = headerMapping[headerName] ?: headerName
                 val cell = row.getCell(j)
 
-                if (headerName == "numeroVisitas" || headerName == "agregadoFamiliar") {
+                if (mappedHeaderName == "agregadoFamiliar" || mappedHeaderName == "numeroVisitas") {
                     // Processar numeroVisitas como um número
                     val numeroVisitas = when (cell?.cellType) {
                         CellType.NUMERIC -> cell.numericCellValue.toLong()
                         CellType.STRING -> cell.stringCellValue.toLongOrNull() ?: 0L
                         else -> 0L
                     }
-                    dataMap[headerName] = numeroVisitas
+                    dataMap[mappedHeaderName] = numeroVisitas
                 } else {
                     // Processar outras células como String
-                    dataMap[headerName] = cell?.toString() ?: ""
+                    dataMap[mappedHeaderName] = cell?.toString() ?: ""
                 }
             }
 
