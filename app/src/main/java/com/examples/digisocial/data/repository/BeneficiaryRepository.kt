@@ -12,9 +12,11 @@ object BeneficiaryRepository {
 
     fun createBeneficiary(
         nome: String,
-        telefone: String,
+        telemovel: String,
+        referencia: String,
+        agregadoFamiliar: Long,
         nacionalidade: String,
-        agregadoFamiliar: String,
+        pedidos: String,
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit
     ) {
@@ -32,10 +34,12 @@ object BeneficiaryRepository {
                                     val beneficiary = Beneficiary(
                                         id = "",
                                         nome = nome,
-                                        telefone = telefone,
-                                        nacionalidade = nacionalidade,
+                                        telemovel = telemovel,
+                                        referencia = referencia,
                                         agregadoFamiliar = agregadoFamiliar,
-                                        numeroVisita = 0,
+                                        nacionalidade = nacionalidade,
+                                        pedidos = pedidos,
+                                        numeroVisitas = 0,
                                         ownerId = userName
                                     )
 
@@ -101,15 +105,15 @@ object BeneficiaryRepository {
     fun updateBeneficiary(
         id: String,
         nome: String,
-        telefone: String,
+        telemovel: String,
         nacionalidade: String,
-        agregadoFamiliar: String,
+        agregadoFamiliar: Long,
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit
     ) {
         val updates = mapOf(
             "nome" to nome,
-            "telefone" to telefone,
+            "telemovel" to telemovel,
             "nacionalidade" to nacionalidade,
             "agregadoFamiliar" to agregadoFamiliar,
         )

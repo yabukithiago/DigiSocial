@@ -1,6 +1,7 @@
 package com.examples.digisocial.utils
 
 import com.google.firebase.firestore.FirebaseFirestore
+import org.apache.poi.ss.usermodel.CellType
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import java.io.File
 import java.io.FileInputStream
@@ -30,13 +31,19 @@ fun importExcelToFirestore(filePath: String, onSuccess: () -> Unit, onFailure: (
 
             for (j in 0 until headerRow.physicalNumberOfCells) {
                 val headerName = headerRow.getCell(j).toString()
-                val cellValue = row.getCell(j)?.toString() ?: ""
+                val cell = row.getCell(j)
 
-                if (headerName == "numeroVisita") {
-                    val numeroVisita = cellValue.toLongOrNull() ?: 0L
-                    dataMap[headerName] = numeroVisita
+                if (headerName == "numeroVisitas" || headerName == "agregadoFamiliar") {
+                    // Processar numeroVisitas como um número
+                    val numeroVisitas = when (cell?.cellType) {
+                        CellType.NUMERIC -> cell.numericCellValue.toLong()
+                        CellType.STRING -> cell.stringCellValue.toLongOrNull() ?: 0L
+                        else -> 0L
+                    }
+                    dataMap[headerName] = numeroVisitas
                 } else {
-                    dataMap[headerName] = cellValue
+                    // Processar outras células como String
+                    dataMap[headerName] = cell?.toString() ?: ""
                 }
             }
 

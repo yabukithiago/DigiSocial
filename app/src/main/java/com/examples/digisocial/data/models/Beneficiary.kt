@@ -3,10 +3,12 @@ package com.examples.digisocial.data.models
 data class Beneficiary(
     val id: String,
     var nome: String,
-    var telefone: String,
+    var telemovel: String,
+    var referencia: String,
+    var agregadoFamiliar: Long,
     val nacionalidade: String,
-    var agregadoFamiliar: String,
-    var numeroVisita: Long,
+    var pedidos: String,
+    var numeroVisitas: Long,
     val ownerId: String
 ) {
     companion object {
@@ -14,10 +16,12 @@ data class Beneficiary(
             return Beneficiary(
                 map["id"] as String,
                 map["nome"] as String,
-                map["telefone"] as String,
+                map["telemovel"] as String,
+                map["referencia"] as String,
+                map["agregadoFamiliar"] as Long,
                 map["nacionalidade"] as String,
-                map["agregadoFamiliar"] as String,
-                map["numeroVisita"] as Long,
+                map["pedidos"] as String,
+                (map["numeroVisitas"] as? Long) ?: 0L,
                 map["ownerId"] as String,
             )
         }

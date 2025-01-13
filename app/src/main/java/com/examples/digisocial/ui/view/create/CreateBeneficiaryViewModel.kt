@@ -7,11 +7,12 @@ import com.examples.digisocial.data.repository.BeneficiaryRepository
 
 data class CreateBeneficiaryState(
     var nome: String = "",
-    var telefone: String = "",
+    var telemovel: String = "",
+    var referencia: String = "",
+    var agregadoFamiliar: Long = 0,
     override var nacionalidade: String = "",
-    var editedNacionalidade: String = "",
-    var agregadoFamiliar: String = "",
-    var numeroVisitas: Int = 0,
+    var pedidos: String = "",
+    var numeroVisitas: Long = 0,
     val isLoading: Boolean = false,
     var errorMessage: String? = null
 ) : BeneficiaryState
@@ -22,32 +23,46 @@ class CreateBeneficiaryViewModel : ViewModel() {
 
     private val nome
         get() = state.value.nome
-    private val telefone
-        get() = state.value.telefone
-    private val nacionalidade
-        get() = state.value.nacionalidade
+    private val telemovel
+        get() = state.value.telemovel
+    private val referencia
+        get() = state.value.referencia
     private val agregadoFamiliar
         get() = state.value.agregadoFamiliar
+    private val nacionalidade
+        get() = state.value.nacionalidade
+    private val pedidos
+        get() = state.value.pedidos
+
 
     fun onNomeChange(newValue: String) {
         state.value = state.value.copy(nome = newValue)
     }
 
-    fun onTelefoneChange(newValue: String) {
-        state.value = state.value.copy(telefone = newValue)
+    fun onTelemovelChange(newValue: String) {
+        state.value = state.value.copy(telemovel = newValue)
+    }
+
+    fun onReferenciaChange(newValue: String) {
+        state.value = state.value.copy(referencia = newValue)
+    }
+
+    fun onAgregadoFamiliarChange(newValue: Long) {
+        state.value = state.value.copy(agregadoFamiliar = newValue)
     }
 
     fun onNacionalidadeChange(newValue: String) {
         state.value = state.value.copy(nacionalidade = newValue)
     }
 
-    fun onAgregadoFamiliarChange(newValue: String) {
-        state.value = state.value.copy(agregadoFamiliar = newValue)
+    fun onPedidosChange(newValue: String){
+        state.value = state.value.copy(pedidos = newValue)
     }
 
     fun create(onSuccess: () -> Unit, onFailure: (String) -> Unit) {
         BeneficiaryRepository.createBeneficiary(nome = nome,
-            telefone = telefone, nacionalidade = nacionalidade, agregadoFamiliar = agregadoFamiliar,
+            telemovel = telemovel, referencia = referencia, agregadoFamiliar = agregadoFamiliar, nacionalidade = nacionalidade,
+            pedidos = pedidos,
             onSuccess = onSuccess, onFailure = onFailure)
     }
 }
