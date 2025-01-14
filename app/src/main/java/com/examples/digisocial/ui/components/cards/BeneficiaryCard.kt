@@ -147,13 +147,15 @@ fun BeneficiaryCard(
                                 menuExpanded = false
                             }
                         )
-                        DropdownMenuItem(
-                            text = { Text("Excluir") },
-                            onClick = {
-                                navController.navigate("deleteBeneficiary/$id")
-                                menuExpanded = false
-                            }
-                        )
+                        if (role == "admin") {
+                            DropdownMenuItem(
+                                text = { Text("Excluir") },
+                                onClick = {
+                                    navController.navigate("deleteBeneficiary/$id")
+                                    menuExpanded = false
+                                }
+                            )
+                        }
                     }
                 }
             }

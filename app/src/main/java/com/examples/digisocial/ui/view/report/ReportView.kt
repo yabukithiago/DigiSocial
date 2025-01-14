@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.examples.digisocial.ui.components.bars.TopBar
@@ -58,7 +59,8 @@ fun ReportView(navController: NavController) {
                 .height(60.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6))
         ) {
-            Text("Exportar Relatório de Nacionalidade")
+            Text(text = "Exportar Relatório de Nacionalidades", textAlign = TextAlign.Left,
+                modifier = Modifier.fillMaxWidth())
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -87,7 +89,8 @@ fun ReportView(navController: NavController) {
                 .height(60.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6))
         ) {
-            Text("Exportar Relatório Financeiro")
+            Text(text = "Exportar Relatório Financeiro", textAlign = TextAlign.Left,
+                modifier = Modifier.fillMaxWidth())
         }
     }
 }

@@ -4,7 +4,6 @@ import com.examples.digisocial.ui.view.login.LoginViewModel
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -23,7 +22,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.ui.theme.DigiSocialTheme
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,12 +30,8 @@ import androidx.compose.runtime.setValue
 @Composable
 fun HomePageVoluntary(navController: NavController) {
     val viewModel: LoginViewModel = viewModel()
-    val privileged = viewModel.state.value.privileged
     var expanded by remember { mutableStateOf(false) }
 
-    LaunchedEffect(Unit) {
-        viewModel.fetchUserPermission { _ -> }
-    }
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -77,32 +71,6 @@ fun HomePageVoluntary(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-
-        if (privileged == true) {
-            Button(
-                onClick = { navController.navigate("readBeneficiary") },
-                shape = RoundedCornerShape(20.dp),
-                modifier = Modifier.fillMaxWidth(0.6f)
-                    .height(60.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6))
-            ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text("Beneficiarios", color = Color.White)
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Icon(
-                        imageVector = Icons.Filled.Edit,
-                        contentDescription = "Editar Beneficiários",
-                        tint = Color.White,
-                        modifier = Modifier.size(50.dp)
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.size(16.dp))
-        }
-
         Button(
             onClick = { navController.navigate("readBeneficiary") },
             shape = RoundedCornerShape(20.dp),
@@ -117,7 +85,7 @@ fun HomePageVoluntary(navController: NavController) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    "Registar Presença",
+                    "Beneficiários",
                     color = Color.White,
                     modifier = Modifier.padding(start = 16.dp)
                 )
