@@ -31,10 +31,10 @@ fun NacionalidadeDropdownMenu(
 
     LaunchedEffect(Unit) {
         coroutineScope.launch {
-            try {
-                nacionalidades = getCountryNames().sorted()
+            nacionalidades = try {
+                getCountryNames().sorted()
             } catch (e: Exception) {
-                // Handle error
+                "Erro ao carregar nacionalidades".split(" ")
             } finally {
                 isLoading = false
             }
@@ -45,7 +45,8 @@ fun NacionalidadeDropdownMenu(
         onExpandedChange = { expanded = !expanded },
     ) {
         TextField(
-            modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryEditable, enabled = true),
+            modifier = Modifier
+                .menuAnchor(MenuAnchorType.PrimaryEditable, enabled = true),
             value = state.nacionalidade,
             onValueChange = { },
             label = { Text(if (isEditing)"Editar Nacionalidade" else "Nacionalidade") },

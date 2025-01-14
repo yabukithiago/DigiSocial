@@ -7,10 +7,10 @@ import com.examples.digisocial.data.repository.BeneficiaryRepository
 
 data class EditBeneficiaryState(
     var nome: String = "",
-    var telefone: String = "",
+    var telemovel: String = "",
     override var nacionalidade: String = "",
-    var agregadoFamiliar: String = "",
-    var numeroVisitas: Int = 0,
+    var agregadoFamiliar: Long = 0,
+    var numeroVisitas: Long = 0,
     val isLoading: Boolean = false,
     var errorMessage: String? = null
 ) : BeneficiaryState
@@ -21,8 +21,8 @@ class EditBeneficiaryViewModel : ViewModel() {
 
     private val nome
         get() = state.value.nome
-    private val telefone
-        get() = state.value.telefone
+    private val telemovel
+        get() = state.value.telemovel
     private val nacionalidade
         get() = state.value.nacionalidade
     private val agregadoFamiliar
@@ -32,21 +32,21 @@ class EditBeneficiaryViewModel : ViewModel() {
         state.value = state.value.copy(nome = newValue)
     }
 
-    fun onTelefoneChange(newValue: String) {
-        state.value = state.value.copy(telefone = newValue)
+    fun onTelemovelChange(newValue: String) {
+        state.value = state.value.copy(telemovel = newValue)
     }
 
     fun onNacionalidadeChange(newValue: String) {
         state.value = state.value.copy(nacionalidade = newValue)
     }
 
-    fun onAgregadoFamiliarChange(newValue: String) {
+    fun onAgregadoFamiliarChange(newValue: Long) {
         state.value = state.value.copy(agregadoFamiliar = newValue)
     }
 
     fun update(id: String, onSuccess: () -> Unit){
         BeneficiaryRepository.updateBeneficiary(id = id, nome = nome,
-            telefone = telefone, nacionalidade = nacionalidade,
+            telemovel = telemovel, nacionalidade = nacionalidade,
             agregadoFamiliar = agregadoFamiliar,
             onSuccess = onSuccess, onFailure = { } )
     }

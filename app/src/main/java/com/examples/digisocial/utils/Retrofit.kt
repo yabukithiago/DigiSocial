@@ -1,5 +1,6 @@
 package com.examples.digisocial.utils
 
+import com.google.gson.annotations.SerializedName
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -12,11 +13,11 @@ interface CountriesApi {
 }
 
 data class CountryResponse(
-    val name: Name
+    @SerializedName("name") val name: Name
 )
 
 data class Name(
-    val common: String
+    @SerializedName("common") val common: String
 )
 
 object ApiService {
@@ -36,5 +37,11 @@ object ApiService {
 }
 
 suspend fun getCountryNames(): List<String> {
-    return ApiService.countriesApi.getCountries().map { it.name.common }
+    return try {
+        val countries = ApiService.countriesApi.getCountries()
+        countries.map { it.name.common }
+    } catch (e: Exception) {
+        println("Erro na chamada da API: ${e.message}")
+        emptyList()
+    }
 }

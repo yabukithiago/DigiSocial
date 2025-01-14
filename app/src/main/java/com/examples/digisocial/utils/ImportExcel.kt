@@ -1,6 +1,7 @@
 package com.examples.digisocial.utils
 
 import com.google.firebase.firestore.FirebaseFirestore
+import org.apache.poi.ss.usermodel.CellType
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import java.io.File
 import java.io.FileInputStream
@@ -14,6 +15,11 @@ fun importExcelToFirestore(filePath: String, onSuccess: () -> Unit, onFailure: (
         onFailure()
         return
     }
+
+    val headerMapping = mapOf(
+        "agregado familiar" to "agregadoFamiliar",
+        "numero de visitas" to "numeroVisitas"
+    )
 
     FileInputStream(file).use { fis ->
         val workbook = WorkbookFactory.create(fis)
@@ -29,14 +35,21 @@ fun importExcelToFirestore(filePath: String, onSuccess: () -> Unit, onFailure: (
             val dataMap = mutableMapOf<String, Any>()
 
             for (j in 0 until headerRow.physicalNumberOfCells) {
-                val headerName = headerRow.getCell(j).toString()
-                val cellValue = row.getCell(j)?.toString() ?: ""
+                val headerName = headerRow.getCell(j).toString().trim()
+                val mappedHeaderName = headerMapping[headerName] ?: headerName
+                val cell = row.getCell(j)
 
-                if (headerName == "numeroVisita") {
-                    val numeroVisita = cellValue.toLongOrNull() ?: 0L
-                    dataMap[headerName] = numeroVisita
+                if (mappedHeaderName == "agregadoFamiliar" || mappedHeaderName == "numeroVisitas") {
+                    // Processar numeroVisitas como um número
+                    val numeroVisitas = when (cell?.cellType) {
+                        CellType.NUMERIC -> cell.numericCellValue.toLong()
+                        CellType.STRING -> cell.stringCellValue.toLongOrNull() ?: 0L
+                        else -> 0L
+                    }
+                    dataMap[mappedHeaderName] = numeroVisitas
                 } else {
-                    dataMap[headerName] = cellValue
+                    // Processar outras células como String
+                    dataMap[mappedHeaderName] = cell?.toString() ?: ""
                 }
             }
 

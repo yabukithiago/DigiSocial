@@ -48,10 +48,10 @@ fun EditBeneficiaryView(navController: NavController, id: String) {
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
                     state.nome = document.getString("nome") ?: ""
-                    state.telefone = document.getString("telefone") ?: ""
+                    state.telemovel = document.getString("telemovel") ?: ""
                     state.nacionalidade = document.getString("nacionalidade") ?: ""
-                    state.agregadoFamiliar = document.getString("agregadoFamiliar") ?: ""
-                    state.numeroVisitas = (document.getLong("numeroVisitas") ?: 0).toInt()
+                    state.agregadoFamiliar = document.getLong("agregadoFamiliar") ?: 0
+                    state.numeroVisitas = document.getLong("numeroVisitas") ?: 0
                 }
             }
             .addOnFailureListener { e ->
@@ -89,8 +89,8 @@ fun EditBeneficiaryView(navController: NavController, id: String) {
         Spacer(modifier = Modifier.height(16.dp))
 
         TextField(
-            value = state.telefone,
-            onValueChange = viewModel::onTelefoneChange,
+            value = state.telemovel,
+            onValueChange = viewModel::onTelemovelChange,
             label = { Text("Telefone") },
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
@@ -110,8 +110,16 @@ fun EditBeneficiaryView(navController: NavController, id: String) {
         Spacer(modifier = Modifier.height(16.dp))
 
         TextField(
-            value = state.agregadoFamiliar,
-            onValueChange = viewModel::onAgregadoFamiliarChange,
+            value = state.agregadoFamiliar.toString(),
+            onValueChange = { input ->
+                val numericValue = input.toLongOrNull()
+                if (numericValue != null) {
+                    viewModel.onAgregadoFamiliarChange(numericValue)
+                } else {
+                    Toast.makeText(context, "Agregado Familiar deve ser um número",
+                        Toast.LENGTH_SHORT).show()
+                }
+            },
             label = { Text("Agregado Familiar") },
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
@@ -124,8 +132,8 @@ fun EditBeneficiaryView(navController: NavController, id: String) {
 
         Button(
             onClick = {
-                if (state.nome.isNotEmpty() && state.telefone.isNotEmpty()
-                    && state.nacionalidade.isNotEmpty() && state.agregadoFamiliar.isNotEmpty()) {
+                if (state.nome.isNotEmpty() && state.telemovel.isNotEmpty()
+                    && state.nacionalidade.isNotEmpty() && state.agregadoFamiliar > 0) {
                     viewModel.update(id, onSuccess = {
                         Toast.makeText(context, "Beneficiário editado com sucesso", Toast.LENGTH_SHORT).show()
                         navController.popBackStack()})

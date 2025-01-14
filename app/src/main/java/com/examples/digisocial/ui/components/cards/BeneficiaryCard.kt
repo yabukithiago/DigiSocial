@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.LocationOn
@@ -48,9 +49,9 @@ import com.google.firebase.auth.auth
 
 @Composable
 fun BeneficiaryCard(
-    navController: NavController, id: String, nome: String, telefone: String,
-    nacionalidade: String, agregadoFamiliar: String,
-    numeroVisita: Long, ownerId: String, onClick: () -> Unit) {
+    navController: NavController, id: String, nome: String, telemovel: String,
+    referencia: String, agregadoFamiliar: Long, nacionalidade: String, pedidos: String,
+    numeroVisitas: Long, ownerId: String, onClick: () -> Unit) {
     var menuExpanded by remember { mutableStateOf(false) }
     val auth = Firebase.auth
     val currentUser = auth.currentUser
@@ -109,10 +110,12 @@ fun BeneficiaryCard(
                     color = Color(0xFF333333),
                     maxLines = 1
                 )
-                InfoRow(icon = Icons.Default.Phone, text = telefone)
-                InfoRow(icon = Icons.Filled.LocationOn, text = nacionalidade)
-                InfoRow(icon = Icons.Default.Face, text = agregadoFamiliar)
-                InfoRow(icon = Icons.Default.SafetyDivider, text = numeroVisita.toString())
+                InfoRow(icon = Icons.Default.Phone, text = telemovel)
+                InfoRow(icon = Icons.Default.Person, text = referencia)
+                InfoRow(icon = Icons.Default.Face, text = agregadoFamiliar.toString())
+                InfoRow(icon = Icons.Default.LocationOn, text = nacionalidade)
+                InfoRow(icon = Icons.Default.BookmarkBorder, text = pedidos)
+                InfoRow(icon = Icons.Default.SafetyDivider, text = numeroVisitas.toString())
                 InfoRow(icon = Icons.Default.Done, text = ownerId)
             }
 
@@ -162,7 +165,16 @@ fun BeneficiaryCard(
 @Composable
 fun PreviewBeneficiaryCard() {
     BeneficiaryCard(
-        navController = rememberNavController(), id = "123", nome = "João Silva",
-        telefone = "912345678", nacionalidade = "Brasileira",
-        agregadoFamiliar = "2", numeroVisita = 0, ownerId = "123456", onClick = {})
+        navController = rememberNavController(),
+        id = "1",
+        nome = "João Silva",
+        telemovel = "912345678",
+        referencia = "Rua do Sol, nº 123",
+        agregadoFamiliar = 2,
+        nacionalidade = "Portuguesa",
+        pedidos = "Comida",
+        numeroVisitas = 1,
+        ownerId = "1",
+        onClick = {}
+    )
 }

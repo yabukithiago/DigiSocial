@@ -67,9 +67,43 @@ fun CreateBeneficiaryView(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         TextField(
-            value = state.telefone,
-            onValueChange = viewModel::onTelefoneChange,
-            label = { Text("Telefone") },
+            value = state.telemovel,
+            onValueChange = viewModel::onTelemovelChange,
+            label = { Text("Telemovel") },
+            colors = TextFieldDefaults.colors(
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            ),
+            shape = RoundedCornerShape(12.dp),
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        TextField(
+            value = state.referencia,
+            onValueChange = viewModel::onReferenciaChange,
+            label = { Text("Referência") },
+            colors = TextFieldDefaults.colors(
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            ),
+            shape = RoundedCornerShape(12.dp),
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        TextField(
+            value = state.agregadoFamiliar.toString(),
+            onValueChange = { input ->
+                val numericValue = input.toLongOrNull()
+                if (numericValue != null) {
+                    viewModel.onAgregadoFamiliarChange(numericValue)
+                } else {
+                    Toast.makeText(context, "Agregado Familiar deve ser um número",
+                        Toast.LENGTH_SHORT).show()
+                }
+            },
+            label = { Text("Agregado Familiar") },
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
@@ -88,9 +122,9 @@ fun CreateBeneficiaryView(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         TextField(
-            value = state.agregadoFamiliar,
-            onValueChange = viewModel::onAgregadoFamiliarChange,
-            label = { Text("Agregado Familiar") },
+            value = state.pedidos,
+            onValueChange = viewModel::onPedidosChange,
+            label = { Text("Pedidos") },
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
@@ -102,8 +136,10 @@ fun CreateBeneficiaryView(navController: NavController) {
 
         Button(
             onClick = {
-                if (state.nome.isNotEmpty() && state.telefone.isNotEmpty()
-                    && state.nacionalidade.isNotEmpty() && state.agregadoFamiliar.isNotEmpty()) {
+                if (state.nome.isNotEmpty() && state.telemovel.isNotEmpty()
+                    && state.nacionalidade.isNotEmpty() && state.agregadoFamiliar > 0
+                    && state.pedidos.isNotEmpty()
+                    && state.referencia.isNotEmpty()) {
                     viewModel.create(onSuccess = {
                         Toast.makeText(context, "Beneficiário criado com sucesso",
                             Toast.LENGTH_SHORT).show()

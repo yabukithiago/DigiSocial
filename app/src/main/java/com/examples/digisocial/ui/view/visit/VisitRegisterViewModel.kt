@@ -25,8 +25,8 @@ class VisitRegisterViewModel : ViewModel() {
         val beneficiaryRef = db.collection("beneficiary").document(id)
         db.runTransaction { transaction ->
             val snapshot = transaction.get(beneficiaryRef)
-            val newVisits = snapshot.getLong("numeroVisita")!! + 1
-            transaction.update(beneficiaryRef, "numeroVisita", newVisits)
+            val newVisits = snapshot.getLong("numeroVisitas")!! + 1
+            transaction.update(beneficiaryRef, "numeroVisitas", newVisits)
         }.addOnSuccessListener {
             VisitRepository.addVisit(id = id, data = date, onSuccess = onSuccess, onFailure = { } )
         }.addOnFailureListener {
