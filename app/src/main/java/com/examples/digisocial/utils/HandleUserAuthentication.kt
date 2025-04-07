@@ -3,6 +3,7 @@ package com.examples.digisocial.utils
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavController
+import com.examples.digisocial.presentation.Screen
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
@@ -21,20 +22,20 @@ fun HandleUserAuthentication(navController: NavController) {
                     if (document.exists()) {
                         val role = document.getString("role")
                         when (role) {
-                            "admin" -> navController.navigate("homeAdmin")
-                            "voluntary" -> navController.navigate("homeVoluntary")
-                            "juntamember" -> navController.navigate("homeJuntaMember")
-                            else -> navController.navigate("login")
+                            "admin" -> navController.navigate(Screen.HomePageAdminScreen.route)
+                            "voluntary" -> navController.navigate(Screen.HomePageVoluntaryScreen.route)
+                            "juntamember" -> navController.navigate(Screen.HomePageJuntaMemberScreen.route)
+                            else -> navController.navigate(Screen.LoginScreen.route)
                         }
                     } else {
-                        navController.navigate("login")
+                        navController.navigate(Screen.LoginScreen.route)
                     }
                 }
                 .addOnFailureListener {
-                    navController.navigate("login")
+                    navController.navigate(Screen.LoginScreen.route)
                 }
         } else {
-            navController.navigate("login")
+            navController.navigate(Screen.LoginScreen.route)
         }
     }
 }

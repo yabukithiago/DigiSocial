@@ -2,7 +2,7 @@ package com.examples.digisocial.ui.view.schedulevoluntary
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.examples.digisocial.data.repository.ScheduleRepository
+import com.examples.digisocial.domain.repository.ScheduleRepository
 
 data class VoluntaryScheduleState(
     val isLoading: Boolean = false,

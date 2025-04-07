@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
     id("com.google.gms.google-services")
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -37,6 +39,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs += "-Xlint:deprecation"
     }
     buildFeatures {
         compose = true
@@ -61,13 +64,18 @@ dependencies {
     implementation(libs.play.services.auth)
     implementation(libs.play.services.wearable)
 
+    //Dagger Hilt
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.storage)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+
     // Excel
     implementation(libs.poi)
     implementation(libs.poi.ooxml)
 
     // PDF
     implementation(libs.itextpdf.itext7.core)
-
 
     // Retrofit and GSON
     implementation(libs.retrofit)
@@ -107,4 +115,8 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+}
+
+kapt {
+    correctErrorTypes = true
 }

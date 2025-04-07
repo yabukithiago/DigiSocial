@@ -38,9 +38,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.R
-import com.examples.digisocial.data.models.JuntaMember
-import com.examples.digisocial.data.models.User
-import com.examples.digisocial.data.models.Voluntary
+import com.examples.digisocial.domain.models.JuntaMember
+import com.examples.digisocial.domain.models.User
+import com.examples.digisocial.domain.models.Voluntary
 import com.examples.digisocial.ui.components.bars.TopBar
 import com.examples.digisocial.ui.theme.DigiSocialTheme
 import com.google.firebase.firestore.FirebaseFirestore

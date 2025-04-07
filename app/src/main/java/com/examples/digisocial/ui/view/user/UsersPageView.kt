@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.examples.digisocial.presentation.Screen
 import com.examples.digisocial.ui.components.bars.BottomBar
 import com.examples.digisocial.ui.components.bars.TopBar
 import com.examples.digisocial.ui.theme.DigiSocialTheme
@@ -76,7 +77,7 @@ fun UsersPageView(navController: NavController) {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
-                    onClick = { navController.navigate("readBeneficiary") },
+                    onClick = { navController.navigate(Screen.BeneficiaryListScreen.route) },
                     shape = RoundedCornerShape(20.dp),
                     modifier = Modifier.fillMaxWidth(0.6f)
                         .height(60.dp),

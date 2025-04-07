@@ -2,7 +2,7 @@ package com.examples.digisocial.ui.view.schedule
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.examples.digisocial.data.repository.ScheduleRepository
+import com.examples.digisocial.domain.repository.ScheduleRepository
 
 data class DeleteScheduleState(
     val isLoading: Boolean = false

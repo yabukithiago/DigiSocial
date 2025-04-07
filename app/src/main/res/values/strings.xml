@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">DigiSocial</string>
+    <string name="empty_beneficiary_list_text">Nenhum beneficiário encontrado.\n</string>
+    <string name="beneficiary_deleted">O beneficiário foi excluído.</string>
+    <string name="beneficiary_added">O beneficiário foi adicionado.</string>
+    <string name="empty_fields">Preencha todos os campos.\n</string>
+    <string name="error_creating_beneficiary">Erro ao criar beneficiário.</string>
+    <string name="open_add_beneficiary_dialog">Open add beneficiary dialog.</string>
+    <string name="beneficiary_updated">O beneficiário foi editado.\n</string>
+    <string name="empty_visit_list_text">Nenhuma visita registada.\n</string>
+    <string name="visit_added">Visita registada.\n</string>
 </resources>

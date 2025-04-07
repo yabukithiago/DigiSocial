@@ -12,32 +12,39 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.R
+import com.examples.digisocial.domain.models.Beneficiary
 import com.examples.digisocial.ui.components.bars.TopBar
-import com.examples.digisocial.ui.theme.DigiSocialTheme
 
 @Composable
-fun CreateBeneficiaryView(navController: NavController) {
-    val viewModel: CreateBeneficiaryViewModel = viewModel()
-    val state by viewModel.state
+fun CreateBeneficiaryView(
+    navController: NavController,
+    onCreateBeneficiary: (beneficiary: Beneficiary) -> Unit
+) {
     val context = LocalContext.current
-
+    var nome by remember { mutableStateOf("") }
+    var telemovel by remember { mutableStateOf("") }
+    var referencia by remember { mutableStateOf("") }
+    var agregadoFamiliar by remember { mutableLongStateOf(0L) }
+    var nacionalidade by remember { mutableStateOf("") }
+    var pedidos by remember { mutableStateOf("") }
+    
     TopBar(title = "Registar Beneficiários", navController = navController)
 
     Column(
@@ -54,8 +61,10 @@ fun CreateBeneficiaryView(navController: NavController) {
         )
 
         TextField(
-            value = state.nome,
-            onValueChange = viewModel::onNomeChange,
+            value = nome,
+            onValueChange = {
+                nome = it
+            },
             label = { Text("Nome") },
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
@@ -67,8 +76,10 @@ fun CreateBeneficiaryView(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         TextField(
-            value = state.telemovel,
-            onValueChange = viewModel::onTelemovelChange,
+            value = telemovel,
+            onValueChange = { 
+                telemovel = it
+            },
             label = { Text("Telemovel") },
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
@@ -80,8 +91,10 @@ fun CreateBeneficiaryView(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         TextField(
-            value = state.referencia,
-            onValueChange = viewModel::onReferenciaChange,
+            value = referencia,
+            onValueChange = { 
+                referencia = it
+            },
             label = { Text("Referência") },
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
@@ -93,11 +106,11 @@ fun CreateBeneficiaryView(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         TextField(
-            value = state.agregadoFamiliar.toString(),
+            value = agregadoFamiliar.toString(),
             onValueChange = { input ->
                 val numericValue = input.toLongOrNull()
                 if (numericValue != null) {
-                    viewModel.onAgregadoFamiliarChange(numericValue)
+                    agregadoFamiliar = numericValue
                 } else {
                     Toast.makeText(context, "Agregado Familiar deve ser um número",
                         Toast.LENGTH_SHORT).show()
@@ -114,16 +127,20 @@ fun CreateBeneficiaryView(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         NacionalidadeDropdownMenu(
-            state = state,
-            onNacionalidadeChange = viewModel::onNacionalidadeChange,
+            nacionalidade = nacionalidade,
+            onNacionalidadeChange = { 
+                nacionalidade = it
+            },
             isEditing = false
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         TextField(
-            value = state.pedidos,
-            onValueChange = viewModel::onPedidosChange,
+            value = pedidos,
+            onValueChange = { 
+                pedidos = it
+            },
             label = { Text("Pedidos") },
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
@@ -136,37 +153,30 @@ fun CreateBeneficiaryView(navController: NavController) {
 
         Button(
             onClick = {
-                if (state.nome.isNotEmpty() && state.telemovel.isNotEmpty()
-                    && state.nacionalidade.isNotEmpty() && state.agregadoFamiliar > 0
-                    && state.pedidos.isNotEmpty()
-                    && state.referencia.isNotEmpty()) {
-                    viewModel.create(onSuccess = {
-                        Toast.makeText(context, "Beneficiário criado com sucesso",
-                            Toast.LENGTH_SHORT).show()
-                        navController.popBackStack()},
-                        onFailure = { errorMessage ->
-                            Toast.makeText(context, errorMessage,
-                        Toast.LENGTH_SHORT).show()})
-                } else {
-                    state.errorMessage = "Preencha todos os campos."
+                if (nome.isNotEmpty() && telemovel.isNotEmpty()
+                    && nacionalidade.isNotEmpty() && agregadoFamiliar > 0
+                    && pedidos.isNotEmpty()
+                    && referencia.isNotEmpty()) {
+                    onCreateBeneficiary(
+                        Beneficiary(
+                            id = "",
+                            nome = nome,
+                            telemovel = telemovel,
+                            referencia = referencia,
+                            agregadoFamiliar = agregadoFamiliar,
+                            nacionalidade = nacionalidade,
+                            pedidos = pedidos,
+                            numeroVisitas = 0,
+                            ownerId = ""
+                        )
+                    )}
+                else {
+                    Toast.makeText(context, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
                 }
             },
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6)),
-            enabled = !state.isLoading
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6))
         ) {
-            Text(if (state.isLoading) "Carregando..." else "Registar Beneficiário")
+            Text("Registar Beneficiário")
         }
-
-        if (state.errorMessage?.isNotEmpty() == true) {
-            state.errorMessage?.let { Text(text = it, color = MaterialTheme.colorScheme.error) }
-        }
-    }
-}
-
-@Preview (showBackground = true)
-@Composable
-fun CreateBeneficiaryViewPreview() {
-    DigiSocialTheme {
-        CreateBeneficiaryView(navController = rememberNavController())
     }
 }

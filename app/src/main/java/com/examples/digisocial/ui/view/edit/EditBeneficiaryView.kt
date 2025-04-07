@@ -3,55 +3,66 @@ package com.examples.digisocial.ui.view.edit
 import com.examples.digisocial.ui.components.NacionalidadeDropdownMenu
 import android.util.Log
 import android.widget.Toast
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.examples.digisocial.R
-import com.examples.digisocial.ui.components.bars.TopBar
-import com.examples.digisocial.ui.theme.DigiSocialTheme
+import androidx.compose.ui.window.Dialog
+import com.examples.digisocial.domain.models.Beneficiary
 import com.google.firebase.firestore.FirebaseFirestore
 
-@Composable
-fun EditBeneficiaryView(navController: NavController, id: String) {
-    val viewModel: EditBeneficiaryViewModel = viewModel()
-    val state by viewModel.state
+@Composable 
+fun EditBeneficiaryView(
+        id: String,
+        onDismiss: () -> Unit,
+        onEditBeneficiary: (beneficiary: Beneficiary) -> Unit
+    ) {
     val db = FirebaseFirestore.getInstance()
     val context = LocalContext.current
+    var nome by remember { mutableStateOf("") }
+    var telemovel by remember { mutableStateOf("") }
+    var nacionalidade by remember { mutableStateOf("") }
+    var agregadoFamiliar by remember { mutableLongStateOf(0L) }
+    var numeroVisitas by remember { mutableLongStateOf(0L) }
+    var pedidos by remember { mutableStateOf("") }
+    var ownerId by remember { mutableStateOf("") }
+    var referencia by remember { mutableStateOf("") }
 
     LaunchedEffect(id) {
         db.collection("beneficiary").document(id).get()
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
-                    state.nome = document.getString("nome") ?: ""
-                    state.telemovel = document.getString("telemovel") ?: ""
-                    state.nacionalidade = document.getString("nacionalidade") ?: ""
-                    state.agregadoFamiliar = document.getLong("agregadoFamiliar") ?: 0
-                    state.numeroVisitas = document.getLong("numeroVisitas") ?: 0
+                    nome = document.getString("nome") ?: ""
+                    telemovel = document.getString("telemovel") ?: ""
+                    nacionalidade = document.getString("nacionalidade") ?: ""
+                    pedidos = document.getString("pedidos") ?: ""
+                    agregadoFamiliar = document.getLong("agregadoFamiliar") ?: 0
+                    numeroVisitas = document.getLong("numeroVisitas") ?: 0
+                    referencia = document.getString("referencia") ?: ""
+                    ownerId = document.getString("ownerId") ?: ""
                 }
             }
             .addOnFailureListener { e ->
@@ -59,107 +70,136 @@ fun EditBeneficiaryView(navController: NavController, id: String) {
             }
     }
 
-    TopBar(title = "Editar Beneficiários", navController = navController)
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Image(
+    Dialog(onDismissRequest = onDismiss) {
+        Surface(
             modifier = Modifier
-                .size(150.dp),
-            painter = painterResource(id = R.drawable.baseline_edit_24),
-            contentDescription = "Edit Icon"
-        )
-
-        TextField(
-            value = state.nome,
-            onValueChange = viewModel::onNomeChange,
-            label = { Text("Nome") },
-            colors = TextFieldDefaults.colors(
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
-            ),
+                .padding(16.dp),
             shape = RoundedCornerShape(12.dp),
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        TextField(
-            value = state.telemovel,
-            onValueChange = viewModel::onTelemovelChange,
-            label = { Text("Telefone") },
-            colors = TextFieldDefaults.colors(
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
-            ),
-            shape = RoundedCornerShape(12.dp),
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        NacionalidadeDropdownMenu(
-            state = state,
-            onNacionalidadeChange = viewModel::onNacionalidadeChange,
-            isEditing = true
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        TextField(
-            value = state.agregadoFamiliar.toString(),
-            onValueChange = { input ->
-                val numericValue = input.toLongOrNull()
-                if (numericValue != null) {
-                    viewModel.onAgregadoFamiliarChange(numericValue)
-                } else {
-                    Toast.makeText(context, "Agregado Familiar deve ser um número",
-                        Toast.LENGTH_SHORT).show()
-                }
-            },
-            label = { Text("Agregado Familiar") },
-            colors = TextFieldDefaults.colors(
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
-            ),
-            shape = RoundedCornerShape(12.dp),
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Button(
-            onClick = {
-                if (state.nome.isNotEmpty() && state.telemovel.isNotEmpty()
-                    && state.nacionalidade.isNotEmpty() && state.agregadoFamiliar > 0) {
-                    viewModel.update(id, onSuccess = {
-                        Toast.makeText(context, "Beneficiário editado com sucesso", Toast.LENGTH_SHORT).show()
-                        navController.popBackStack()})
-                } else {
-                    state.errorMessage = "Preencha todos os campos."
-                }
-            },
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6)),
-            enabled = !state.isLoading
+            shadowElevation = 8.dp,
+            color = Color.White
         ) {
-            Text(if (state.isLoading) "Carregando..." else "Editar Beneficiário")
-        }
+            Column(
+                modifier = Modifier
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Editar Beneficiário",
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
 
-        if (state.errorMessage?.isNotEmpty() == true) {
-            state.errorMessage?.let { Text(text = it, color = MaterialTheme.colorScheme.error) }
-        }
-    }
-}
+                Spacer(modifier = Modifier.height(8.dp))
 
-@Preview (showBackground = true)
-@Composable
-fun EditBeneficiaryViewPreview() {
-    DigiSocialTheme {
-        EditBeneficiaryView(
-            navController = rememberNavController(),
-            id = "123"
-        )
+                TextField(
+                    value = nome,
+                    onValueChange = { nome = it },
+                    label = { Text("Nome") },
+                    colors = TextFieldDefaults.colors(
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent
+                    ),
+                    shape = RoundedCornerShape(12.dp),
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                TextField(
+                    value = telemovel,
+                    onValueChange = { telemovel = it },
+                    label = { Text("Telefone") },
+                    colors = TextFieldDefaults.colors(
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent
+                    ),
+                    shape = RoundedCornerShape(12.dp),
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                NacionalidadeDropdownMenu(
+                    nacionalidade = nacionalidade,
+                    onNacionalidadeChange = { nacionalidade = it },
+                    isEditing = true
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                TextField(
+                    value = agregadoFamiliar.toString(),
+                    onValueChange = { input ->
+                        val numericValue = input.toLongOrNull()
+                        if (numericValue != null) {
+                            agregadoFamiliar = numericValue
+                        } else {
+                            Toast.makeText(
+                                context, "Agregado Familiar deve ser um número",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    },
+                    label = { Text("Agregado Familiar") },
+                    colors = TextFieldDefaults.colors(
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent
+                    ),
+                    shape = RoundedCornerShape(12.dp),
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Row {
+                    Button(
+                        onClick = onDismiss,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFF044AA6),
+                            contentColor = Color.White
+                        ),
+                    ) {
+                        Text("Cancelar")
+                    }
+
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    Button(
+                        onClick = {
+                            if (nome.isNotEmpty() && telemovel.isNotEmpty()
+                                && nacionalidade.isNotEmpty() && agregadoFamiliar > 0
+                            ) {
+                                onEditBeneficiary(
+                                    Beneficiary(
+                                        id = id,
+                                        nome = nome,
+                                        telemovel = telemovel,
+                                        referencia = referencia,
+                                        agregadoFamiliar = agregadoFamiliar,
+                                        nacionalidade = nacionalidade,
+                                        pedidos = pedidos,
+                                        numeroVisitas = numeroVisitas,
+                                        ownerId = ownerId
+                                    )
+                                )
+                                onDismiss()
+                            } else {
+                                Toast.makeText(
+                                    context,
+                                    "Preencha todos os campos",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                            }
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFF044AA6),
+                            contentColor = Color.White
+                        ),
+                    ) {
+                        Text("Salvar")
+                    }
+
+                }
+            }
+        }
     }
 }

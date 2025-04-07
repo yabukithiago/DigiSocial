@@ -2,8 +2,8 @@ package com.examples.digisocial.ui.view.schedule
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.examples.digisocial.data.models.Schedule
-import com.examples.digisocial.data.repository.ScheduleRepository
+import com.examples.digisocial.domain.models.Schedule
+import com.examples.digisocial.domain.repository.ScheduleRepository
 
 data class ShowScheduleState(
     val listSchedule: List<Schedule> = emptyList(),

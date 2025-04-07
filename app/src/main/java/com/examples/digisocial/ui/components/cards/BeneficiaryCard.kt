@@ -7,11 +7,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -38,20 +36,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import com.examples.digisocial.domain.models.Beneficiary
+import com.examples.digisocial.domain.models.Visit
 import com.examples.digisocial.ui.components.InfoRow
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
+import java.util.Date
 
 @Composable
 fun BeneficiaryCard(
-    navController: NavController, id: String, nome: String, telemovel: String,
-    referencia: String, agregadoFamiliar: Long, nacionalidade: String, pedidos: String,
-    numeroVisitas: Long, ownerId: String, onClick: () -> Unit) {
+    beneficiary: Beneficiary, onClick: () -> Unit, onVisitRegistration: (Visit) -> Unit,
+    onEditBeneficiary: () -> Unit, onDeleteBeneficiary: () -> Unit
+) {
     var menuExpanded by remember { mutableStateOf(false) }
     val auth = Firebase.auth
     val currentUser = auth.currentUser
@@ -97,86 +95,80 @@ fun BeneficiaryCard(
                     modifier = Modifier.size(30.dp)
                 )
             }
-
-            Spacer(modifier = Modifier.width(16.dp))
-
-            Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp),
-                modifier = Modifier.weight(1f)
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(8.dp)
             ) {
-                Text(
-                    text = nome,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = Color(0xFF333333),
-                    maxLines = 1
-                )
-                InfoRow(icon = Icons.Default.Phone, text = telemovel)
-                InfoRow(icon = Icons.Default.Person, text = referencia)
-                InfoRow(icon = Icons.Default.Face, text = agregadoFamiliar.toString())
-                InfoRow(icon = Icons.Default.LocationOn, text = nacionalidade)
-                InfoRow(icon = Icons.Default.BookmarkBorder, text = pedidos)
-                InfoRow(icon = Icons.Default.SafetyDivider, text = numeroVisitas.toString())
-                InfoRow(icon = Icons.Default.Done, text = ownerId)
-            }
-
-            Box(contentAlignment = Alignment.TopEnd) {
-                Icon(
-                    imageVector = Icons.Default.MoreVert,
-                    contentDescription = "More options",
-                    modifier = Modifier
-                        .clickable { menuExpanded = true }
-                        .padding(8.dp)
-                )
-                DropdownMenu(
-                    expanded = menuExpanded,
-                    onDismissRequest = { menuExpanded = false },
-                    modifier = Modifier.align(Alignment.TopEnd)
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                    modifier = Modifier.weight(1f)
                 ) {
-                    DropdownMenuItem(
-                        text = { Text("Registar Presença") },
-                        onClick = {
-                            navController.navigate("attendanceRegister/$id")
-                            menuExpanded = false
-                        }
+                    Text(
+                        text = beneficiary.nome,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = Color(0xFF333333),
+                        maxLines = 1
                     )
-                    if (role == "admin" || privileged) {
+                    InfoRow(icon = Icons.Default.Phone, text = beneficiary.telemovel)
+                    InfoRow(icon = Icons.Default.Person, text = beneficiary.referencia)
+                    InfoRow(
+                        icon = Icons.Default.Face,
+                        text = beneficiary.agregadoFamiliar.toString()
+                    )
+                    InfoRow(icon = Icons.Default.LocationOn, text = beneficiary.nacionalidade)
+                    InfoRow(icon = Icons.Default.BookmarkBorder, text = beneficiary.pedidos)
+                    InfoRow(
+                        icon = Icons.Default.SafetyDivider,
+                        text = beneficiary.numeroVisitas.toString()
+                    )
+                    InfoRow(icon = Icons.Default.Done, text = beneficiary.ownerId)
+                }
+
+                Box(contentAlignment = Alignment.TopEnd) {
+                    Icon(
+                        imageVector = Icons.Default.MoreVert,
+                        contentDescription = "More options",
+                        modifier = Modifier
+                            .clickable { menuExpanded = true }
+                            .padding(8.dp)
+                    )
+                    DropdownMenu(
+                        expanded = menuExpanded,
+                        onDismissRequest = { menuExpanded = false },
+                        modifier = Modifier.align(Alignment.TopEnd)
+                    ) {
                         DropdownMenuItem(
-                            text = { Text("Editar") },
+                            text = { Text("Registar Presença") },
                             onClick = {
-                                navController.navigate("editBeneficiary/$id")
+                                onVisitRegistration(
+                                    Visit(
+                                        id = "",
+                                        data = Date()
+                                    )
+                                )
                                 menuExpanded = false
                             }
                         )
-                        if (role == "admin") {
+                        if (role == "admin" || privileged) {
                             DropdownMenuItem(
-                                text = { Text("Excluir") },
+                                text = { Text("Editar") },
                                 onClick = {
-                                    navController.navigate("deleteBeneficiary/$id")
+                                    onEditBeneficiary()
                                     menuExpanded = false
                                 }
                             )
+                            if (role == "admin") {
+                                DropdownMenuItem(
+                                    text = { Text("Excluir") },
+                                    onClick = {
+                                        onDeleteBeneficiary()
+                                        menuExpanded = false
+                                    }
+                                )
+                            }
                         }
                     }
                 }
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewBeneficiaryCard() {
-    BeneficiaryCard(
-        navController = rememberNavController(),
-        id = "1",
-        nome = "João Silva",
-        telemovel = "912345678",
-        referencia = "Rua do Sol, nº 123",
-        agregadoFamiliar = 2,
-        nacionalidade = "Portuguesa",
-        pedidos = "Comida",
-        numeroVisitas = 1,
-        ownerId = "1",
-        onClick = {}
-    )
 }

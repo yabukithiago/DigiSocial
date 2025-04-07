@@ -2,7 +2,7 @@ package com.examples.digisocial.ui.view.delete
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.examples.digisocial.data.repository.VoluntaryRepository
+import com.examples.digisocial.domain.repository.VoluntaryRepository
 
 data class DeleteVoluntaryState(
     val isLoading: Boolean = false,

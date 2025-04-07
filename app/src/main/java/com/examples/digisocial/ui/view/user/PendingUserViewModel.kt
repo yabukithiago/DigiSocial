@@ -2,8 +2,8 @@ package com.examples.digisocial.ui.view.user
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.examples.digisocial.data.models.User
-import com.examples.digisocial.data.repository.UserRepository
+import com.examples.digisocial.domain.models.User
+import com.examples.digisocial.domain.repository.UserRepository
 
 data class PendingUserState(
     val listUser: List<User> = emptyList(),

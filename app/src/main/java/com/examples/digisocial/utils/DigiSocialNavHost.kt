@@ -1,16 +1,13 @@
 package com.examples.digisocial.utils
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.examples.digisocial.presentation.Screen
+import com.examples.digisocial.presentation.beneficiary_list.BeneficiaryListScreen
 import com.examples.digisocial.ui.view.create.CreateBeneficiaryView
 import com.examples.digisocial.ui.view.delete.DeleteBeneficiaryView
 import com.examples.digisocial.ui.view.delete.DeleteJuntaMemberView
@@ -35,29 +32,27 @@ import com.examples.digisocial.ui.view.schedulevoluntary.RegisterVoluntarySchedu
 import com.examples.digisocial.ui.view.schedule.ShowScheduleView
 import com.examples.digisocial.ui.view.schedulevoluntary.DeleteVoluntaryScheduleView
 import com.examples.digisocial.ui.view.schedulevoluntary.ShowVoluntaryScheduleView
-import com.examples.digisocial.ui.view.show.ShowBeneficiaryView
 import com.examples.digisocial.ui.view.show.ShowJuntaMemberView
 import com.examples.digisocial.ui.view.show.ShowVoluntaryView
 import com.examples.digisocial.ui.view.user.PendingUserView
 import com.examples.digisocial.ui.view.user.UsersPageView
-import com.examples.digisocial.ui.view.visit.ShowAttendanceView
-import com.examples.digisocial.ui.view.visit.VisitRegisterView
+import com.examples.digisocial.presentation.visit_list.VisitListScreen
 
 @Composable
-fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
+fun DigiSocialNavHost() {
+    val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = if (isLoading) "loading" else "login"
+        startDestination = Screen.LoginScreen.route
     ) {
         //region Login
-        composable("login") {
+        composable(route = Screen.LoginScreen.route) {
             LoginView(navController, onLoginSuccess = { role ->
                 val destination = when (role) {
-                    "admin" -> "homeAdmin"
-                    "voluntary" -> "homeVoluntary"
-                    "manager" -> "homeManager"
-                    "juntamember" -> "homeJuntaMember"
-                    "" -> "homePage"
+                    "admin" -> Screen.HomePageAdminScreen.route
+                    "voluntary" -> Screen.HomePageVoluntaryScreen.route
+                    "juntamember" -> Screen.HomePageJuntaMemberScreen.route
+                    "" -> Screen.HomePageScreen.route
                     else -> "login"
                 }
                 navController.navigate(destination)
@@ -92,16 +87,16 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
         //endregion
 
         //region Homes
-        composable("homeAdmin") {
+        composable(route = Screen.HomePageAdminScreen.route) {
             HomePageAdminView(navController)
         }
-        composable("homeVoluntary") {
+        composable(route = Screen.HomePageVoluntaryScreen.route) {
             HomePageVoluntary(navController)
         }
-        composable("homeJuntaMember") {
+        composable(route = Screen.HomePageJuntaMemberScreen.route) {
             HomePageJuntaView(navController)
         }
-        composable("homePage") {
+        composable(route = Screen.HomePageScreen.route) {
             HomePageView(navController)
         }
         composable("users") {
@@ -120,20 +115,22 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
         //endregion
 
         //region CRUD Beneficiary
-        composable("createBeneficiary") {
-            CreateBeneficiaryView(navController)
+        composable(route = Screen.CreateBeneficiaryScreen.route) {
+            CreateBeneficiaryView(navController, onCreateBeneficiary = {})
         }
-        composable("readBeneficiary") {
-            ShowBeneficiaryView(navController)
+        composable(route = Screen.BeneficiaryListScreen.route) {
+            BeneficiaryListScreen(navController)
         }
         composable(
-            route = "editBeneficiary/{id}",
-            arguments = listOf(navArgument("id") { type = NavType.StringType })
+            route = Screen.EditBeneficiaryScreen.route,
+            arguments = listOf(navArgument("beneficiaryId") { type = NavType.StringType })
         ) { backStackEntry ->
-            val id = backStackEntry.arguments?.getString("id") ?: ""
-            EditBeneficiaryView(navController, id)
+            val id = backStackEntry.arguments?.getString("beneficiaryId") ?: ""
+            EditBeneficiaryView(id, onDismiss = { },onEditBeneficiary = { })
         }
-        composable("deleteBeneficiary/{id}") { backStackEntry ->
+        composable(route = Screen.DeleteBeneficiaryScreen.route,
+            arguments = listOf(navArgument("beneficiaryId") { type = NavType.StringType })
+        ) { backStackEntry ->
             val id = backStackEntry.arguments?.getString("id") ?: ""
             DeleteBeneficiaryView(navController = navController, id = id)
         }
@@ -190,13 +187,12 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
         //endregion
 
         //region Attendance
-        composable("attendanceRegister/{id}") { backStackEntry ->
-            val id = backStackEntry.arguments?.getString("id") ?: ""
-            VisitRegisterView(navController = navController, id = id)
-        }
-        composable("showAttendance/{id}") { backStackEntry ->
-            val id = backStackEntry.arguments?.getString("id") ?: ""
-            ShowAttendanceView(navController, beneficiaryId = id)
+
+        composable(route = Screen.BeneficiaryDetailsScreen.route,
+            arguments = listOf(navArgument("beneficiaryId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments?.getString("beneficiaryId") ?: ""
+            VisitListScreen(navController, id)
         }
         //endregion
 
@@ -205,16 +201,7 @@ fun DigiSocialNavHost(navController: NavHostController, isLoading: Boolean) {
             ReportView(navController)
         }
         //endregion
-
-        //region Loading
-        composable("loading") {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
-        }
-        //endregion
     }
+
+    HandleUserAuthentication(navController)
 }

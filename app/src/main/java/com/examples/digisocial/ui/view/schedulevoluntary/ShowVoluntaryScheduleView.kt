@@ -16,8 +16,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.examples.digisocial.data.models.Voluntary
-import com.examples.digisocial.data.repository.ScheduleRepository.fetchVoluntary
+import com.examples.digisocial.domain.models.Voluntary
+import com.examples.digisocial.domain.repository.ScheduleRepository.fetchVoluntary
 import com.examples.digisocial.ui.components.bars.TopBar
 import com.examples.digisocial.ui.components.cards.VoluntaryCard
 

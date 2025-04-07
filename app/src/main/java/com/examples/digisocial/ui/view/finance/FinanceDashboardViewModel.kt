@@ -2,8 +2,8 @@ package com.examples.digisocial.ui.view.finance
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.examples.digisocial.data.models.Transaction
-import com.examples.digisocial.data.repository.TransactionRepository
+import com.examples.digisocial.domain.models.Transaction
+import com.examples.digisocial.domain.repository.TransactionRepository
 
 data class FinanceState(
     val listTransaction: List<Transaction> = emptyList(),

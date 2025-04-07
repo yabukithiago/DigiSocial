@@ -2,13 +2,13 @@ package com.examples.digisocial.ui.view.show
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.examples.digisocial.data.models.JuntaMember
-import com.examples.digisocial.data.repository.JuntaMemberRepository
+import com.examples.digisocial.domain.models.JuntaMember
+import com.examples.digisocial.domain.repository.JuntaMemberRepository
 
 data class ShowJuntaMemberState(
     val listJuntaMember: List<JuntaMember> = emptyList(),
-            val isLoading: Boolean = false,
-                    val error: String? = null
+    val isLoading: Boolean = false,
+    val error: String? = null
 )
 
 class ShowJuntaMemberViewModel : ViewModel(){
