@@ -11,6 +11,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.examples.digisocial.presentation.Screen
 import com.examples.digisocial.presentation.beneficiary_list.BeneficiaryListViewModel
 
 @Composable
@@ -33,8 +34,8 @@ fun DeleteBeneficiaryView(navController: NavController, id: String, viewModel: B
             dismissButton = {
                 TextButton(onClick = {
                     showDialog = false
-                    navController.navigate("readBeneficiary") {
-                        popUpTo("readBeneficiary") { inclusive = true }
+                    navController.navigate(route = Screen.BeneficiaryListScreen.route) {
+                        popUpTo(route = Screen.BeneficiaryListScreen.route) { inclusive = true }
                     }
                 }) {
                     Text("Não")

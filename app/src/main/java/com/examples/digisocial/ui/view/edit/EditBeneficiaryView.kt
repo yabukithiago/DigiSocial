@@ -1,6 +1,6 @@
 package com.examples.digisocial.ui.view.edit
 
-import com.examples.digisocial.ui.components.NacionalidadeDropdownMenu
+import com.examples.digisocial.presentation.components.NacionalidadeDropdownMenu
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement

@@ -15,10 +15,11 @@ import com.examples.digisocial.core.showToastMessage
 import com.examples.digisocial.domain.models.Response
 import com.examples.digisocial.domain.models.Visit
 import com.examples.digisocial.presentation.Screen
+import com.examples.digisocial.presentation.beneficiary_list.components.BeneficiaryListContent
 import com.examples.digisocial.presentation.beneficiary_list.components.EmptyBeneficiaryListContent
-import com.examples.digisocial.ui.components.buttons.AddFloatingActionButton
-import com.examples.digisocial.ui.components.LoadingIndicator
-import com.examples.digisocial.ui.components.bars.TopBar
+import com.examples.digisocial.presentation.components.buttons.AddFloatingActionButton
+import com.examples.digisocial.presentation.components.LoadingIndicator
+import com.examples.digisocial.presentation.components.bars.TopBar
 import com.examples.digisocial.ui.view.create.CreateBeneficiaryView
 import java.util.Date
 

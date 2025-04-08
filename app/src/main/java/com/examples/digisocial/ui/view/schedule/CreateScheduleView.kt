@@ -25,7 +25,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.examples.digisocial.ui.components.bars.TopBar
+import com.examples.digisocial.presentation.components.bars.TopBar
 import java.util.Calendar
 
 @Composable

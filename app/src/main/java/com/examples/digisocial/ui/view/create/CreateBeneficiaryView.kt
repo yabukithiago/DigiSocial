@@ -1,7 +1,7 @@
 package com.examples.digisocial.ui.view.create
 
 import android.widget.Toast
-import com.examples.digisocial.ui.components.NacionalidadeDropdownMenu
+import com.examples.digisocial.presentation.components.NacionalidadeDropdownMenu
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.examples.digisocial.R
 import com.examples.digisocial.domain.models.Beneficiary
-import com.examples.digisocial.ui.components.bars.TopBar
+import com.examples.digisocial.presentation.components.bars.TopBar
 
 @Composable
 fun CreateBeneficiaryView(

@@ -1,70 +1,29 @@
 package com.examples.digisocial.domain.repository
 
-import android.content.ContentValues.TAG
-import android.util.Log
+import com.examples.digisocial.domain.models.Response
 import com.examples.digisocial.domain.models.User
-import com.google.firebase.firestore.FirebaseFirestore
+import com.examples.digisocial.domain.models.Voluntary
+import kotlinx.coroutines.flow.Flow
 
-object UserRepository {
-    private val db by lazy { FirebaseFirestore.getInstance() }
 
-    fun getAll(onSuccess: (List<User>) -> Unit) {
-        db.collection("user")
-            .whereEqualTo("status", "pendente")
-            .addSnapshotListener { value, error ->
-                if(error != null){
-                    Log.w(TAG, "Listen failed.", error)
-                    return@addSnapshotListener
-                }
+typealias UserResponse = Response<User>
+typealias UserListResponse = Response<List<User>>
+typealias UpdateUserResponse = Response<Void>
+typealias DeleteUserResponse = Response<Void>
 
-                val listUser = mutableListOf<User>()
-                value?.let {
-                    for (document in it.documents) {
-                        document.data?.let { data ->
-                            listUser.add(User.fromMap(data))
-                        }
-                    }
-                }
-                onSuccess(listUser)
-            }
-    }
+interface UserRepository {
 
-    fun updateUser(
-        id: String,
-        nome: String,
-        telefone: String,
-        role: String,
-        privileged: Boolean,
-        onSuccess: () -> Unit,
-        onFailure: (String) -> Unit
-    ) {
-        val updates = mapOf(
-            "nome" to nome,
-            "telefone" to telefone,
-            "role" to role,
-            "status" to "ativo",
-            "privileged" to privileged
-        )
+    fun getVoluntary(): Flow<VoluntaryListResponse>
 
-        db.collection("user")
-            .document(id)
-            .update(updates)
-            .addOnSuccessListener {
-                onSuccess()
-            }
-            .addOnFailureListener { e ->
-                onFailure("Erro ao atualizar beneficiário: ${e.message}")
-            }
-    }
+    fun getUser(): Flow<UserListResponse>
 
-    fun deleteUser(id: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
-        db.collection("user").document(id)
-            .delete()
-            .addOnSuccessListener {
-                onSuccess()
-            }
-            .addOnFailureListener { exception ->
-                onFailure(exception)
-            }
-    }
+    suspend fun getVoluntaryById(id: String): VoluntaryResponse
+
+    suspend fun getUserById(id: String): UserResponse
+
+    suspend fun updateUser(user: User): UpdateUserResponse
+
+    suspend fun deleteUser(id: String): DeleteUserResponse
+
+    suspend fun deleteVoluntary(id: String): DeleteVoluntaryResponse
 }

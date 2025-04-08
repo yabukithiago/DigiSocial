@@ -12,38 +12,37 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-
-@Composable
-fun DeleteUserView(navController: NavController, id: String) {
-    val viewModel: DeleteUserViewModel = viewModel()
-    var showDialog by remember { mutableStateOf(true) }
-    val context = LocalContext.current
-
-    if (showDialog) {
-        AlertDialog(
-            onDismissRequest = { showDialog = false },
-            title = { Text("Confirmar Exclusão") },
-            text = { Text("Tem certeza de que deseja excluir este utilizador?") },
-            confirmButton = {
-                TextButton(onClick = {
-                    viewModel.deleteUser(id = id, onSuccess = {
-                        Toast.makeText(context, "Utilizador excluído com sucesso", Toast.LENGTH_SHORT).show()
-                        navController.popBackStack()})
-                    }) {
-                    Text("Sim")
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = {
-                    showDialog = false
-                    navController.navigate("readPendingUser") {
-                        popUpTo("readPendingUser") { inclusive = true }
-                    }
-                }) {
-                    Text("Não")
-
-                }
-            }
-        )
-    }
-}
+//
+//@Composable
+//fun DeleteUserView(navController: NavController, id: String) {
+//    var showDialog by remember { mutableStateOf(true) }
+//    val context = LocalContext.current
+//
+//    if (showDialog) {
+//        AlertDialog(
+//            onDismissRequest = { showDialog = false },
+//            title = { Text("Confirmar Exclusão") },
+//            text = { Text("Tem certeza de que deseja excluir este utilizador?") },
+//            confirmButton = {
+//                TextButton(onClick = {
+//                    viewModel.deleteUser(id = id, onSuccess = {
+//                        Toast.makeText(context, "Utilizador excluído com sucesso", Toast.LENGTH_SHORT).show()
+//                        navController.popBackStack()})
+//                    }) {
+//                    Text("Sim")
+//                }
+//            },
+//            dismissButton = {
+//                TextButton(onClick = {
+//                    showDialog = false
+//                    navController.navigate("readPendingUser") {
+//                        popUpTo("readPendingUser") { inclusive = true }
+//                    }
+//                }) {
+//                    Text("Não")
+//
+//                }
+//            }
+//        )
+//    }
+//}

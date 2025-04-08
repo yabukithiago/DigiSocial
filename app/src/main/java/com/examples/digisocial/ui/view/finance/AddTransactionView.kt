@@ -27,8 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.examples.digisocial.ui.components.bars.TopBar
-import com.examples.digisocial.ui.theme.DigiSocialTheme
+import com.examples.digisocial.presentation.components.bars.TopBar
+import com.examples.digisocial.presentation.theme.DigiSocialTheme
 
 @Composable
 fun AddTransactionView(navController: NavController) {

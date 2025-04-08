@@ -34,9 +34,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.examples.digisocial.ui.components.FileImportDropdownMenu
-import com.examples.digisocial.ui.components.bars.BottomBar
-import com.examples.digisocial.ui.theme.DigiSocialTheme
+import com.examples.digisocial.presentation.Screen
+import com.examples.digisocial.presentation.components.FileImportDropdownMenu
+import com.examples.digisocial.presentation.components.bars.BottomBar
+import com.examples.digisocial.presentation.theme.DigiSocialTheme
 import com.examples.digisocial.utils.importExcelToFirestore
 
 @Composable
@@ -88,7 +89,7 @@ fun HomePageAdminView(navController: NavController) {
         verticalArrangement = Arrangement.Center
     ) {
         Button(
-            onClick = { navController.navigate("users") },
+            onClick = { navController.navigate(Screen.UserPageScreen.route) },
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier.fillMaxWidth(0.6f)
                 .height(60.dp),
@@ -176,13 +177,5 @@ fun HomePageAdminView(navController: NavController) {
                 )
             }
         }
-    }
-}
-
-@Preview (showBackground = true)
-@Composable
-fun PreviewHomePageAdminView() {
-    DigiSocialTheme {
-        HomePageAdminView(navController = rememberNavController())
     }
 }

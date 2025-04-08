@@ -9,4 +9,9 @@
     <string name="beneficiary_updated">O beneficiário foi editado.\n</string>
     <string name="empty_visit_list_text">Nenhuma visita registada.\n</string>
     <string name="visit_added">Visita registada.\n</string>
+    <string name="voluntary_deleted">O voluntário foi excluído.</string>
+    <string name="empty_voluntary_list_text">Nenhum voluntário foi encontrado.</string>
+    <string name="empty_user_list_text">Nenhum usuário foi encontrado.</string>
+    <string name="user_updated">O utilizador foi editado.</string>
+    <string name="user_deleted">O utilizador foi excluído.</string>
 </resources>

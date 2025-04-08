@@ -10,12 +10,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.examples.digisocial.presentation.Screen
+import com.examples.digisocial.presentation.voluntary_list.VoluntaryListViewModel
 
 @Composable
-fun DeleteVoluntaryView(navController: NavController, id: String) {
-    val viewModel: DeleteVoluntaryViewModel = viewModel()
+fun DeleteVoluntaryView(navController: NavController, id: String, viewModel: VoluntaryListViewModel = hiltViewModel()) {
     var showDialog by remember { mutableStateOf(true) }
     val context = LocalContext.current
 
@@ -26,9 +27,7 @@ fun DeleteVoluntaryView(navController: NavController, id: String) {
             text = { Text("Tem certeza de que deseja excluir este voluntário?") },
             confirmButton = {
                 TextButton(onClick = {
-                    viewModel.deleteVoluntary(id = id, onSuccess = {
-                        Toast.makeText(context, "Voluntário excluído com sucesso", Toast.LENGTH_SHORT).show()
-                        navController.popBackStack()})
+                    viewModel.deleteVoluntary(id)
                 }) {
                     Text("Sim")
                 }
@@ -36,8 +35,8 @@ fun DeleteVoluntaryView(navController: NavController, id: String) {
             dismissButton = {
                 TextButton(onClick = {
                     showDialog = false
-                    navController.navigate("readVoluntary") {
-                        popUpTo("readVoluntary") { inclusive = true }
+                    navController.navigate(route = Screen.VoluntaryListScreen.route) {
+                        popUpTo(route = Screen.VoluntaryListScreen.route) { inclusive = true }
                     }
                 }) {
                     Text("Não")

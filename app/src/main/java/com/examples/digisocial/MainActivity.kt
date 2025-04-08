@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.examples.digisocial.ui.theme.DigiSocialTheme
-import com.examples.digisocial.utils.DigiSocialNavHost
+import com.examples.digisocial.presentation.theme.DigiSocialTheme
+import com.examples.digisocial.core.DigiSocialNavHost
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

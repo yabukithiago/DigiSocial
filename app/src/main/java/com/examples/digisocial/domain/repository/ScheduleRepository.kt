@@ -75,48 +75,48 @@ object ScheduleRepository {
             }
     }
 
-    fun addVoluntaryToSchedule(
-        scheduleId: String,
-        voluntaryId: String,
-        onSuccess: () -> Unit,
-        onFailure: (String) -> Unit
-    ) {
-        val scheduleRef = db.collection("schedules").document(scheduleId)
-        val voluntaryRef = scheduleRef.collection("voluntary").document(voluntaryId)
-
-        VoluntaryRepository.getVoluntary(voluntaryId) { voluntary ->
-            val voluntaryData = Voluntary(
-                id = voluntaryId,
-                nome = voluntary.nome,
-                telefone = voluntary.telefone,
-                email = voluntary.email,
-                status = voluntary.status,
-                privileged = voluntary.privileged,
-                role = voluntary.role
-            )
-
-            db.runTransaction { transaction ->
-                val snapshot = transaction.get(scheduleRef)
-
-                val vagasDisponiveis = snapshot.getLong("vagasDisponiveis")?.toInt() ?: 0
-                if (vagasDisponiveis <= 0) {
-                    throw Exception("Não há vagas disponíveis nesta escala.")
-                }
-
-                val voluntarySnapshot = transaction.get(voluntaryRef)
-                if (voluntarySnapshot.exists()) {
-                    throw Exception("Você já está inscrito nesta escala.")
-                }
-
-                transaction.update(scheduleRef, "vagasDisponiveis", vagasDisponiveis - 1)
-                transaction.set(voluntaryRef, voluntaryData)
-            }.addOnSuccessListener {
-                onSuccess()
-            }.addOnFailureListener { e ->
-                onFailure("${e.message}")
-            }
-        }
-    }
+//    fun addVoluntaryToSchedule(
+//        scheduleId: String,
+//        voluntaryId: String,
+//        onSuccess: () -> Unit,
+//        onFailure: (String) -> Unit
+//    ) {
+//        val scheduleRef = db.collection("schedules").document(scheduleId)
+//        val voluntaryRef = scheduleRef.collection("voluntary").document(voluntaryId)
+//
+//        VoluntaryRepository.getVoluntary(voluntaryId) { voluntary ->
+//            val voluntaryData = Voluntary(
+//                id = voluntaryId,
+//                nome = voluntary.nome,
+//                telefone = voluntary.telefone,
+//                email = voluntary.email,
+//                status = voluntary.status,
+//                privileged = voluntary.privileged,
+//                role = voluntary.role
+//            )
+//
+//            db.runTransaction { transaction ->
+//                val snapshot = transaction.get(scheduleRef)
+//
+//                val vagasDisponiveis = snapshot.getLong("vagasDisponiveis")?.toInt() ?: 0
+//                if (vagasDisponiveis <= 0) {
+//                    throw Exception("Não há vagas disponíveis nesta escala.")
+//                }
+//
+//                val voluntarySnapshot = transaction.get(voluntaryRef)
+//                if (voluntarySnapshot.exists()) {
+//                    throw Exception("Você já está inscrito nesta escala.")
+//                }
+//
+//                transaction.update(scheduleRef, "vagasDisponiveis", vagasDisponiveis - 1)
+//                transaction.set(voluntaryRef, voluntaryData)
+//            }.addOnSuccessListener {
+//                onSuccess()
+//            }.addOnFailureListener { e ->
+//                onFailure("${e.message}")
+//            }
+//        }
+//    }
 
     fun removeVoluntaryFromSchedule(
         scheduleId: String,

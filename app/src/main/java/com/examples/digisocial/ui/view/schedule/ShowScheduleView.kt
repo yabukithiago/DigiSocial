@@ -24,8 +24,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.examples.digisocial.ui.components.bars.TopBar
-import com.examples.digisocial.ui.components.cards.ScheduleCard
+import com.examples.digisocial.presentation.components.bars.TopBar
+import com.examples.digisocial.presentation.components.cards.ScheduleCard
 import com.examples.digisocial.ui.view.login.LoginViewModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth

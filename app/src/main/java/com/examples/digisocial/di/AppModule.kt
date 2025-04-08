@@ -1,9 +1,14 @@
 package com.examples.digisocial.di
 
 import com.examples.digisocial.data.repository.BeneficiaryRepositoryImpl
+import com.examples.digisocial.data.repository.UserRepositoryImpl
 import com.examples.digisocial.data.repository.VisitRepositoryImpl
+import com.examples.digisocial.data.repository.VoluntaryRepositoryImpl
+import com.examples.digisocial.domain.models.Voluntary
 import com.examples.digisocial.domain.repository.BeneficiaryRepository
+import com.examples.digisocial.domain.repository.UserRepository
 import com.examples.digisocial.domain.repository.VisitRepository
+import com.examples.digisocial.domain.repository.VoluntaryRepository
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.firestore
@@ -17,7 +22,7 @@ import javax.inject.Singleton
 const val BENEFICIARY = "beneficiary"
 const val SCHEDULE = "schedule"
 const val TRANSACTION = "transactions"
-const val USER = "users"
+const val USER = "user"
 const val VISIT = "visits"
 
 @Module
@@ -64,6 +69,12 @@ object AppModule {
         return BeneficiaryRepositoryImpl(beneficiaryRef)
     }
 
+    @Provides
+    @Singleton
+    fun provideUserRepository(@Named(USER) userRef: CollectionReference): UserRepository {
+        return UserRepositoryImpl(userRef)
+    }
+
     //    @Provides
 //    @Singleton
 //    fun provideScheduleRepository(@Named(SCHEDULE) scheduleRef: CollectionReference): ScheduleRepository {
@@ -76,11 +87,13 @@ object AppModule {
 //        return TransactionRepositoryImpl(transactionRef)
 //    }
 //
-//    @Provides
-//    @Singleton
-//    fun provideUserRepository(@Named(USER) userRef: CollectionReference): UserRepository {
-//        return UserRepositoryImpl(userRef)
-//    }
+
+    @Provides
+    @Singleton
+    fun provideVoluntaryRepository(@Named(USER) userRef: CollectionReference): VoluntaryRepository {
+        return VoluntaryRepositoryImpl(userRef)
+    }
+
     @Provides
     @Singleton
     fun provideVisitRepository(@Named(VISIT) visitRef: CollectionReference): VisitRepository {

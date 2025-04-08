@@ -1,7 +1,7 @@
 package com.examples.digisocial.domain.models
 
 open class User (
-    open val id: String,
+    open var id: String,
     open var nome: String,
     open var telefone: String,
     open var email: String,

@@ -23,7 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.examples.digisocial.ui.theme.DigiSocialTheme
+import com.examples.digisocial.presentation.theme.DigiSocialTheme
 
 @Composable
 fun LoginView(navController: NavController, onLoginSuccess: (String) -> Unit) {
