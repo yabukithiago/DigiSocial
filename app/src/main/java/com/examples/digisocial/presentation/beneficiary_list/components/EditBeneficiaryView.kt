@@ -1,4 +1,4 @@
-package com.examples.digisocial.ui.view.edit
+package com.examples.digisocial.presentation.beneficiary_list.components
 
 import com.examples.digisocial.presentation.components.NacionalidadeDropdownMenu
 import android.util.Log

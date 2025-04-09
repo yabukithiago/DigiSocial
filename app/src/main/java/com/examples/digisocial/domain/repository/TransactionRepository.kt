@@ -1,43 +1,14 @@
 package com.examples.digisocial.domain.repository
 
-import android.content.ContentValues.TAG
-import android.util.Log
+import com.examples.digisocial.domain.models.Response
 import com.examples.digisocial.domain.models.Transaction
-import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.flow.Flow
 
-object TransactionRepository {
-    private val db by lazy { FirebaseFirestore.getInstance() }
-    private val transactionsCollection = db.collection("transactions")
+typealias TransactionListResponse = Response<List<Transaction>>
+typealias AddTransactionResponse = Response<String>
 
-    suspend fun addTransaction(transaction: Transaction) {
-        val document = transactionsCollection.document()
-        val transactionWithId = transaction.copy(id = document.id)
-        document.set(transactionWithId).await()
-    }
+interface TransactionRepository {
+    fun getTransactions(): Flow<TransactionListResponse>
 
-    fun getAll(onSuccess: (List<Transaction>) -> Unit) {
-        db.collection("transactions")
-            .addSnapshotListener { value, error ->
-                if (error != null) {
-                    Log.w(TAG, "Listen failed.", error)
-                    return@addSnapshotListener
-                }
-
-                val listTransaction = mutableListOf<Transaction>()
-                value?.let {
-                    for (document in it.documents) {
-                        try {
-                            document.data?.let { data ->
-                                val transaction = Transaction.fromMap(data)
-                                listTransaction.add(transaction)
-                            }
-                        } catch (e: Exception) {
-                            Log.e(TAG, "Erro ao converter documento: ${document.id}", e)
-                        }
-                    }
-                }
-                onSuccess(listTransaction)
-            }
-    }
+    suspend fun addTransaction(transaction: Transaction): AddTransactionResponse
 }

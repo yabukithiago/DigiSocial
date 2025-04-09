@@ -17,7 +17,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Euro
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.TypeSpecimen
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -26,16 +25,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.examples.digisocial.domain.models.Transaction
 import com.examples.digisocial.presentation.components.InfoRow
 import java.text.SimpleDateFormat
 import java.util.Date
 
 @Composable
-fun TransactionCard(description: String, amount: Double, type: String,
-    date: Long
-) {
+fun TransactionCard(transaction: Transaction) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -58,7 +55,7 @@ fun TransactionCard(description: String, amount: Double, type: String,
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    imageVector = Icons.Default.Person,
+                    imageVector = Icons.Default.Euro,
                     contentDescription = "Person Icon",
                     tint = Color(0xFF757575),
                     modifier = Modifier.size(30.dp)
@@ -71,10 +68,10 @@ fun TransactionCard(description: String, amount: Double, type: String,
                 verticalArrangement = Arrangement.spacedBy(4.dp),
                 modifier = Modifier.weight(1f)
             ) {
-                InfoRow(icon = Icons.Default.Info, text = description)
-                InfoRow(icon = Icons.Default.Euro, text = amount.toString())
-                InfoRow(icon = Icons.Default.TypeSpecimen, text = type)
-                InfoRow(icon = Icons.Default.DateRange, text = convertDateToString(Date(date)))
+                InfoRow(icon = Icons.Default.Info, text = transaction.description)
+                InfoRow(icon = Icons.Default.Euro, text = transaction.amount.toString())
+                InfoRow(icon = Icons.Default.TypeSpecimen, text = transaction.type.toString())
+                InfoRow(icon = Icons.Default.DateRange, text = convertDateToString(Date(transaction.date)))
             }
         }
     }
@@ -84,12 +81,4 @@ fun TransactionCard(description: String, amount: Double, type: String,
 fun convertDateToString(date: Date): String {
     val formatter = SimpleDateFormat("dd/MM/yyyy")
     return formatter.format(date)
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewTransactionCard(){
-    TransactionCard(description = "João Silva", amount = 0.0,
-        type = "Brasileira", date = 5
-    )
 }

@@ -2,11 +2,13 @@ package com.examples.digisocial.di
 
 import com.examples.digisocial.data.repository.BeneficiaryRepositoryImpl
 import com.examples.digisocial.data.repository.JuntaMemberRepositoryImpl
+import com.examples.digisocial.data.repository.TransactionRepositoryImpl
 import com.examples.digisocial.data.repository.UserRepositoryImpl
 import com.examples.digisocial.data.repository.VisitRepositoryImpl
 import com.examples.digisocial.data.repository.VoluntaryRepositoryImpl
 import com.examples.digisocial.domain.repository.BeneficiaryRepository
 import com.examples.digisocial.domain.repository.JuntaMemberRepository
+import com.examples.digisocial.domain.repository.TransactionRepository
 import com.examples.digisocial.domain.repository.UserRepository
 import com.examples.digisocial.domain.repository.VisitRepository
 import com.examples.digisocial.domain.repository.VoluntaryRepository
@@ -82,12 +84,12 @@ object AppModule {
 //        return ScheduleRepositoryImpl(scheduleRef)
 //    }
 //
-//    @Provides
-//    @Singleton
-//    fun provideTransactionRepository(@Named(TRANSACTION) transactionRef: CollectionReference): TransactionRepository {
-//        return TransactionRepositoryImpl(transactionRef)
-//    }
-//
+    @Provides
+    @Singleton
+    fun provideTransactionRepository(@Named(TRANSACTION) transactionRef: CollectionReference): TransactionRepository {
+        return TransactionRepositoryImpl(transactionRef)
+    }
+
 
     @Provides
     @Singleton

@@ -23,7 +23,7 @@ import java.util.Date
 
 @Composable
 fun VisitListScreen(navController: NavController, beneficiaryId: String, viewModel: VisitListViewModel = hiltViewModel()) {
-    val context = LocalContext.current
+    LocalContext.current
     var openAddVisitDialog by remember { mutableStateOf(false) }
     var addingVisit by remember { mutableStateOf(false) }
 

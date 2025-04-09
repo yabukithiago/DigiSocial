@@ -17,7 +17,6 @@ import com.examples.digisocial.domain.models.Beneficiary
 import com.examples.digisocial.domain.models.Visit
 import com.examples.digisocial.presentation.components.bars.SearchBar
 import com.examples.digisocial.presentation.components.cards.BeneficiaryCard
-import com.examples.digisocial.ui.view.edit.EditBeneficiaryView
 
 const val NON_EXISTENT_Beneficiary_ID = "NO_ID"
 

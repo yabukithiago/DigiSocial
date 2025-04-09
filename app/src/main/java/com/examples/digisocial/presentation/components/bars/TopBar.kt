@@ -22,9 +22,7 @@ fun TopBar(title: String, navController: NavController) {
         title = { Text(text = title, color = Color.White) },
         navigationIcon = {
             IconButton(onClick = {
-                if (!navController.popBackStack()) {
-                    navController.navigateUp()
-                }
+                navController.popBackStack()
             }) {
                 Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = Color.White)
             }

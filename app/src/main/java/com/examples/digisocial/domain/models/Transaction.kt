@@ -1,21 +1,14 @@
 package com.examples.digisocial.domain.models
 
 data class Transaction (
-    val id: String = "",
+    var id: String = "",
     val description: String = "",
     val amount: Double = 0.0,
-    val type: String = "",
+    val type: Type = Type.ENTRADA,
     val date: Long = System.currentTimeMillis()
 ) {
-    companion object {
-        fun fromMap(map: Map<String, Any>): Transaction {
-            return Transaction(
-                map["id"] as String,
-                map["description"] as String,
-                map["amount"] as Double,
-                map["type"] as String,
-                map["date"] as Long,
-            )
-        }
+    enum class Type(val value: String) {
+        ENTRADA("ENTRADA"),
+        SAIDA("SAIDA")
     }
 }

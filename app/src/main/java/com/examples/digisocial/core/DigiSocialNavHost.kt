@@ -10,13 +10,11 @@ import com.examples.digisocial.presentation.Screen
 import com.examples.digisocial.presentation.beneficiary_list.BeneficiaryListScreen
 import com.examples.digisocial.presentation.juntamember_list.JuntaMemberListScreen
 import com.examples.digisocial.presentation.user_list.UserListScreen
-import com.examples.digisocial.ui.view.create.CreateBeneficiaryView
-import com.examples.digisocial.ui.view.delete.DeleteBeneficiaryView
-import com.examples.digisocial.ui.view.delete.DeleteVoluntaryView
-import com.examples.digisocial.ui.view.edit.EditBeneficiaryView
-import com.examples.digisocial.ui.view.finance.AddTransactionView
-import com.examples.digisocial.ui.view.finance.FinanceDashboardView
-import com.examples.digisocial.ui.view.finance.ShowTransactionView
+import com.examples.digisocial.presentation.beneficiary_list.components.CreateBeneficiaryView
+import com.examples.digisocial.presentation.beneficiary_list.components.EditBeneficiaryView
+import com.examples.digisocial.presentation.transaction_list.TransactionListScreen
+import com.examples.digisocial.ui.view.finance.CreateTransactionView
+//import com.examples.digisocial.ui.view.finance.FinanceDashboardView
 import com.examples.digisocial.ui.view.home.HomePageAdminView
 import com.examples.digisocial.ui.view.home.HomePageJuntaView
 import com.examples.digisocial.ui.view.home.HomePageView
@@ -108,18 +106,18 @@ fun DigiSocialNavHost() {
         composable(route = Screen.VoluntaryListScreen.route) {
             VoluntaryListScreen(navController)
         }
-        composable(
-            route = Screen.DeleteVoluntaryScreen.route,
-            arguments = listOf(navArgument("voluntaryId") { type = NavType.StringType })
-        ) { backStackEntry ->
-            val id = backStackEntry.arguments?.getString("id") ?: ""
-            DeleteVoluntaryView(navController = navController, id = id)
-        }
+//        composable(
+//            route = Screen.DeleteVoluntaryScreen.route,
+//            arguments = listOf(navArgument("voluntaryId") { type = NavType.StringType })
+//        ) { backStackEntry ->
+//            val id = backStackEntry.arguments?.getString("voluntaryId") ?: ""
+//            DeleteVoluntaryView(navController = navController, id = id)
+//        }
         //endregion
 
         //region Beneficiary
         composable(route = Screen.CreateBeneficiaryScreen.route) {
-            CreateBeneficiaryView(navController, onCreateBeneficiary = {})
+            CreateBeneficiaryView(onDismiss = { }, onCreateBeneficiary = {})
         }
         composable(route = Screen.BeneficiaryListScreen.route) {
             BeneficiaryListScreen(navController)
@@ -131,13 +129,13 @@ fun DigiSocialNavHost() {
             val id = backStackEntry.arguments?.getString("beneficiaryId") ?: ""
             EditBeneficiaryView(id, onDismiss = { }, onEditBeneficiary = { })
         }
-        composable(
-            route = Screen.DeleteBeneficiaryScreen.route,
-            arguments = listOf(navArgument("beneficiaryId") { type = NavType.StringType })
-        ) { backStackEntry ->
-            val id = backStackEntry.arguments?.getString("id") ?: ""
-            DeleteBeneficiaryView(navController = navController, id = id)
-        }
+//        composable(
+//            route = Screen.DeleteBeneficiaryScreen.route,
+//            arguments = listOf(navArgument("beneficiaryId") { type = NavType.StringType })
+//        ) { backStackEntry ->
+//            val id = backStackEntry.arguments?.getString("beneficiaryId") ?: ""
+//            DeleteBeneficiaryView(navController = navController, id = id)
+//        }
         //endregion
 
         //region CRUD JuntaMember
@@ -147,15 +145,15 @@ fun DigiSocialNavHost() {
         //endregion
 
         //region Transactions
-        composable("addNewTransaction") {
-            AddTransactionView(navController)
+        composable(Screen.CreateTransactionScreen.route) {
+            CreateTransactionView(onDismiss = { }, onCreateTransaction = { })
         }
-        composable("showTransaction") {
-            ShowTransactionView(navController)
+        composable(Screen.TransactionListScreen.route) {
+            TransactionListScreen(navController)
         }
-        composable("showDashboard") {
-            FinanceDashboardView(navController)
-        }
+//        composable("showDashboard") {
+//            FinanceDashboardView(navController)
+//        }
         //endregion
 
         //region Schedule

@@ -26,4 +26,6 @@
 
     <!-- Other -->
     <string name="open_add_beneficiary_dialog">Open add beneficiary dialog.</string>
+    <string name="empty_transaction_list_text">Nenhuma transação encontrada.</string>
+    <string name="transaction_added">Transação criada.</string>
 </resources>

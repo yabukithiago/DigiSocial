@@ -30,14 +30,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.examples.digisocial.presentation.Screen
 import com.examples.digisocial.presentation.components.FileImportDropdownMenu
 import com.examples.digisocial.presentation.components.bars.BottomBar
-import com.examples.digisocial.presentation.theme.DigiSocialTheme
 import com.examples.digisocial.utils.importExcelToFirestore
 
 @Composable
@@ -112,7 +109,7 @@ fun HomePageAdminView(navController: NavController) {
         Spacer(modifier = Modifier.size(16.dp))
 
         Button(
-            onClick = { navController.navigate("showTransaction") },
+            onClick = { navController.navigate(Screen.TransactionListScreen.route) },
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier.fillMaxWidth(0.6f)
                 .height(60.dp),
@@ -135,7 +132,7 @@ fun HomePageAdminView(navController: NavController) {
         Spacer(modifier = Modifier.size(16.dp))
 
         Button(
-            onClick = { navController.navigate("readSchedule") },
+            onClick = { navController.navigate(Screen.ScheduleListScreen.route) },
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier.fillMaxWidth(0.6f)
                 .height(60.dp),

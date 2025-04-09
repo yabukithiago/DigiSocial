@@ -20,7 +20,7 @@ import com.examples.digisocial.presentation.beneficiary_list.components.EmptyBen
 import com.examples.digisocial.presentation.components.buttons.AddFloatingActionButton
 import com.examples.digisocial.presentation.components.LoadingIndicator
 import com.examples.digisocial.presentation.components.bars.TopBar
-import com.examples.digisocial.ui.view.create.CreateBeneficiaryView
+import com.examples.digisocial.presentation.beneficiary_list.components.CreateBeneficiaryView
 import java.util.Date
 
 @Composable
@@ -87,7 +87,9 @@ fun BeneficiaryListScreen(navController: NavController, viewModel: BeneficiaryLi
 
     if (openAddBeneficiary) {
         CreateBeneficiaryView(
-            navController = navController,
+            onDismiss = {
+                openAddBeneficiary = false
+            },
             onCreateBeneficiary = { beneficiary ->
                 viewModel.addBeneficiary(beneficiary)
                 addingBeneficiary = true
