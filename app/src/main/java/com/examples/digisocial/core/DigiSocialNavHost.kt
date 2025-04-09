@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.examples.digisocial.presentation.Screen
 import com.examples.digisocial.presentation.beneficiary_list.BeneficiaryListScreen
+import com.examples.digisocial.presentation.juntamember_list.JuntaMemberListScreen
 import com.examples.digisocial.presentation.user_list.UserListScreen
 import com.examples.digisocial.ui.view.create.CreateBeneficiaryView
 import com.examples.digisocial.ui.view.delete.DeleteBeneficiaryView
@@ -140,13 +141,9 @@ fun DigiSocialNavHost() {
         //endregion
 
         //region CRUD JuntaMember
-//        composable("readJuntaMember") {
-//            ShowJuntaMemberView(navController)
-//        }
-//        composable("deleteJuntaMember/{id}") { backStackEntry ->
-//            val id = backStackEntry.arguments?.getString("id") ?: ""
-//            DeleteJuntaMemberView(navController = navController, id = id)
-//        }
+        composable(route = Screen.JuntaMemberListScreen.route) {
+            JuntaMemberListScreen(navController)
+        }
         //endregion
 
         //region Transactions

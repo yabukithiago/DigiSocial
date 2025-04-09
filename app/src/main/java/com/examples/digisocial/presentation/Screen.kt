@@ -29,8 +29,6 @@ sealed class Screen(val route: String) {
 
     //region Voluntary
     data object VoluntaryListScreen: Screen("voluntary_list_screen")
-    data object CreateVoluntaryScreen: Screen("create_voluntary_screen")
-    data object EditVoluntaryScreen: Screen("edit_voluntary_screen/{voluntaryId}")
     data object DeleteVoluntaryScreen: Screen("delete_voluntary_screen/{voluntaryId}")
 
     //endregion

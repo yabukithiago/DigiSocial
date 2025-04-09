@@ -1,17 +1,29 @@
 <resources>
     <string name="app_name">DigiSocial</string>
-    <string name="empty_beneficiary_list_text">Nenhum beneficiário encontrado.\n</string>
-    <string name="beneficiary_deleted">O beneficiário foi excluído.</string>
-    <string name="beneficiary_added">O beneficiário foi adicionado.</string>
-    <string name="empty_fields">Preencha todos os campos.\n</string>
+    <!-- Create -->
+    <string name="beneficiary_added">Beneficiário adicionado.</string>
+    <string name="visit_added">Visita registada.</string>
+    <!-- Update -->
+    <string name="beneficiary_updated">Beneficiário editado.</string>
+    <string name="user_updated">Utilizador editado.</string>
+
+    <!-- Deleted -->
+    <string name="beneficiary_deleted">Beneficiário excluído.</string>
+    <string name="voluntary_deleted">Voluntário excluído.</string>
+    <string name="juntamember_deleted">Membro da Junta excluído.</string>
+    <string name="user_deleted">Utilizador excluído.</string>
+
+    <!-- Not found -->
+    <string name="empty_beneficiary_list_text">Nenhum beneficiário encontrado.</string>
+    <string name="empty_visit_list_text">Nenhuma visita encontrada.</string>
+    <string name="empty_voluntary_list_text">Nenhum voluntário encontrado.</string>
+    <string name="empty_juntamember_list_text">Nenhum membro da junta encontrado.</string>
+    <string name="empty_user_list_text">Nenhum utilizador encontrado.</string>
+
+    <!-- Error -->
+    <string name="empty_fields">Preencha todos os campos.</string>
     <string name="error_creating_beneficiary">Erro ao criar beneficiário.</string>
+
+    <!-- Other -->
     <string name="open_add_beneficiary_dialog">Open add beneficiary dialog.</string>
-    <string name="beneficiary_updated">O beneficiário foi editado.\n</string>
-    <string name="empty_visit_list_text">Nenhuma visita registada.\n</string>
-    <string name="visit_added">Visita registada.\n</string>
-    <string name="voluntary_deleted">O voluntário foi excluído.</string>
-    <string name="empty_voluntary_list_text">Nenhum voluntário foi encontrado.</string>
-    <string name="empty_user_list_text">Nenhum usuário foi encontrado.</string>
-    <string name="user_updated">O utilizador foi editado.</string>
-    <string name="user_deleted">O utilizador foi excluído.</string>
 </resources>

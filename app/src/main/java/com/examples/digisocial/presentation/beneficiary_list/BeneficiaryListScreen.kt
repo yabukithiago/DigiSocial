@@ -35,7 +35,7 @@ fun BeneficiaryListScreen(navController: NavController, viewModel: BeneficiaryLi
     Scaffold(
         topBar = {
             TopBar(
-                title = "Beneficiaries",
+                title = "Beneficiários",
                 navController = navController,
             )
         },

@@ -1,11 +1,12 @@
 package com.examples.digisocial.di
 
 import com.examples.digisocial.data.repository.BeneficiaryRepositoryImpl
+import com.examples.digisocial.data.repository.JuntaMemberRepositoryImpl
 import com.examples.digisocial.data.repository.UserRepositoryImpl
 import com.examples.digisocial.data.repository.VisitRepositoryImpl
 import com.examples.digisocial.data.repository.VoluntaryRepositoryImpl
-import com.examples.digisocial.domain.models.Voluntary
 import com.examples.digisocial.domain.repository.BeneficiaryRepository
+import com.examples.digisocial.domain.repository.JuntaMemberRepository
 import com.examples.digisocial.domain.repository.UserRepository
 import com.examples.digisocial.domain.repository.VisitRepository
 import com.examples.digisocial.domain.repository.VoluntaryRepository
@@ -92,6 +93,12 @@ object AppModule {
     @Singleton
     fun provideVoluntaryRepository(@Named(USER) userRef: CollectionReference): VoluntaryRepository {
         return VoluntaryRepositoryImpl(userRef)
+    }
+
+    @Provides
+    @Singleton
+    fun provideJuntaMemberRepository(@Named(USER) userRef: CollectionReference): JuntaMemberRepository {
+        return JuntaMemberRepositoryImpl(userRef)
     }
 
     @Provides

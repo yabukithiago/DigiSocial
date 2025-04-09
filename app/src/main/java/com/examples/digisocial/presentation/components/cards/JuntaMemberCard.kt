@@ -33,19 +33,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import com.examples.digisocial.domain.models.JuntaMember
 import com.examples.digisocial.presentation.components.InfoRow
 import com.examples.digisocial.ui.view.login.LoginViewModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
 @Composable
-fun JuntaMemberCard(navController: NavController,
-                    id: String, nome: String, telefone: String, email: String){
+fun JuntaMemberCard(
+    juntaMember: JuntaMember, onDeleteJuntaMember: () -> Unit
+                    ) {
     var menuExpanded by remember { mutableStateOf(false) }
     val auth = Firebase.auth
     val currentUser = auth.currentUser
@@ -92,13 +91,13 @@ fun JuntaMemberCard(navController: NavController,
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = nome,
+                    text = juntaMember.nome,
                     style = MaterialTheme.typography.bodyLarge,
                     color = Color(0xFF333333),
                     maxLines = 1
                 )
-                InfoRow(icon = Icons.Default.Phone, text = telefone)
-                InfoRow(icon = Icons.Default.Email, text = email)
+                InfoRow(icon = Icons.Default.Phone, text = juntaMember.telefone)
+                InfoRow(icon = Icons.Default.Email, text = juntaMember.email)
             }
 
             Box(contentAlignment = Alignment.TopEnd) {
@@ -118,7 +117,7 @@ fun JuntaMemberCard(navController: NavController,
                         DropdownMenuItem(
                             text = { Text("Excluir") },
                             onClick = {
-                                navController.navigate("deleteJuntaMember/$id")
+                                onDeleteJuntaMember()
                                 menuExpanded = false
                             }
                         )
@@ -127,11 +126,4 @@ fun JuntaMemberCard(navController: NavController,
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewJuntaMemberCard(){
-    JuntaMemberCard(navController = rememberNavController(), id = "123", nome = "Marcio Ponte",
-        telefone = "987654321", email = "teste@testetesteteste.com")
 }
