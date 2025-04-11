@@ -1,4 +1,4 @@
-package com.examples.digisocial.presentation.visit_list.components
+package com.examples.digisocial.presentation.voluntaryschedule_list.components
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun AddVisitAlertDialog(
+fun AddVoluntaryScheduleAlertDialog(
     onDismissRequest: () -> Unit,
     onConfirm: () -> Unit
 ) {

@@ -27,8 +27,8 @@ import java.util.Date
 fun BeneficiaryListScreen(navController: NavController, viewModel: BeneficiaryListViewModel = hiltViewModel()) {
     val context = LocalContext.current
     var openAddBeneficiary by remember { mutableStateOf(false) }
-    var addingBeneficiary by remember { mutableStateOf(false) }
-    var editingBeneficiary by remember { mutableStateOf(false) }
+    var creatingBeneficiary by remember { mutableStateOf(false) }
+    var updatingBeneficiary by remember { mutableStateOf(false) }
     var deletingBeneficiary by remember { mutableStateOf(false) }
     var visitingBeneficiary by remember { mutableStateOf(false) }
 
@@ -71,7 +71,7 @@ fun BeneficiaryListScreen(navController: NavController, viewModel: BeneficiaryLi
                         },
                         onEditBeneficiary = { beneficiary ->
                             viewModel.updateBeneficiary(beneficiary)
-                            editingBeneficiary = true
+                            updatingBeneficiary = true
                         },
                         onDeleteBeneficiary = { id ->
                             viewModel.deleteBeneficiary(id)
@@ -92,38 +92,38 @@ fun BeneficiaryListScreen(navController: NavController, viewModel: BeneficiaryLi
             },
             onCreateBeneficiary = { beneficiary ->
                 viewModel.addBeneficiary(beneficiary)
-                addingBeneficiary = true
+                creatingBeneficiary = true
                 showToastMessage(context, R.string.beneficiary_added)
             },
         )
     }
 
-    if (addingBeneficiary) {
+    if (creatingBeneficiary) {
         when (val addBeneficiaryResponse = viewModel.addBeneficiaryResponse) {
             is Response.Loading -> LoadingIndicator()
             is Response.Success -> {
                 showToastMessage(context, R.string.beneficiary_added)
-                addingBeneficiary = false
+                creatingBeneficiary = false
             }
 
             is Response.Failure -> {
                 printError(addBeneficiaryResponse.e)
-                addingBeneficiary = false
+                creatingBeneficiary = false
             }
         }
     }
 
-    if (editingBeneficiary) {
+    if (updatingBeneficiary) {
         when (val updateBeneficiaryResponse = viewModel.updateBeneficiaryResponse) {
             is Response.Loading -> LoadingIndicator()
             is Response.Success -> {
                 showToastMessage(context, R.string.beneficiary_updated)
-                editingBeneficiary = false
+                updatingBeneficiary = false
             }
 
             is Response.Failure -> {
                 printError(updateBeneficiaryResponse.e)
-                editingBeneficiary = false
+                updatingBeneficiary = false
             }
         }
     }

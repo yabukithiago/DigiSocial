@@ -9,6 +9,7 @@ import com.examples.digisocial.domain.models.Response.Loading
 import com.examples.digisocial.domain.repository.DeleteVoluntaryResponse
 import com.examples.digisocial.domain.repository.VoluntaryListResponse
 import com.examples.digisocial.domain.repository.VoluntaryRepository
+import com.examples.digisocial.domain.repository.VoluntaryResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,6 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class VoluntaryListViewModel @Inject constructor(private val repo: VoluntaryRepository) : ViewModel() {
     var voluntaryListResponse by mutableStateOf<VoluntaryListResponse>(Loading)
+        private set
+    var voluntaryResponse by mutableStateOf<VoluntaryResponse>(Loading)
         private set
     var deleteVoluntaryResponse by mutableStateOf<DeleteVoluntaryResponse>(Loading)
         private set
@@ -28,6 +31,9 @@ class VoluntaryListViewModel @Inject constructor(private val repo: VoluntaryRepo
         repo.getVoluntary().collect { response ->
             voluntaryListResponse = response
         }
+    }
+    fun getVoluntaryById(voluntaryId: String) = viewModelScope.launch {
+        voluntaryResponse = repo.getVoluntaryById(voluntaryId)
     }
 
     fun deleteVoluntary(id: String) = viewModelScope.launch {

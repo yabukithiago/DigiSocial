@@ -1,5 +1,6 @@
 package com.examples.digisocial.core
 
+/* import com.examples.digisocial.ui.view.finance.FinanceDashboardView */
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -8,27 +9,26 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.examples.digisocial.presentation.Screen
 import com.examples.digisocial.presentation.beneficiary_list.BeneficiaryListScreen
-import com.examples.digisocial.presentation.juntamember_list.JuntaMemberListScreen
-import com.examples.digisocial.presentation.user_list.UserListScreen
 import com.examples.digisocial.presentation.beneficiary_list.components.CreateBeneficiaryView
 import com.examples.digisocial.presentation.beneficiary_list.components.EditBeneficiaryView
+import com.examples.digisocial.presentation.home.HomePageAdminView
+import com.examples.digisocial.presentation.home.HomePageJuntaView
+import com.examples.digisocial.presentation.home.HomePageView
+import com.examples.digisocial.presentation.home.HomePageVoluntary
+import com.examples.digisocial.presentation.juntamember_list.JuntaMemberListScreen
+import com.examples.digisocial.presentation.schedule_list.ScheduleListScreen
 import com.examples.digisocial.presentation.transaction_list.TransactionListScreen
+import com.examples.digisocial.presentation.user_list.UserListScreen
+import com.examples.digisocial.presentation.visit_list.VisitListScreen
+import com.examples.digisocial.presentation.voluntary_list.VoluntaryListScreen
+import com.examples.digisocial.presentation.voluntaryschedule_list.VoluntaryScheduleListScreen
 import com.examples.digisocial.ui.view.finance.CreateTransactionView
-//import com.examples.digisocial.ui.view.finance.FinanceDashboardView
-import com.examples.digisocial.ui.view.home.HomePageAdminView
-import com.examples.digisocial.ui.view.home.HomePageJuntaView
-import com.examples.digisocial.ui.view.home.HomePageView
-import com.examples.digisocial.ui.view.home.HomePageVoluntary
 import com.examples.digisocial.ui.view.login.LoginView
 import com.examples.digisocial.ui.view.register.RegisterView
 import com.examples.digisocial.ui.view.report.ReportView
 import com.examples.digisocial.ui.view.resetpassword.ResetPasswordView
 import com.examples.digisocial.ui.view.schedule.CreateScheduleView
-import com.examples.digisocial.ui.view.schedule.DeleteScheduleView
-import com.examples.digisocial.ui.view.schedule.ShowScheduleView
 import com.examples.digisocial.ui.view.user.UsersPageView
-import com.examples.digisocial.presentation.visit_list.VisitListScreen
-import com.examples.digisocial.presentation.voluntary_list.VoluntaryListScreen
 
 @Composable
 fun DigiSocialNavHost() {
@@ -39,43 +39,21 @@ fun DigiSocialNavHost() {
     ) {
         //region Login
         composable(route = Screen.LoginScreen.route) {
-            LoginView(navController, onLoginSuccess = { role ->
-                val destination = when (role) {
-                    "admin" -> Screen.HomePageAdminScreen.route
-                    "voluntary" -> Screen.HomePageVoluntaryScreen.route
-                    "juntamember" -> Screen.HomePageJuntaMemberScreen.route
-                    "" -> Screen.HomePageScreen.route
-                    else -> "login"
+            LoginView(navController, onLoginSuccess = {
+                when (it) {
+                    "admin" -> navController.navigate(Screen.HomePageAdminScreen.route)
+                    "voluntary" -> navController.navigate(Screen.HomePageVoluntaryScreen.route)
+                    "juntamember" -> navController.navigate(Screen.HomePageJuntaMemberScreen.route)
+                    else -> navController.navigate(Screen.LoginScreen.route)
                 }
-                navController.navigate(destination)
             })
         }
-        composable("logout") {
-            navController.navigate("login")
+        composable(route = Screen.RegisterScreen.route) {
+            RegisterView(navController, onRegisterSuccess = { navController.navigate(Screen.LoginScreen.route) })
         }
-        composable("register") {
-            RegisterView(navController, onRegisterSuccess = { navController.navigate("login") })
-        }
-        composable("resetPassword") {
+        composable(route = Screen.ResetPasswordScreen.route) {
             ResetPasswordView(navController)
         }
-        //endregion
-
-        //region User
-//        composable("readPendingUser") {
-//            PendingUserView(navController)
-//        }
-//        composable(
-//            route = "editUser/{id}",
-//            arguments = listOf(navArgument("id") { type = NavType.StringType })
-//        ) { backStackEntry ->
-//            val id = backStackEntry.arguments?.getString("id") ?: ""
-//            EditUserView(navController, id)
-//        }
-//        composable("deleteUser/{id}") { backStackEntry ->
-//            val id = backStackEntry.arguments?.getString("id") ?: ""
-//            DeleteUserView(navController = navController, id = id)
-//        }
         //endregion
 
         //region Homes
@@ -89,7 +67,7 @@ fun DigiSocialNavHost() {
             HomePageJuntaView(navController)
         }
         composable(route = Screen.HomePageScreen.route) {
-            HomePageView(navController)
+            HomePageView()
         }
         //endregion
 
@@ -106,13 +84,6 @@ fun DigiSocialNavHost() {
         composable(route = Screen.VoluntaryListScreen.route) {
             VoluntaryListScreen(navController)
         }
-//        composable(
-//            route = Screen.DeleteVoluntaryScreen.route,
-//            arguments = listOf(navArgument("voluntaryId") { type = NavType.StringType })
-//        ) { backStackEntry ->
-//            val id = backStackEntry.arguments?.getString("voluntaryId") ?: ""
-//            DeleteVoluntaryView(navController = navController, id = id)
-//        }
         //endregion
 
         //region Beneficiary
@@ -129,13 +100,6 @@ fun DigiSocialNavHost() {
             val id = backStackEntry.arguments?.getString("beneficiaryId") ?: ""
             EditBeneficiaryView(id, onDismiss = { }, onEditBeneficiary = { })
         }
-//        composable(
-//            route = Screen.DeleteBeneficiaryScreen.route,
-//            arguments = listOf(navArgument("beneficiaryId") { type = NavType.StringType })
-//        ) { backStackEntry ->
-//            val id = backStackEntry.arguments?.getString("beneficiaryId") ?: ""
-//            DeleteBeneficiaryView(navController = navController, id = id)
-//        }
         //endregion
 
         //region CRUD JuntaMember
@@ -157,31 +121,23 @@ fun DigiSocialNavHost() {
         //endregion
 
         //region Schedule
-        composable("createSchedule") {
-            CreateScheduleView(navController = navController)
+        composable(Screen.CreateScheduleScreen.route) {
+            CreateScheduleView(onDismiss = { }, onCreateSchedule = { })
         }
-        composable("readSchedule") {
-            ShowScheduleView(navController = navController)
-        }
-        composable("deleteSchedule/{id}") { backStackEntry ->
-            val id = backStackEntry.arguments?.getString("id") ?: ""
-            DeleteScheduleView(navController = navController, id = id)
+        composable(Screen.ScheduleListScreen.route) {
+            ScheduleListScreen(navController = navController)
         }
         //endregion
 
         //region Schedule Voluntary
-//        composable("addVoluntaryOnSchedule/{id}") { backStackEntry ->
-//            val id = backStackEntry.arguments?.getString("id") ?: ""
-//            RegisterVoluntaryScheduleView(navController, id = id)
-//        }
-//        composable("deleteVoluntaryOnSchedule/{id}") { backStackEntry ->
-//            val id = backStackEntry.arguments?.getString("id") ?: ""
-//            DeleteVoluntaryScheduleView(navController, id = id)
-//        }
-//        composable("showVoluntaryOnSchedule/{id}") { backStackEntry ->
-//            val id = backStackEntry.arguments?.getString("id") ?: ""
-//            ShowVoluntaryScheduleView(navController, id = id)
-//        }
+
+        composable(
+            route = Screen.ScheduleDetailsScreen.route,
+            arguments = listOf(navArgument("scheduleId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments?.getString("scheduleId") ?: ""
+            VoluntaryScheduleListScreen(navController, id)
+        }
         //endregion
 
         //region Attendance

@@ -1,6 +1,5 @@
-package com.examples.digisocial.ui.view.home
+package com.examples.digisocial.presentation.home
 
-import com.examples.digisocial.ui.view.login.LoginViewModel
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,15 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.examples.digisocial.presentation.theme.DigiSocialTheme
+import com.examples.digisocial.ui.view.login.LoginViewModel
 
 @Composable
-fun HomePageView(navController: NavController) {
+fun HomePageView() {
     val viewModel: LoginViewModel = viewModel()
 
     Column(
@@ -41,18 +37,10 @@ fun HomePageView(navController: NavController) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = { viewModel.logout(onLogoutSuccess = { navController.navigate("login") }) },
+        Button(onClick = { viewModel.logout(onLogoutSuccess = {}) },
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF044AA6))
         ) {
             Text("Voltar")
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewHomePageView() {
-    DigiSocialTheme {
-        HomePageView(navController = rememberNavController())
     }
 }

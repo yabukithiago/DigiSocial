@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.examples.digisocial.presentation.components.InfoRow
 import java.util.Date
@@ -47,10 +46,4 @@ fun AttendanceCard(
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewAttendanceView(){
-    AttendanceCard(date = Date())
 }

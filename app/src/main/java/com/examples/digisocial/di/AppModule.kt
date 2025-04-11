@@ -2,17 +2,20 @@ package com.examples.digisocial.di
 
 import com.examples.digisocial.data.repository.BeneficiaryRepositoryImpl
 import com.examples.digisocial.data.repository.JuntaMemberRepositoryImpl
+import com.examples.digisocial.data.repository.ScheduleRepositoryImpl
 import com.examples.digisocial.data.repository.TransactionRepositoryImpl
 import com.examples.digisocial.data.repository.UserRepositoryImpl
 import com.examples.digisocial.data.repository.VisitRepositoryImpl
 import com.examples.digisocial.data.repository.VoluntaryRepositoryImpl
 import com.examples.digisocial.domain.repository.BeneficiaryRepository
 import com.examples.digisocial.domain.repository.JuntaMemberRepository
+import com.examples.digisocial.domain.repository.ScheduleRepository
 import com.examples.digisocial.domain.repository.TransactionRepository
 import com.examples.digisocial.domain.repository.UserRepository
 import com.examples.digisocial.domain.repository.VisitRepository
 import com.examples.digisocial.domain.repository.VoluntaryRepository
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.firestore
 import dagger.Module
@@ -23,7 +26,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 const val BENEFICIARY = "beneficiary"
-const val SCHEDULE = "schedule"
+const val SCHEDULE = "schedules"
 const val TRANSACTION = "transactions"
 const val USER = "user"
 const val VISIT = "visits"
@@ -31,6 +34,9 @@ const val VISIT = "visits"
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+    @Provides
+    fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
+
     @Provides
     @Singleton
     @Named(BENEFICIARY)
@@ -78,18 +84,17 @@ object AppModule {
         return UserRepositoryImpl(userRef)
     }
 
-    //    @Provides
-//    @Singleton
-//    fun provideScheduleRepository(@Named(SCHEDULE) scheduleRef: CollectionReference): ScheduleRepository {
-//        return ScheduleRepositoryImpl(scheduleRef)
-//    }
-//
+        @Provides
+    @Singleton
+    fun provideScheduleRepository(@Named(SCHEDULE) scheduleRef: CollectionReference): ScheduleRepository {
+        return ScheduleRepositoryImpl(scheduleRef)
+    }
+
     @Provides
     @Singleton
     fun provideTransactionRepository(@Named(TRANSACTION) transactionRef: CollectionReference): TransactionRepository {
         return TransactionRepositoryImpl(transactionRef)
     }
-
 
     @Provides
     @Singleton

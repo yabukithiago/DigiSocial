@@ -1,4 +1,4 @@
-package com.examples.digisocial.ui.view.home
+package com.examples.digisocial.presentation.home
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement

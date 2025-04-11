@@ -17,7 +17,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,22 +28,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
+import com.examples.digisocial.domain.models.Schedule
+import com.examples.digisocial.domain.models.Voluntary
 import com.examples.digisocial.presentation.components.InfoRow
 import com.examples.digisocial.ui.view.login.LoginViewModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
-import java.util.Date
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @Composable
-fun ScheduleCard(
-    navController: NavController, id: String, data: Date,
-    vagasDisponiveis: Int, onClick: () -> Unit) {
+fun ScheduleCard(schedule: Schedule, onClick: () -> Unit, onVoluntaryRegistration: (Voluntary) -> Unit, onDeleteVoluntary: (Voluntary) -> Unit, onEditSchedule: () -> Unit, onDeleteSchedule:() -> Unit, ) {
     val auth = Firebase.auth
     val currentUser = auth.currentUser
     var menuExpanded by remember { mutableStateOf(false) }
     val loginViewModel: LoginViewModel = viewModel()
     var role = ""
+    val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    val formattedDate = formatter.format(schedule.data)
 
     if (currentUser != null) {
         loginViewModel.fetchUserRole(currentUser.uid) { role = it }
@@ -70,13 +71,9 @@ fun ScheduleCard(
                 verticalArrangement = Arrangement.spacedBy(4.dp),
                 modifier = Modifier.weight(1f)
             ) {
-                Text(
-                    text = data.toString(),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = Color(0xFF333333),
-                    maxLines = 1
-                )
-                InfoRow(icon = Icons.Default.Info, text = "Vagas disponíveis: $vagasDisponiveis")
+                InfoRow(icon = Icons.Default.Info, text = formattedDate)
+                InfoRow(icon = Icons.Default.Info, text = "Vagas Disponiveis: ${schedule.vagasDisponiveis}")
+                InfoRow(icon = Icons.Default.Info, text = "Vagas Totais: ${schedule.vagasTotais}")
             }
 
             Box(contentAlignment = Alignment.TopEnd) {
@@ -96,14 +93,24 @@ fun ScheduleCard(
                         DropdownMenuItem(
                             text = { Text("Inscrever-se") },
                             onClick = {
-                                navController.navigate("addVoluntaryOnSchedule/$id")
+                                onVoluntaryRegistration(Voluntary(
+                                    id = "",
+                                    nome = "",
+                                    telefone = "",
+                                    email = "",
+                                ))
                                 menuExpanded = false
                             }
                         )
                         DropdownMenuItem(
                             text = { Text("Cancelar Inscrição") },
                             onClick = {
-                                navController.navigate("deleteVoluntaryOnSchedule/$id")
+                                onDeleteVoluntary(Voluntary(
+                                    id = "",
+                                    nome = "",
+                                    telefone = "",
+                                    email = "",
+                                ))
                                 menuExpanded = false
                             }
                         )
@@ -112,7 +119,7 @@ fun ScheduleCard(
                         DropdownMenuItem(
                             text = { Text("Excluir") },
                             onClick = {
-                                navController.navigate("deleteSchedule/$id")
+                                onDeleteSchedule()
                                 menuExpanded = false
                             }
                         )

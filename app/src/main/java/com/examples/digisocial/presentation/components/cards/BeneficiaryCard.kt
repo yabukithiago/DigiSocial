@@ -1,6 +1,5 @@
 package com.examples.digisocial.presentation.components.cards
 
-import com.examples.digisocial.ui.view.login.LoginViewModel
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -41,6 +40,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.examples.digisocial.domain.models.Beneficiary
 import com.examples.digisocial.domain.models.Visit
 import com.examples.digisocial.presentation.components.InfoRow
+import com.examples.digisocial.ui.view.login.LoginViewModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import java.util.Date

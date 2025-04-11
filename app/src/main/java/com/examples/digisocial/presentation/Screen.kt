@@ -1,8 +1,12 @@
 package com.examples.digisocial.presentation
 
 sealed class Screen(val route: String) {
+    //region Login and Logout
     data object LoginScreen: Screen("login_screen")
+    data object RegisterScreen: Screen("register_screen")
+    data object ResetPasswordScreen: Screen("reset_password_screen")
 
+    //endregion
     //region HomePages
     data object HomePageAdminScreen: Screen("home_page_admin_screen")
     data object HomePageVoluntaryScreen: Screen("home_page_user_screen")
@@ -36,7 +40,11 @@ sealed class Screen(val route: String) {
     //endregion
 
     //region Schedule
+    data object CreateScheduleScreen: Screen("create_schedule_screen")
     data object ScheduleListScreen: Screen("schedule_list_screen")
+    data object ScheduleDetailsScreen: Screen("schedule_details_screen/{scheduleId}"){
+        fun createRoute(scheduleId: String) = "schedule_details_screen/$scheduleId"
+    }
     //endregion
 
     //region Transaction
