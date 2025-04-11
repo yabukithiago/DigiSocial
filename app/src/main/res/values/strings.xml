@@ -1,3 +1,34 @@
 <resources>
     <string name="app_name">DigiSocial</string>
+    <!-- Create -->
+    <string name="beneficiary_added">Beneficiário adicionado.</string>
+    <string name="visit_added">Visita registada.</string>
+    <string name="transaction_added">Transação criada.</string>
+    <string name="schedule_added">Escala criada.</string>
+    <!-- Update -->
+    <string name="beneficiary_updated">Beneficiário editado.</string>
+    <string name="user_updated">Utilizador editado.</string>
+    <string name="schedule_updated">Escala editada.</string>
+    <!-- Deleted -->
+    <string name="beneficiary_deleted">Beneficiário excluído.</string>
+    <string name="voluntary_deleted">Voluntário excluído.</string>
+    <string name="juntamember_deleted">Membro da Junta excluído.</string>
+    <string name="user_deleted">Utilizador excluído.</string>
+    <string name="schedule_deleted">Escala excluída.</string>
+
+    <!-- Not found -->
+    <string name="empty_beneficiary_list_text">Nenhum beneficiário encontrado.</string>
+    <string name="empty_visit_list_text">Nenhuma visita encontrada.</string>
+    <string name="empty_voluntary_list_text">Nenhum voluntário encontrado.</string>
+    <string name="empty_juntamember_list_text">Nenhum membro da junta encontrado.</string>
+    <string name="empty_user_list_text">Nenhum utilizador encontrado.</string>
+    <string name="empty_transaction_list_text">Nenhuma transação encontrada.</string>
+    <string name="empty_schedule_list_text">Nenhuma escala encontrada.</string>
+
+    <!-- Error -->
+    <string name="empty_fields">Preencha todos os campos.</string>
+    <string name="error_creating_beneficiary">Erro ao criar beneficiário.</string>
+
+    <!-- Other -->
+    <string name="open_add_beneficiary_dialog">Open add beneficiary dialog.</string>
 </resources>

@@ -19,7 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.examples.digisocial.ui.components.bars.TopBar
+import com.examples.digisocial.presentation.components.bars.TopBar
 import com.examples.digisocial.utils.exportBeneficiariesNationalityReport
 import com.examples.digisocial.utils.exportFinancialReport
 
